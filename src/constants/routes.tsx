@@ -1,6 +1,6 @@
 export const HOME = '/'
-export const UPLOAD = '/upload'
+export const UPLOAD = '/p/upload'
 export const SIGN_UP = '/signup'
 export const LOG_IN = '/login'
 export const ERROR = '/error'
-export const PICTURE = '/pictures'
+export const PICTURE = '/p/:id'

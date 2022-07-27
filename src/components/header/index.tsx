@@ -15,7 +15,7 @@ import logo from '../../images/zalopay_logo.svg'
 import { HOME, UPLOAD } from '../../constants/routes'
 
 const Header: React.FC = () => {
-	const [searchValue, setSearchValue] = React.useState('')
+	const [searchValue, setSearchValue] = useState('')
 
 	return (
 		<Container>
@@ -23,10 +23,12 @@ const Header: React.FC = () => {
 				<InnerLeft>
 					<Logo src={logo} />
 					<Menu>
-						<MenuItem to={HOME} isSelected>
+						<MenuItem to={HOME} activeClassName='selected'>
 							Home
 						</MenuItem>
-						<MenuItem to={UPLOAD}>Upload</MenuItem>
+						<MenuItem to={UPLOAD} activeClassName='selected'>
+							Upload
+						</MenuItem>
 					</Menu>
 				</InnerLeft>
 				<InnerRight>

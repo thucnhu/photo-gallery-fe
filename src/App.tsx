@@ -9,10 +9,12 @@ import {
 	ERROR,
 	PICTURE,
 } from './constants/routes'
+import { Header } from './components'
 
 const App: React.FC = () => {
 	return (
 		<BrowserRouter>
+			<Header />
 			<Routes>
 				<Route path={HOME} element={<Home />} />
 				<Route path={PICTURE} element={<Picture />} />

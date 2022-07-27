@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 export const Container = styled.header`
 	width: 100vw;
@@ -45,11 +45,13 @@ export const Menu = styled.div`
 	margin-left: 2rem;
 `
 
-export const MenuItem = styled(Link).attrs(
-	(props: { isSelected: boolean }) => props
-)`
-	background-color: ${props => (props.isSelected ? '#3388ff' : '#fff')};
-	color: ${props => (props.isSelected ? 'white' : '#000')};
+export const MenuItem = styled(NavLink).attrs({ activeClassName: 'selected' })`
+	&.${activeClassName} {
+		color: white;
+		background-color: #3388ff;
+	}
+	/* background-color: ${props => (props.isSelected ? '' : '#fff')};
+	color: ${props => (props.isSelected ? 'white' : '#000')}; */
 	padding: 0.5rem 1rem;
 	border-radius: 6px;
 	margin-right: 1rem;

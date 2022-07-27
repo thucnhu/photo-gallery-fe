@@ -4,7 +4,6 @@ export const Container = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	width: 100%;
-	margin: 1.5rem auto;
 `
 
 export const Column = styled.div`

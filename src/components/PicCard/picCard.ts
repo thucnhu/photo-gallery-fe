@@ -5,7 +5,7 @@ export const Container = styled.div`
 	border-radius: 10px;
 	vertical-align: middle;
 	box-shadow: var(--shadow-md);
-	margin-bottom: 20px;
+	margin: 1.5rem 0;
 `
 
 export const ImgContainer = styled.div`

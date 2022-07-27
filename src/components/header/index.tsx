@@ -23,12 +23,8 @@ const Header: React.FC = () => {
 				<InnerLeft>
 					<Logo src={logo} />
 					<Menu>
-						<MenuItem to={HOME} activeClassName='selected'>
-							Home
-						</MenuItem>
-						<MenuItem to={UPLOAD} activeClassName='selected'>
-							Upload
-						</MenuItem>
+						<MenuItem to={HOME}>Home</MenuItem>
+						<MenuItem to={UPLOAD}>Upload</MenuItem>
 					</Menu>
 				</InnerLeft>
 				<InnerRight>

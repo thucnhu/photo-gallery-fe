@@ -45,13 +45,12 @@ export const Menu = styled.div`
 	margin-left: 2rem;
 `
 
-export const MenuItem = styled(NavLink).attrs({ activeClassName: 'selected' })`
-	&.${activeClassName} {
+export const MenuItem = styled(NavLink)`
+	&.active {
 		color: white;
 		background-color: #3388ff;
 	}
-	/* background-color: ${props => (props.isSelected ? '' : '#fff')};
-	color: ${props => (props.isSelected ? 'white' : '#000')}; */
+	color: black;
 	padding: 0.5rem 1rem;
 	border-radius: 6px;
 	margin-right: 1rem;

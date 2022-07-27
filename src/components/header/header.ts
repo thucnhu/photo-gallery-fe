@@ -53,7 +53,7 @@ export const MenuItem = styled(NavLink)`
 		background-color: var(--blue);
 	}
 	color: black;
-	padding: 0.5rem 1rem;
+	padding: 0.5em 1em;
 	border-radius: 6px;
 	margin-right: 1rem;
 	text-decoration: none;

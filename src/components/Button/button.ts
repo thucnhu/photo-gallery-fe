@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
 
 export const Container = styled.div`
-	padding: 0.6rem 1rem;
+	padding: 0.65em 1em;
 	border-radius: 6px;
 	background-color: var(--blue);
 	width: fit-content;

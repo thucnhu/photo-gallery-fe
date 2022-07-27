@@ -4,8 +4,10 @@ import { NavLink } from 'react-router-dom'
 export const Container = styled.header`
 	width: 100vw;
 	height: 60px;
-	box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-	position: fixed;
+	box-shadow: var(--shadow-md);
+	background-color: white;
+	position: sticky;
+	top: 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -48,13 +50,17 @@ export const Menu = styled.div`
 export const MenuItem = styled(NavLink)`
 	&.active {
 		color: white;
-		background-color: #3388ff;
+		background-color: var(--blue);
 	}
 	color: black;
 	padding: 0.5rem 1rem;
 	border-radius: 6px;
 	margin-right: 1rem;
 	text-decoration: none;
+	@media (max-width: 770px) {
+		display: none;
+	}
+	transition: all 0.35s ease-in-out;
 `
 
 export const SearchBar = styled.form`
@@ -68,8 +74,8 @@ export const SearchBar = styled.form`
 `
 
 export const SearchInput = styled.input`
-	background-color: rgb(235, 235, 235);
-	padding: 1rem;
+	background-color: var(--gray);
+	padding: 1em;
 	border: none;
 	border-radius: 8px;
 	width: 300px;

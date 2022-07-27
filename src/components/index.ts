@@ -1,1 +1,6 @@
-export { default as Header } from './header'
+export { default as Header } from './Header'
+export { default as Form } from './Form'
+export { default as Body } from './Body'
+export { default as Button } from './Button'
+export { default as UploadCard } from './UploadCard'
+export { default as CenterContainer } from './CenterContainer'

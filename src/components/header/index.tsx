@@ -15,7 +15,7 @@ import logo from '../../images/zalopay_logo.svg'
 import { HOME, UPLOAD } from '../../constants/routes'
 
 const Header: React.FC = () => {
-	const [searchValue, setSearchValue] = useState('')
+	const [searchValue, setSearchValue] = useState<string>('')
 
 	return (
 		<Container>

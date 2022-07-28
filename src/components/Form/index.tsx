@@ -1,32 +1,39 @@
-import React, { useState } from 'react'
-import { Container, Button, Input, PrimaryButton } from './form'
+import React from 'react'
+import {
+	Container,
+	Button,
+	Input,
+	PrimaryButton,
+	ErrBox,
+	Message,
+} from './form'
 
-const Form: React.FC<{ type: string }> = ({ type }) => {
-	const [username, setUsername] = useState<string>('')
-	const [password, setPassword] = useState<string>('')
+type Props = React.PropsWithChildren<{}> & {
+	[key: string]: any
+}
 
-	return (
-		<Container>
-			<Input
-				placeholder='Username'
-				name='username'
-				value={username}
-				type='text'
-				onChange={e => setUsername(e.target.value)}
-			/>
-			<Input
-				placeholder='Password'
-				name='password'
-				value={password}
-				type='text'
-				onChange={e => setPassword(e.target.value)}
-			/>
-			{type === 'login' && (
-				<PrimaryButton type='submit'>Login</PrimaryButton>
-			)}
-			{type === 'signup' && <Button type='submit'>Register</Button>}
-		</Container>
-	)
+const Form = ({ children, ...props }: Props) => {
+	return <Container {...props}>{children}</Container>
+}
+
+Form.Input = ({ children, ...props }: Props) => {
+	return <Input {...props}>{children}</Input>
+}
+
+Form.Button = ({ children, ...props }: Props) => {
+	return <Button {...props}>{children}</Button>
+}
+
+Form.PrimaryButton = ({ children, ...props }: Props) => {
+	return <PrimaryButton {...props}>{children}</PrimaryButton>
+}
+
+Form.ErrBox = ({ children, ...props }: Props) => {
+	return <ErrBox {...props}>{children}</ErrBox>
+}
+
+Form.Message = ({ children, ...props }: Props) => {
+	return <Message {...props}>{children}</Message>
 }
 
 export default Form

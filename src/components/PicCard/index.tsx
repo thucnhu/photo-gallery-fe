@@ -8,7 +8,6 @@ import {
 	Likes,
 	Comments,
 } from './picCard'
-import img from '../../images/upload.jpeg'
 
 const PicCard: React.FC<{ src: string }> = ({ src }) => {
 	return (

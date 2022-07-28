@@ -34,6 +34,12 @@ const Grid = ({ children }: React.PropsWithChildren) => {
 				<PicCard src={woman} />
 				<PicCard src={cat} />
 			</Column>
+			<Column>
+				<PicCard src={woman} />
+				<PicCard src={car} />
+				<PicCard src={woman} />
+				<PicCard src={cat} />
+			</Column>
 		</Container>
 	)
 }

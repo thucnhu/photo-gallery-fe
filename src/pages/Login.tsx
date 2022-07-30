@@ -1,36 +1,46 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import axios from '../../api/axios'
-import { CenterContainer } from '../../components'
-import { Form } from '../../components'
-import { SIGN_UP, HOME, LOG_IN } from '../../constants/routes'
+import React, { useState, useContext } from 'react'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
+import AuthContext from '../context/AuthContext'
+import axios from '../api/axios'
+import { Form } from '../components'
+import { CenterContainer } from '../components'
+import { HOME, LOG_IN, SIGN_UP } from '../constants/routes'
 
-const Signup: React.FC = () => {
+const Login: React.FC = () => {
 	const [username, setUsername] = useState<string>('')
 	const [password, setPassword] = useState<string>('')
 	const [errMsg, setErrMsg] = useState<string>('')
 
+	const { setAuth } = useContext(AuthContext)
+
+	const { state } = useLocation() as { state: { path: string } }
 	const navigate = useNavigate()
 
-	async function handleSubmit(e: React.ChangeEvent<HTMLFormElement>) {
+	async function handleSubmit(e: React.ChangeEvent<HTMLInputElement>) {
 		e.preventDefault()
 
 		try {
-			await axios.post(
-				SIGN_UP,
+			const res = await axios.post(
+				LOG_IN,
 				{ username, password },
 				{
 					headers: { 'Content-Type': 'application/json' },
 				}
 			)
-			navigate(HOME)
+			setAuth({
+				access_token: res.data.access_token,
+				username: res.data.user.username,
+				id: res.data.user.id,
+			})
+			navigate(state?.path || HOME)
 		} catch (err: any) {
 			if (!err?.response) {
 				setErrMsg('Network Error')
-			} else if (err.response?.status === 400) {
-				setErrMsg('Password must be at least 8 characters long!')
-			} else if (err.response?.status === 409) {
-				setErrMsg('Username already exists!')
+			} else if (
+				err.response?.status === 401 ||
+				err.response?.status === 404
+			) {
+				setErrMsg('Username or password is incorrect!')
 			} else {
 				setErrMsg('Please try again later!')
 			}
@@ -65,13 +75,13 @@ const Signup: React.FC = () => {
 					}
 					required
 				/>
-				<Form.Button type='submit'>Register</Form.Button>
+				<Form.Button type='submit'>Log in</Form.Button>
 				<Form.CTA>
-					Already a member? Log in <Link to={LOG_IN}>here</Link>
+					Not a member yet? Sign up <Link to={SIGN_UP}>here</Link>
 				</Form.CTA>
 			</Form>
 		</CenterContainer>
 	)
 }
 
-export default Signup
+export default Login

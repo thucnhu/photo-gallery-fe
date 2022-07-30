@@ -1,11 +1,7 @@
-import React from 'react'
 import { Container } from './button'
+import { RestPropsWithChildren } from '../../constants/props'
 
-type Props = React.PropsWithChildren<{}> & {
-	[key: string]: any
-}
-
-const Button = ({ children, ...props }: Props) => {
+const Button = ({ children, ...props }: RestPropsWithChildren) => {
 	return <Container {...props}>{children}</Container>
 }
 

@@ -10,17 +10,17 @@ import {
 } from './picCard'
 
 type Props = {
-	img: string
+	src: string
 	description: string
-	likes: number
-	comments: number
+	likes: string
+	comments: string
 }
 
-const PicCard: React.FC<Props> = ({ img, description, likes, comments }) => {
+const PicCard: React.FC<Props> = ({ src, description, likes, comments }) => {
 	return (
 		<Container>
 			<ImgContainer>
-				<Image src={img} alt='image' />
+				<Image src={src} alt='image' />
 			</ImgContainer>
 			<Description>{description}</Description>
 			<Stats>

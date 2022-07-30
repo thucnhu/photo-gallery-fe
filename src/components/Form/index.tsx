@@ -1,4 +1,3 @@
-import React from 'react'
 import {
 	CTA,
 	Container,
@@ -8,36 +7,33 @@ import {
 	ErrBox,
 	Message,
 } from './form'
+import { RestPropsWithChildren } from '../../constants/props'
 
-type Props = React.PropsWithChildren<{}> & {
-	[key: string]: any
-}
-
-const Form = ({ children, ...props }: Props) => {
+const Form = ({ children, ...props }: RestPropsWithChildren) => {
 	return <Container {...props}>{children}</Container>
 }
 
-Form.Input = ({ children, ...props }: Props) => {
+Form.Input = ({ children, ...props }: RestPropsWithChildren) => {
 	return <Input {...props}>{children}</Input>
 }
 
-Form.Button = ({ children, ...props }: Props) => {
+Form.Button = ({ children, ...props }: RestPropsWithChildren) => {
 	return <Button {...props}>{children}</Button>
 }
 
-Form.PrimaryButton = ({ children, ...props }: Props) => {
+Form.PrimaryButton = ({ children, ...props }: RestPropsWithChildren) => {
 	return <PrimaryButton {...props}>{children}</PrimaryButton>
 }
 
-Form.ErrBox = ({ children, ...props }: Props) => {
+Form.ErrBox = ({ children, ...props }: RestPropsWithChildren) => {
 	return <ErrBox {...props}>{children}</ErrBox>
 }
 
-Form.Message = ({ children, ...props }: Props) => {
+Form.Message = ({ children, ...props }: RestPropsWithChildren) => {
 	return <Message {...props}>{children}</Message>
 }
 
-Form.CTA = ({ children, ...props }: Props) => {
+Form.CTA = ({ children, ...props }: RestPropsWithChildren) => {
 	return <CTA {...props}>{children}</CTA>
 }
 

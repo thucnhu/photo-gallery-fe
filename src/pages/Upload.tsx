@@ -1,16 +1,16 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from '../../api/axios'
+import axios from '../api/axios'
 import {
 	Editor,
 	CenterContainer,
 	PrimaryContainer,
 	UploadCard,
 	Button,
-} from '../../components'
-import { UPLOAD } from '../../constants/routes'
-import backgroundImg from '../../images/upload.jpeg'
-import AuthContext from '../../context/AuthContext'
+} from '../components'
+import { UPLOAD } from '../constants/routes'
+import backgroundImg from '../images/upload.jpeg'
+import AuthContext from '../context/AuthContext'
 
 const Upload: React.FC = () => {
 	const [uploadedImg, setUploadedImg] = React.useState<File | null>()

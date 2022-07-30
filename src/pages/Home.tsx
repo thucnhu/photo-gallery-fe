@@ -1,19 +1,19 @@
 import React, { useContext } from 'react'
-import { Grid } from '../../components'
-import { Container, LabelItem, Labels } from './home'
-import AuthContext from '../../context/AuthContext'
+import { Grid } from '../components'
+import { PrimaryContainer } from '../components'
+import AuthContext from '../context/AuthContext'
 
 const Home: React.FC = () => {
 	const { auth } = useContext(AuthContext)
 	console.log(auth)
 	return (
-		<Container>
-			<Labels>
+		<PrimaryContainer gray>
+			{/* <Labels>
 				<LabelItem>Trending</LabelItem>
 				<LabelItem>Recent</LabelItem>
-			</Labels>
+			</Labels> */}
 			<Grid />
-		</Container>
+		</PrimaryContainer>
 	)
 }
 

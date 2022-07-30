@@ -1,4 +1,3 @@
-import React from 'react'
 import {
 	Image,
 	Title,
@@ -8,36 +7,33 @@ import {
 	Button,
 	Input,
 } from './uploadCard'
+import { RestPropsWithChildren } from '../../constants/props'
 
-type Props = React.PropsWithChildren<{}> & {
-	[key: string]: any
-}
-
-const Card = ({ children, ...props }: Props) => {
+const Card = ({ children, ...props }: RestPropsWithChildren) => {
 	return <Container {...props}>{children}</Container>
 }
 
-Card.Image = ({ children, ...props }: Props) => {
+Card.Image = ({ children, ...props }: RestPropsWithChildren) => {
 	return <Image {...props}>{children}</Image>
 }
 
-Card.Title = ({ children, ...props }: Props) => {
+Card.Title = ({ children, ...props }: RestPropsWithChildren) => {
 	return <Title {...props}>{children}</Title>
 }
 
-Card.Description = ({ children, ...props }: Props) => {
+Card.Description = ({ children, ...props }: RestPropsWithChildren) => {
 	return <Description {...props}>{children}</Description>
 }
 
-Card.ImgContainer = ({ children, ...props }: Props) => {
+Card.ImgContainer = ({ children, ...props }: RestPropsWithChildren) => {
 	return <ImgContainer {...props}>{children}</ImgContainer>
 }
 
-Card.Button = ({ children, ...props }: Props) => {
+Card.Button = ({ children, ...props }: RestPropsWithChildren) => {
 	return <Button {...props}>{children}</Button>
 }
 
-Card.Input = ({ children, ...props }: Props) => {
+Card.Input = ({ children, ...props }: RestPropsWithChildren) => {
 	return <Input {...props}>{children}</Input>
 }
 

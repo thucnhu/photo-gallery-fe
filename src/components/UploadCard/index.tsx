@@ -5,21 +5,40 @@ import {
 	Description,
 	Container,
 	ImgContainer,
+	Button,
+	Input,
 } from './uploadCard'
-import Button from '../Button'
-import img from '../../images/upload.jpeg'
 
-const Card: React.FC = () => {
-	return (
-		<Container>
-			<ImgContainer>
-				<Image src={img} />
-			</ImgContainer>
-			<Title>Upload</Title>
-			<Description>Images are better than words</Description>
-			<Button>Choose image</Button>
-		</Container>
-	)
+type Props = React.PropsWithChildren<{}> & {
+	[key: string]: any
+}
+
+const Card = ({ children, ...props }: Props) => {
+	return <Container {...props}>{children}</Container>
+}
+
+Card.Image = ({ children, ...props }: Props) => {
+	return <Image {...props}>{children}</Image>
+}
+
+Card.Title = ({ children, ...props }: Props) => {
+	return <Title {...props}>{children}</Title>
+}
+
+Card.Description = ({ children, ...props }: Props) => {
+	return <Description {...props}>{children}</Description>
+}
+
+Card.ImgContainer = ({ children, ...props }: Props) => {
+	return <ImgContainer {...props}>{children}</ImgContainer>
+}
+
+Card.Button = ({ children, ...props }: Props) => {
+	return <Button {...props}>{children}</Button>
+}
+
+Card.Input = ({ children, ...props }: Props) => {
+	return <Input {...props}>{children}</Input>
 }
 
 export default Card

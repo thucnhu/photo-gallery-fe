@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import AuthContext from '../../context/AuthContext'
 import {
 	Container,
 	Inner,
@@ -16,6 +17,7 @@ import { HOME, UPLOAD } from '../../constants/routes'
 
 const Header: React.FC = () => {
 	const [searchValue, setSearchValue] = useState<string>('')
+	const { auth } = useContext(AuthContext)
 
 	return (
 		<Container>
@@ -24,7 +26,9 @@ const Header: React.FC = () => {
 					<Logo src={logo} />
 					<Menu>
 						<MenuItem to={HOME}>Home</MenuItem>
-						<MenuItem to={UPLOAD}>Upload</MenuItem>
+						{auth !== undefined && (
+							<MenuItem to={UPLOAD}>Upload</MenuItem>
+						)}
 					</Menu>
 				</InnerLeft>
 				<InnerRight>

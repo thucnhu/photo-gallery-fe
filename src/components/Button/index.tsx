@@ -1,8 +1,12 @@
 import React from 'react'
 import { Container } from './button'
 
-const Button = ({ children }: React.PropsWithChildren) => {
-	return <Container>{children}</Container>
+type Props = React.PropsWithChildren<{}> & {
+	[key: string]: any
+}
+
+const Button = ({ children, ...props }: Props) => {
+	return <Container {...props}>{children}</Container>
 }
 
 export default Button

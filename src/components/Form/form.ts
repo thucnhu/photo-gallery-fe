@@ -59,3 +59,9 @@ export const ErrBox = styled.div`
 export const Message = styled.p`
 	color: #842029;
 `
+
+export const CTA = styled.p`
+	font-size: 0.85em;
+	position: absolute;
+	bottom: 245px;
+`

@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from '../../api/axios'
 import { CenterContainer } from '../../components'
 import { Form } from '../../components'
-import { SIGN_UP, HOME } from '../../constants/routes'
+import { SIGN_UP, HOME, LOG_IN } from '../../constants/routes'
 
 const Signup: React.FC = () => {
 	const [username, setUsername] = useState<string>('')
@@ -16,7 +16,7 @@ const Signup: React.FC = () => {
 		e.preventDefault()
 
 		try {
-			const res = await axios.post(
+			await axios.post(
 				SIGN_UP,
 				{ username, password },
 				{
@@ -54,7 +54,6 @@ const Signup: React.FC = () => {
 						setUsername(e.target.value)
 					}
 					required
-					// pattern='[a-zA-Z0-9]+'
 				/>
 				<Form.Input
 					placeholder='Password'
@@ -67,6 +66,9 @@ const Signup: React.FC = () => {
 					required
 				/>
 				<Form.Button type='submit'>Register</Form.Button>
+				<Form.CTA>
+					Already a member? Log in <Link to={LOG_IN}>here</Link>
+				</Form.CTA>
 			</Form>
 		</CenterContainer>
 	)

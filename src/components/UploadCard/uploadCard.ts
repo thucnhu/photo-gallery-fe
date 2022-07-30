@@ -39,3 +39,18 @@ export const Description = styled.p`
 	line-height: 2;
 	margin-bottom: 0.7rem;
 `
+
+export const Button = styled.label`
+	padding: 0.65em 1em;
+	border-radius: 6px;
+	background-color: var(--blue);
+	border: none;
+	width: fit-content;
+	color: white;
+	box-shadow: var(--shadow);
+	cursor: pointer;
+`
+
+export const Input = styled.input`
+	display: none;
+`

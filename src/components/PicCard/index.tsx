@@ -9,21 +9,23 @@ import {
 	Comments,
 } from './picCard'
 
-const PicCard: React.FC<{ src: string }> = ({ src }) => {
+type Props = {
+	img: string
+	description: string
+	likes: number
+	comments: number
+}
+
+const PicCard: React.FC<Props> = ({ img, description, likes, comments }) => {
 	return (
 		<Container>
 			<ImgContainer>
-				<Image src={src} alt='image' />
+				<Image src={img} alt='image' />
 			</ImgContainer>
-			<Description>
-				Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum,
-				laborum officiis veritatis deserunt totam eaque quasi fugiat nemo
-				itaque illum molestiae ratione iure exercitationem nobis
-				perspiciatis quaerat tempora consectetur eius.
-			</Description>
+			<Description>{description}</Description>
 			<Stats>
-				<Likes>200</Likes>
-				<Comments>200</Comments>
+				<Likes>{likes}</Likes>
+				<Comments>{comments}</Comments>
 			</Stats>
 		</Container>
 	)

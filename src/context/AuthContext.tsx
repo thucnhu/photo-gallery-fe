@@ -1,23 +1,23 @@
 import React from 'react'
 
-type AuthData = {
+export type AuthData = null | {
 	access_token: string
 	username: string
 	id: number
 }
 
 type AuthContextType = {
-	auth: AuthData | undefined
-	setAuth: React.Dispatch<React.SetStateAction<AuthData | undefined>>
+	auth: AuthData
+	setAuth: React.Dispatch<React.SetStateAction<AuthData>>
 }
 
 const AuthContext = React.createContext<AuthContextType>({
-	auth: undefined,
+	auth: null,
 	setAuth: () => {},
 })
 
 export const AuthProvider = ({ children }: React.PropsWithChildren<{}>) => {
-	const [auth, setAuth] = React.useState<AuthData>()
+	const [auth, setAuth] = React.useState<AuthData>(null)
 
 	return (
 		<AuthContext.Provider value={{ auth, setAuth }}>

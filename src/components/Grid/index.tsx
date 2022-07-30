@@ -1,16 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import axios from '../../api/axios'
 import PicCard from '../PicCard'
 import { Column, Container } from './grid'
-import car from '../../images/car.jpeg'
-import woman from '../../images/woman.jpeg'
-import vr from '../../images/vr-glasses.jpeg'
-import cat from '../../images/cats.jpeg'
-import upload from '../../images/upload.jpeg'
+import { HOME } from '../../constants/routes'
 
 const Grid = ({ children }: React.PropsWithChildren) => {
+	useEffect(() => {
+		axios
+			.get(HOME)
+			.then(res => {
+				console.log(res.data)
+			})
+			.catch(err => {
+				console.log(err)
+			})
+	}, [])
+
 	return (
 		<Container>
-			<Column>
+			{/* <Column>
 				<PicCard src={car} />
 				<PicCard src={woman} />
 				<PicCard src={vr} />
@@ -39,7 +47,7 @@ const Grid = ({ children }: React.PropsWithChildren) => {
 				<PicCard src={car} />
 				<PicCard src={woman} />
 				<PicCard src={cat} />
-			</Column>
+			</Column> */}
 		</Container>
 	)
 }

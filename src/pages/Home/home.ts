@@ -3,6 +3,7 @@ import styled from 'styled-components/macro'
 export const Container = styled.div`
 	background-color: var(--gray);
 	padding: 1.7rem 5vw;
+	min-height: calc(100vh - 60px);
 `
 
 export const Labels = styled.div`

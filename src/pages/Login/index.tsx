@@ -1,18 +1,19 @@
 import React, { useState, useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
 import axios from '../../api/axios'
 import { Form } from '../../components'
 import { CenterContainer } from '../../components'
-import { HOME, LOG_IN } from '../../constants/routes'
+import { HOME, LOG_IN, SIGN_UP } from '../../constants/routes'
 
 const Login: React.FC = () => {
 	const [username, setUsername] = useState<string>('')
 	const [password, setPassword] = useState<string>('')
 	const [errMsg, setErrMsg] = useState<string>('')
 
-	const { setAuth } = useContext(AuthContext)
+	const { auth, setAuth } = useContext(AuthContext)
 
+	const { state } = useLocation() as { state: { path: string } }
 	const navigate = useNavigate()
 
 	async function handleSubmit(e: React.ChangeEvent<HTMLInputElement>) {
@@ -31,7 +32,7 @@ const Login: React.FC = () => {
 				username: res.data.user.username,
 				id: res.data.user.id,
 			})
-			navigate(HOME)
+			navigate(state?.path || HOME)
 		} catch (err: any) {
 			if (!err?.response) {
 				setErrMsg('Network Error')
@@ -74,7 +75,10 @@ const Login: React.FC = () => {
 					}
 					required
 				/>
-				<Form.Button type='submit'>Register</Form.Button>
+				<Form.Button type='submit'>Log in</Form.Button>
+				<Form.CTA>
+					Not a member yet? Sign up <Link to={SIGN_UP}>here</Link>
+				</Form.CTA>
 			</Form>
 		</CenterContainer>
 	)

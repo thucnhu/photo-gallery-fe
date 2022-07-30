@@ -54,6 +54,7 @@ export const MenuItem = styled(NavLink)`
 	}
 	color: black;
 	padding: 0.5em 1em;
+	font-size: 0.95rem;
 	border-radius: 6px;
 	margin-right: 1rem;
 	text-decoration: none;

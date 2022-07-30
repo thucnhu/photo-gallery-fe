@@ -10,6 +10,7 @@ import {
 	PICTURE,
 } from './constants/routes'
 import { Header, Body } from './components'
+import ProtectedRoute from './auth/ProtectedRoute'
 
 const App: React.FC = () => {
 	return (
@@ -17,12 +18,14 @@ const App: React.FC = () => {
 			<Header />
 			<Body>
 				<Routes>
+					<Route element={<ProtectedRoute />}>
+						<Route path={UPLOAD} element={<Upload />} />
+					</Route>
 					<Route path={HOME} element={<Home />} />
 					<Route path={PICTURE} element={<Picture />} />
-					<Route path={UPLOAD} element={<Upload />} />
 					<Route path={LOG_IN} element={<Login />} />
 					<Route path={SIGN_UP} element={<Signup />} />
-					<Route path={ERROR} element={<Error />} />
+					<Route path='*' element={<Error />} />
 				</Routes>
 			</Body>
 		</BrowserRouter>

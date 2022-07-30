@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+	CTA,
 	Container,
 	Button,
 	Input,
@@ -34,6 +35,10 @@ Form.ErrBox = ({ children, ...props }: Props) => {
 
 Form.Message = ({ children, ...props }: Props) => {
 	return <Message {...props}>{children}</Message>
+}
+
+Form.CTA = ({ children, ...props }: Props) => {
+	return <CTA {...props}>{children}</CTA>
 }
 
 export default Form

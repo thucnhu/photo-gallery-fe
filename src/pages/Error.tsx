@@ -1,6 +1,5 @@
 import React from 'react'
-import { CenterContainer } from '../components'
-import { ErrorMessage } from '../components'
+import { CenterContainer, ErrorMessage } from '../components'
 
 const Error: React.FC = () => {
 	return (

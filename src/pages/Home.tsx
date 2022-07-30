@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
-import { Grid } from '../components'
-import { PrimaryContainer } from '../components'
+import { PrimaryContainer, Grid } from '../components'
 import AuthContext from '../context/AuthContext'
 
 const Home: React.FC = () => {

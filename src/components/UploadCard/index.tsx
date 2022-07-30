@@ -4,10 +4,9 @@ import {
 	Description,
 	Container,
 	ImgContainer,
-	Button,
 	Input,
 } from './uploadCard'
-import { RestPropsWithChildren } from '../../constants/props'
+import { RestPropsWithChildren } from '../../types/props'
 
 const Card = ({ children, ...props }: RestPropsWithChildren) => {
 	return <Container {...props}>{children}</Container>
@@ -27,10 +26,6 @@ Card.Description = ({ children, ...props }: RestPropsWithChildren) => {
 
 Card.ImgContainer = ({ children, ...props }: RestPropsWithChildren) => {
 	return <ImgContainer {...props}>{children}</ImgContainer>
-}
-
-Card.Button = ({ children, ...props }: RestPropsWithChildren) => {
-	return <Button {...props}>{children}</Button>
 }
 
 Card.Input = ({ children, ...props }: RestPropsWithChildren) => {

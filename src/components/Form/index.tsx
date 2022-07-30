@@ -7,7 +7,7 @@ import {
 	ErrBox,
 	Message,
 } from './form'
-import { RestPropsWithChildren } from '../../constants/props'
+import { RestPropsWithChildren } from '../../types/props'
 
 const Form = ({ children, ...props }: RestPropsWithChildren) => {
 	return <Container {...props}>{children}</Container>

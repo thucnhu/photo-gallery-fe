@@ -1,5 +1,5 @@
 import { Container, ImgContainer, Img, Caption, Description } from './editor'
-import { RestPropsWithChildren } from '../../constants/props'
+import { RestPropsWithChildren } from '../../types/props'
 
 const Editor = ({ children, ...props }: RestPropsWithChildren) => {
 	return <Container {...props}>{children}</Container>

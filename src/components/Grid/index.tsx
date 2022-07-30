@@ -9,7 +9,7 @@ import vr from '../../images/vr-glasses.jpeg'
 import upload from '../../images/upload.jpeg'
 import cat from '../../images/cats.jpeg'
 
-const Grid = ({ children }: React.PropsWithChildren) => {
+const Grid: React.FC = ({ children }: React.PropsWithChildren) => {
 	useEffect(() => {
 		axios
 			.get(HOME)

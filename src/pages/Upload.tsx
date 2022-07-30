@@ -101,7 +101,7 @@ const Upload: React.FC = () => {
 						<UploadCard.Description>
 							Images are better than words
 						</UploadCard.Description>
-						<UploadCard.Button htmlFor='upload-input'>
+						<Button htmlFor='upload-input'>
 							{' '}
 							Choose image
 							<UploadCard.Input
@@ -110,7 +110,7 @@ const Upload: React.FC = () => {
 								accept='image/png, image/jpeg, image/jpg'
 								onChange={handleUpload}
 							/>
-						</UploadCard.Button>
+						</Button>
 					</UploadCard>
 				</CenterContainer>
 			)}

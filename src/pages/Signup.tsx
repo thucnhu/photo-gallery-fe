@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from '../api/axios'
-import { CenterContainer } from '../components'
-import { Form } from '../components'
+import { CenterContainer, Form } from '../components'
 import { SIGN_UP, HOME, LOG_IN } from '../constants/routes'
 
 const Signup: React.FC = () => {

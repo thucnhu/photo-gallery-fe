@@ -2,8 +2,7 @@ import React, { useState, useContext } from 'react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 import axios from '../api/axios'
-import { Form } from '../components'
-import { CenterContainer } from '../components'
+import { CenterContainer, Form } from '../components'
 import { HOME, LOG_IN, SIGN_UP } from '../constants/routes'
 
 const Login: React.FC = () => {

@@ -1,14 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Home, Picture, Signup, Login, Upload, Error } from './pages'
-import {
-	HOME,
-	UPLOAD,
-	SIGN_UP,
-	LOG_IN,
-	ERROR,
-	PICTURE,
-} from './constants/routes'
+import { HOME, UPLOAD, SIGN_UP, LOG_IN, PICTURE } from './constants/routes'
 import { Header, Body } from './components'
 import ProtectedRoute from './auth/ProtectedRoute'
 

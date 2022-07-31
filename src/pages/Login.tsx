@@ -11,9 +11,16 @@ const Login: React.FC = () => {
 	const [errMsg, setErrMsg] = useState<string>('')
 
 	const { setAuth } = useContext(AuthContext)
-
 	const { state } = useLocation() as { state: { path: string } }
 	const navigate = useNavigate()
+
+	function handleChangePassword(e: React.ChangeEvent<HTMLInputElement>) {
+		setPassword(e.target.value)
+	}
+
+	function handleChangeUsername(e: React.ChangeEvent<HTMLInputElement>) {
+		setUsername(e.target.value)
+	}
 
 	async function handleSubmit(e: React.ChangeEvent<HTMLInputElement>) {
 		e.preventDefault()
@@ -48,9 +55,7 @@ const Login: React.FC = () => {
 					name='username'
 					value={username}
 					type='text'
-					onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-						setUsername(e.target.value)
-					}
+					onChange={handleChangeUsername}
 					required
 				/>
 				<Form.Input
@@ -58,9 +63,7 @@ const Login: React.FC = () => {
 					name='password'
 					value={password}
 					type='password'
-					onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-						setPassword(e.target.value)
-					}
+					onChange={handleChangePassword}
 					required
 				/>
 				<Form.Button type='submit'>Log in</Form.Button>

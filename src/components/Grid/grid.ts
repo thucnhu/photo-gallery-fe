@@ -11,11 +11,6 @@ export const Column = styled.div`
 	max-width: 25%;
 	padding: 0 10px;
 
-	/* @media (max-width: 1400px) {
-		flex: 25%;
-		max-width: 25%;
-	} */
-
 	@media (max-width: 1000px) {
 		flex: calc(100% / 3);
 		max-width: calc(100% / 3);

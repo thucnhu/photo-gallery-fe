@@ -11,6 +11,14 @@ const Signup: React.FC = () => {
 
 	const navigate = useNavigate()
 
+	function handleChangeUsername(e: React.ChangeEvent<HTMLInputElement>) {
+		setUsername(e.target.value)
+	}
+
+	function handleChangePassword(e: React.ChangeEvent<HTMLInputElement>) {
+		setPassword(e.target.value)
+	}
+
 	async function handleSubmit(e: React.ChangeEvent<HTMLFormElement>) {
 		e.preventDefault()
 		try {
@@ -38,9 +46,7 @@ const Signup: React.FC = () => {
 					name='username'
 					value={username}
 					type='text'
-					onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-						setUsername(e.target.value)
-					}
+					onChange={handleChangeUsername}
 					required
 				/>
 				<Form.Input
@@ -48,9 +54,7 @@ const Signup: React.FC = () => {
 					name='password'
 					value={password}
 					type='password'
-					onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-						setPassword(e.target.value)
-					}
+					onChange={handleChangePassword}
 					required
 				/>
 				<Form.Button type='submit'>Register</Form.Button>

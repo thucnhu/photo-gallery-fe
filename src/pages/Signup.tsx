@@ -38,11 +38,7 @@ const Signup: React.FC = () => {
 
 	return (
 		<CenterContainer>
-			{errMsg && (
-				<Form.ErrBox>
-					<Form.Message>{errMsg}</Form.Message>
-				</Form.ErrBox>
-			)}
+			{errMsg && <Form.ErrBox>{errMsg}</Form.ErrBox>}
 			<Form onSubmit={handleSubmit}>
 				<Form.Input
 					placeholder='Username'

@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro'
+import Alert from '../Alert'
 
 export const Container = styled.form`
 	@media (max-width: 450px) {
@@ -12,7 +13,7 @@ export const Container = styled.form`
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	padding: 5.3em 0;
+	padding: 4.8em 0;
 `
 
 export const Button = styled.button`
@@ -26,10 +27,6 @@ export const Button = styled.button`
 	cursor: pointer;
 `
 
-export const PrimaryButton = styled(Button)`
-	background-color: var(--blue);
-`
-
 export const Input = styled.input`
 	width: 80%;
 	height: 43px;
@@ -39,29 +36,15 @@ export const Input = styled.input`
 	background-color: rgb(235, 235, 235);
 `
 
-export const ErrBox = styled.div`
+export const ErrBox = styled(Alert)`
 	position: absolute;
 	top: 100px;
-	border-radius: 8px;
-	display: flex;
-	align-items: center;
-	padding-left: 1em;
-	font-size: 0.85em;
-	background-color: #f8d7da;
-	height: 43px;
-	border: 1px solid #f5c2c7;
-	width: 550px;
-	@media (max-width: 600px) {
+	width: 400px;
+	@media (max-width: 450px) {
 		width: 90%;
 	}
 `
 
-export const Message = styled.p`
-	color: #842029;
-`
-
 export const CTA = styled.p`
 	font-size: 0.85em;
-	position: absolute;
-	bottom: 245px;
 `

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from '../api/axios'
-import { Post, PrimaryContainer } from '../components'
+import { Alert, Post, PrimaryContainer } from '../components'
 import { AvatarArea } from '../components/Post/post'
 import { SERVER_BASE_URL } from '../constants/routes'
 import { Comment } from '../types/props'
+import AuthContext from '../context/AuthContext'
 
 const Picture: React.FC = () => {
 	const [comment, setComment] = useState<string>('')
@@ -14,6 +15,8 @@ const Picture: React.FC = () => {
 	const [imgPath, setImgPath] = useState<string>('')
 	const [username, setUsername] = useState<string>('')
 	const [createdAt, setCreatedAt] = useState<string>('')
+
+	const { auth } = useContext(AuthContext)
 
 	const { picId } = useParams<{ picId: string }>()
 
@@ -57,19 +60,25 @@ const Picture: React.FC = () => {
 				<Post.Description>{description}</Post.Description>
 				<Post.Picture src={imgPath} />
 				<Post.LikeIcon />
-				<Post.CommentForm onSubmit={handlePostComment}>
-					<Post.CommentInput
-						type='text'
-						name='comment'
-						value={comment}
-						onChange={handleChangeComment}
-						placeholder='Write a comment...'
-						required
-					/>
-					<Post.CommentButton type='submit' color='gray'>
-						Send
-					</Post.CommentButton>
-				</Post.CommentForm>
+
+				{auth ? (
+					<Post.CommentForm onSubmit={handlePostComment}>
+						<Post.CommentInput
+							type='text'
+							name='comment'
+							value={comment}
+							onChange={handleChangeComment}
+							placeholder='Write a comment...'
+							required
+						/>
+						<Post.CommentButton type='submit' color='gray'>
+							Send
+						</Post.CommentButton>
+					</Post.CommentForm>
+				) : (
+					<Alert>Please log in to comment!</Alert>
+				)}
+
 				{comments.map(comment => (
 					<Post.Comment key={comment.id}>
 						<AvatarArea small>

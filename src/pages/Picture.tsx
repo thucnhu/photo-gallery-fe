@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from '../api/axios'
-import { Alert, Post, PrimaryContainer } from '../components'
+import { Post, PrimaryContainer } from '../components'
 import { AvatarArea } from '../components/Post/post'
 import { SERVER_BASE_URL } from '../constants/routes'
 import { Comment } from '../types/props'
@@ -17,14 +17,12 @@ const Picture: React.FC = () => {
 	const [createdAt, setCreatedAt] = useState<string>('')
 
 	const { auth } = useContext(AuthContext)
-
 	const { picId } = useParams<{ picId: string }>()
 
 	useEffect(() => {
 		axios
 			.get(`/pictures/${picId}`)
 			.then(({ data }) => {
-				console.log(data)
 				setComments(data.comments)
 				setCaption(data.caption)
 				setDescription(data.description)
@@ -41,9 +39,26 @@ const Picture: React.FC = () => {
 		setComment(e.target.value)
 	}
 
-	function handlePostComment(e: React.ChangeEvent<HTMLInputElement>) {
+	async function handlePostComment(e: React.ChangeEvent<HTMLInputElement>) {
 		e.preventDefault()
-		console.log(comment)
+		try {
+			const res = await axios.post(
+				`/comments`,
+				{
+					pic_id: picId,
+					text: comment,
+				},
+				{
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${auth?.access_token}`,
+					},
+				}
+			)
+			console.log(res)
+		} catch (err: any) {
+			console.log(err)
+		}
 	}
 
 	return (
@@ -61,23 +76,19 @@ const Picture: React.FC = () => {
 				<Post.Picture src={imgPath} />
 				<Post.LikeIcon />
 
-				{auth ? (
-					<Post.CommentForm onSubmit={handlePostComment}>
-						<Post.CommentInput
-							type='text'
-							name='comment'
-							value={comment}
-							onChange={handleChangeComment}
-							placeholder='Write a comment...'
-							required
-						/>
-						<Post.CommentButton type='submit' color='gray'>
-							Send
-						</Post.CommentButton>
-					</Post.CommentForm>
-				) : (
-					<Alert>Please log in to comment!</Alert>
-				)}
+				<Post.CommentForm onSubmit={handlePostComment}>
+					<Post.CommentInput
+						type='text'
+						name='comment'
+						value={comment}
+						onChange={handleChangeComment}
+						placeholder='Write a comment...'
+						required
+					/>
+					<Post.CommentButton type='submit' color='gray'>
+						Send
+					</Post.CommentButton>
+				</Post.CommentForm>
 
 				{comments.map(comment => (
 					<Post.Comment key={comment.id}>

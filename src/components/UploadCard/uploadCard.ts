@@ -43,3 +43,14 @@ export const Description = styled.p`
 export const Input = styled.input`
 	display: none;
 `
+
+export const Label = styled.label`
+	cursor: pointer;
+	padding: 0.65em 1em;
+	border-radius: 6px;
+	background-color: var(--blue);
+	border: none;
+	width: fit-content;
+	color: white;
+	box-shadow: var(--shadow);
+`

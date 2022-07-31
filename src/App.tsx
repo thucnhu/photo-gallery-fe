@@ -13,9 +13,9 @@ const App: React.FC = () => {
 				<Routes>
 					<Route element={<ProtectedRoute />}>
 						<Route path={UPLOAD} element={<Upload />} />
+						<Route path={PICTURE} element={<Picture />} />
 					</Route>
 					<Route path={HOME} element={<Home />} />
-					<Route path={PICTURE} element={<Picture />} />
 					<Route path={LOG_IN} element={<Login />} />
 					<Route path={SIGN_UP} element={<Signup />} />
 					<Route path='*' element={<Error />} />

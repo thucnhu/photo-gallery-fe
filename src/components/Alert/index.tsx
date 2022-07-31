@@ -1,8 +1,12 @@
 import { RestPropsWithChildren } from '../../types/props'
-import { Container } from './alert'
+import { Container, Text } from './alert'
 
 const Alert = ({ children, ...props }: RestPropsWithChildren) => {
-	return <Container {...props}>{children}</Container>
+	return (
+		<Container {...props}>
+			<Text>{children}</Text>
+		</Container>
+	)
 }
 
 export default Alert

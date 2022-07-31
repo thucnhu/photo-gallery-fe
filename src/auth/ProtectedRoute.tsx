@@ -7,7 +7,7 @@ const ProtectedRoute = () => {
 	const { auth } = useContext(AuthContext)
 	const location = useLocation()
 
-	return auth !== undefined ? (
+	return auth !== null ? (
 		<Outlet />
 	) : (
 		<Navigate to={LOG_IN} replace state={{ path: location.pathname }} />

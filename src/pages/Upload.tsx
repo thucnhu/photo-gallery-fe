@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from '../api/axios'
 import {
 	Editor,
@@ -7,8 +7,9 @@ import {
 	PrimaryContainer,
 	UploadCard,
 	Button,
+	Alert,
 } from '../components'
-import { UPLOAD } from '../constants/routes'
+import { LOG_IN, UPLOAD } from '../constants/routes'
 import backgroundImg from '../images/upload.jpeg'
 import AuthContext from '../context/AuthContext'
 
@@ -19,6 +20,7 @@ const Upload: React.FC = () => {
 
 	const navigate = useNavigate()
 	const { auth } = useContext(AuthContext)
+	console.log(auth)
 
 	function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
 		e.preventDefault()
@@ -101,7 +103,7 @@ const Upload: React.FC = () => {
 						<UploadCard.Description>
 							Images are better than words
 						</UploadCard.Description>
-						<Button htmlFor='upload-input'>
+						<UploadCard.Label htmlFor='upload-input'>
 							{' '}
 							Choose image
 							<UploadCard.Input
@@ -110,7 +112,7 @@ const Upload: React.FC = () => {
 								accept='image/png, image/jpeg, image/jpg'
 								onChange={handleUpload}
 							/>
-						</Button>
+						</UploadCard.Label>
 					</UploadCard>
 				</CenterContainer>
 			)}

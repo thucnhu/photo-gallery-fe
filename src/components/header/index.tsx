@@ -17,7 +17,6 @@ import { HOME, UPLOAD } from '../../constants/routes'
 
 const Header: React.FC = () => {
 	const [searchValue, setSearchValue] = useState<string>('')
-	const { auth } = useContext(AuthContext)
 
 	return (
 		<Container>
@@ -26,9 +25,7 @@ const Header: React.FC = () => {
 					<Logo src={logo} />
 					<Menu>
 						<MenuItem to={HOME}>Home</MenuItem>
-						{auth !== undefined && (
-							<MenuItem to={UPLOAD}>Upload</MenuItem>
-						)}
+						<MenuItem to={UPLOAD}>Upload</MenuItem>
 					</Menu>
 				</InnerLeft>
 				<InnerRight>

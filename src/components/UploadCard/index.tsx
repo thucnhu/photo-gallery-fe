@@ -5,6 +5,7 @@ import {
 	Container,
 	ImgContainer,
 	Input,
+	Label,
 } from './uploadCard'
 import { RestPropsWithChildren } from '../../types/props'
 
@@ -30,6 +31,10 @@ Card.ImgContainer = ({ children, ...props }: RestPropsWithChildren) => {
 
 Card.Input = ({ children, ...props }: RestPropsWithChildren) => {
 	return <Input {...props}>{children}</Input>
+}
+
+Card.Label = ({ children, ...props }: RestPropsWithChildren) => {
+	return <Label {...props}>{children}</Label>
 }
 
 export default Card

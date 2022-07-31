@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import axios from '../api/axios'
 import { CenterContainer, Form } from '../components'
 import { SIGN_UP, HOME, LOG_IN } from '../constants/routes'

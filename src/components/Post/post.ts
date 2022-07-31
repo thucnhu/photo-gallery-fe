@@ -57,7 +57,7 @@ export const CommentForm = styled.form`
 	box-shadow: var(--shadow);
 	height: auto;
 	padding: 0.8em;
-	height: 130px;
+	height: 120px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;

@@ -10,7 +10,7 @@ const Login: React.FC = () => {
 	const [password, setPassword] = useState<string>('')
 	const [errMsg, setErrMsg] = useState<string>('')
 
-	const { setAuth } = useContext(AuthContext)
+	const { auth, setAuth } = useContext(AuthContext)
 
 	const { state } = useLocation() as { state: { path: string } }
 	const navigate = useNavigate()

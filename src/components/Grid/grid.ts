@@ -7,14 +7,14 @@ export const Container = styled.div`
 `
 
 export const Column = styled.div`
-	flex: 20%;
-	max-width: 20%;
+	flex: 25%;
+	max-width: 25%;
 	padding: 0 10px;
 
-	@media (max-width: 1400px) {
+	/* @media (max-width: 1400px) {
 		flex: 25%;
 		max-width: 25%;
-	}
+	} */
 
 	@media (max-width: 1000px) {
 		flex: calc(100% / 3);

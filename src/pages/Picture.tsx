@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-import { Post, PrimaryContainer } from '../components'
+import { useParams, useNavigate, Link, useLocation } from 'react-router-dom'
+import { Alert, Post, PrimaryContainer } from '../components'
 import { AvatarArea } from '../components/Post/post'
-import { SERVER_BASE_URL } from '../constants/routes'
+import { LOG_IN, SERVER_BASE_URL } from '../constants/routes'
 import { Comment } from '../types/props'
 import AuthContext from '../context/AuthContext'
 import postComment from '../api/postComment'
@@ -20,6 +20,7 @@ const Picture: React.FC = () => {
 	const { auth } = useContext(AuthContext)
 	const { picId } = useParams<{ picId: string }>()
 	const navigate = useNavigate()
+	const location = useLocation()
 
 	useEffect(() => {
 		if (picId !== undefined) {
@@ -73,19 +74,29 @@ const Picture: React.FC = () => {
 				<Post.Picture src={imgPath} />
 				<Post.LikeIcon />
 
-				<Post.CommentForm onSubmit={handlePostComment}>
-					<Post.CommentInput
-						type='text'
-						name='comment'
-						value={comment}
-						onChange={handleChangeComment}
-						placeholder='Write a comment...'
-						required
-					/>
-					<Post.CommentButton type='submit' color='gray'>
-						Send
-					</Post.CommentButton>
-				</Post.CommentForm>
+				{auth !== null ? (
+					<Post.CommentForm onSubmit={handlePostComment}>
+						<Post.CommentInput
+							type='text'
+							name='comment'
+							value={comment}
+							onChange={handleChangeComment}
+							placeholder='Write a comment...'
+							required
+						/>
+						<Post.CommentButton type='submit' color='gray'>
+							Send
+						</Post.CommentButton>
+					</Post.CommentForm>
+				) : (
+					<Alert>
+						Please{' '}
+						<Link to={LOG_IN} replace state={{ path: location.pathname }}>
+							log in
+						</Link>{' '}
+						to post your comment
+					</Alert>
+				)}
 
 				{comments.map(comment => (
 					<Post.Comment key={comment.id}>

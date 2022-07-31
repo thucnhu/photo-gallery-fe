@@ -10,3 +10,11 @@ export type Comment = {
 	text: string
 	created_at: string
 }
+
+export type Picture = {
+	id: number
+	caption: string
+	description: string
+	img_path: string
+	username: string
+}

@@ -1,158 +1,40 @@
-import React, { useEffect } from 'react'
-import axios from '../../api/axios'
+import React, { useEffect, useState } from 'react'
 import PicCard from '../PicCard'
 import { Column, Container } from './grid'
-import { HOME } from '../../constants/routes'
-import car from '../../images/car.jpeg'
-import woman from '../../images/woman.jpeg'
-import vr from '../../images/vr-glasses.jpeg'
-import upload from '../../images/upload.jpeg'
-import cat from '../../images/cats.jpeg'
+import { SERVER_BASE_URL } from '../../constants/routes'
+import getHomePic from '../../api/getHomePic'
+import { Picture } from '../../types/props'
 
-const Grid: React.FC = ({ children }: React.PropsWithChildren) => {
+const Grid: React.FC = () => {
+	const [pictures, setPictures] = useState<Picture[]>()
+	const NUM_COL = 5
+	let numPicPerCol = 0
+
 	useEffect(() => {
-		axios
-			.get(HOME)
-			.then(res => {
-				console.log(res.data)
-			})
-			.catch(err => {
-				console.log(err)
-			})
+		getHomePic()
+			.then(res => setPictures(res.data))
+			.catch(err => console.log(err))
 	}, [])
+
+	if (pictures?.length !== undefined)
+		numPicPerCol = Math.round(pictures?.length / NUM_COL)
+
+	const picCards = pictures?.map(pic => (
+		<PicCard
+			key={pic.id}
+			src={SERVER_BASE_URL + pic.img_path}
+			description={pic.description}
+			likes='200'
+			comments='200'
+		/>
+	))
 
 	return (
 		<Container>
-			<Column>
-				<PicCard
-					src={car}
-					description='This is a description that I intentionally made it way too long to see if it will get hidden. Seems like it is still not long enough'
-					likes='200'
-					comments='200'
-				/>
-				<PicCard
-					src={woman}
-					description='This is a description that I intentionally made it way too long to see if it will get hidden. Seems like it is still not long enough'
-					likes='200'
-					comments='200'
-				/>
-				<PicCard
-					src={vr}
-					description='This is a description that I intentionally made it way too long to see if it will get hidden. Seems like it is still not long enough'
-					likes='200'
-					comments='200'
-				/>
-				<PicCard
-					src={car}
-					description='This is a description that I intentionally made it way too long to see if it will get hidden. Seems like it is still not long enough'
-					likes='200'
-					comments='200'
-				/>
-			</Column>
-			<Column>
-				<PicCard
-					src={woman}
-					description='This is a description that I intentionally made it way too long to see if it will get hidden. Seems like it is still not long enough'
-					likes='200'
-					comments='200'
-				/>
-				<PicCard
-					src={vr}
-					description='This is a description that I intentionally made it way too long to see if it will get hidden. Seems like it is still not long enough'
-					likes='200'
-					comments='200'
-				/>
-				<PicCard
-					src={upload}
-					description='This is a description that I intentionally made it way too long to see if it will get hidden. Seems like it is still not long enough'
-					likes='200'
-					comments='200'
-				/>
-				<PicCard
-					src={car}
-					description='This is a description that I intentionally made it way too long to see if it will get hidden. Seems like it is still not long enough'
-					likes='200'
-					comments='200'
-				/>
-			</Column>
-			<Column>
-				<PicCard
-					src={cat}
-					description='This is a description that I intentionally made it way too long to see if it will get hidden. Seems like it is still not long enough'
-					likes='200'
-					comments='200'
-				/>
-				<PicCard
-					src={cat}
-					description='This is a description that I intentionally made it way too long to see if it will get hidden. Seems like it is still not long enough'
-					likes='200'
-					comments='200'
-				/>
-				<PicCard
-					src={vr}
-					description='This is a description that I intentionally made it way too long to see if it will get hidden. Seems like it is still not long enough'
-					likes='200'
-					comments='200'
-				/>
-				<PicCard
-					src={upload}
-					description='This is a description that I intentionally made it way too long to see if it will get hidden. Seems like it is still not long enough'
-					likes='200'
-					comments='200'
-				/>
-			</Column>
-			<Column>
-				<PicCard
-					src={woman}
-					description='This is a description that I intentionally made it way too long to see if it will get hidden. Seems like it is still not long enough'
-					likes='200'
-					comments='200'
-				/>
-				<PicCard
-					src={car}
-					description='This is a description that I intentionally made it way too long to see if it will get hidden. Seems like it is still not long enough'
-					likes='200'
-					comments='200'
-				/>
-				<PicCard
-					src={woman}
-					description='This is a description that I intentionally made it way too long to see if it will get hidden. Seems like it is still not long enough'
-					likes='200'
-					comments='200'
-				/>
-				<PicCard
-					src={cat}
-					description='This is a description that I intentionally made it way too long to see if it will get hidden. Seems like it is still not long enough'
-					likes='200'
-					comments='200'
-				/>
-			</Column>
-			<Column>
-				<PicCard
-					src={woman}
-					description='This is a description that I intentionally made it way too long to see if it will get hidden. Seems like it is still not long enough'
-					likes='200'
-					comments='200'
-				/>
-				<PicCard
-					src={car}
-					description='This is a description that I intentionally made it way too long to see if it will get hidden. Seems like it is still not long enough'
-					likes='200'
-					comments='200'
-				/>
-				<PicCard
-					src={woman}
-					description='This is a description that I intentionally made it way too long to see if it will get hidden. Seems like it is still not long enough'
-					likes='200'
-					comments='200'
-				/>
-				<PicCard
-					src={cat}
-					description='This is a description that I intentionally made it way too long to see if it will get hidden. Seems like it is still not long enough'
-					likes='200'
-					comments='200'
-				/>
-			</Column>
+			<Column>{picCards?.slice(numPicPerCol * 0, numPicPerCol * 1)}</Column>
+			<Column>{picCards?.slice(numPicPerCol * 1, numPicPerCol * 2)}</Column>
+			<Column>{picCards?.slice(numPicPerCol * 2, numPicPerCol * 3)}</Column>
+			<Column>{picCards?.slice(numPicPerCol * 3, picCards.length)}</Column>
 		</Container>
 	)
 }

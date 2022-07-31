@@ -11,7 +11,6 @@ export const Container = styled.div<{ type?: 'warning' | 'primary' }>`
 	height: 43px;
 	border: 1px solid
 		${props => (props.type === 'warning' ? '#f5c2c7' : '#b6d4fe')};
-	min-width: 400px;
 	color: ${props => (props.type === 'warning' ? '#842029' : '#084298')};
 `
 

@@ -7,9 +7,8 @@ import {
 	PrimaryContainer,
 	UploadCard,
 	Button,
-	Alert,
 } from '../components'
-import { LOG_IN, UPLOAD } from '../constants/routes'
+import { UPLOAD } from '../constants/routes'
 import backgroundImg from '../images/upload.jpeg'
 import AuthContext from '../context/AuthContext'
 

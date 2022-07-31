@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { useParams } from 'react-router-dom'
-import axios from '../api/axios'
+import { useParams, useNavigate } from 'react-router-dom'
 import { Post, PrimaryContainer } from '../components'
 import { AvatarArea } from '../components/Post/post'
 import { SERVER_BASE_URL } from '../constants/routes'
 import { Comment } from '../types/props'
 import AuthContext from '../context/AuthContext'
+import postComment from '../api/postComment'
+import { getPic } from '../api/getPic'
 
 const Picture: React.FC = () => {
 	const [comment, setComment] = useState<string>('')
@@ -18,22 +19,28 @@ const Picture: React.FC = () => {
 
 	const { auth } = useContext(AuthContext)
 	const { picId } = useParams<{ picId: string }>()
+	const navigate = useNavigate()
 
 	useEffect(() => {
-		axios
-			.get(`/pictures/${picId}`)
-			.then(({ data }) => {
-				setComments(data.comments)
-				setCaption(data.caption)
-				setDescription(data.description)
-				setUsername(data.username)
-				setImgPath(SERVER_BASE_URL + data.img_path)
-				setCreatedAt(data.created_at)
-			})
-			.catch(err => {
-				console.log(err)
-			})
-	}, [picId])
+		if (picId !== undefined) {
+			getPic(parseInt(picId))
+				.then(({ data }) => {
+					setComments(data.comments)
+					setCaption(data.caption)
+					setDescription(data.description)
+					setUsername(data.username)
+					setImgPath(SERVER_BASE_URL + data.img_path)
+					setCreatedAt(data.created_at)
+				})
+				.catch(err => {
+					if (err.response?.status === 404) {
+						navigate('*')
+					} else {
+						alert('Please try again later!')
+					}
+				})
+		}
+	}, [picId, navigate])
 
 	function handleChangeComment(e: React.ChangeEvent<HTMLInputElement>) {
 		setComment(e.target.value)
@@ -42,22 +49,12 @@ const Picture: React.FC = () => {
 	async function handlePostComment(e: React.ChangeEvent<HTMLInputElement>) {
 		e.preventDefault()
 		try {
-			const res = await axios.post(
-				`/comments`,
-				{
-					pic_id: picId,
-					text: comment,
-				},
-				{
-					headers: {
-						'Content-Type': 'application/json',
-						Authorization: `Bearer ${auth?.access_token}`,
-					},
-				}
-			)
-			console.log(res)
+			if (picId !== undefined) {
+				const res = await postComment(parseInt(picId), comment, auth)
+				console.log(res)
+			}
 		} catch (err: any) {
-			console.log(err)
+			alert('Error posting comment. Please try again later!')
 		}
 	}
 

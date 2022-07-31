@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import axios from '../api/axios'
+import signup from '../api/signup'
 import { CenterContainer, Form } from '../components'
-import { SIGN_UP, HOME, LOG_IN } from '../constants/routes'
+import { HOME, LOG_IN } from '../constants/routes'
 
 const Signup: React.FC = () => {
 	const [username, setUsername] = useState<string>('')
@@ -13,15 +13,8 @@ const Signup: React.FC = () => {
 
 	async function handleSubmit(e: React.ChangeEvent<HTMLFormElement>) {
 		e.preventDefault()
-
 		try {
-			await axios.post(
-				SIGN_UP,
-				{ username, password },
-				{
-					headers: { 'Content-Type': 'application/json' },
-				}
-			)
+			await signup(username, password)
 			navigate(HOME)
 		} catch (err: any) {
 			if (!err?.response) {

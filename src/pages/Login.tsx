@@ -1,31 +1,24 @@
 import React, { useState, useContext } from 'react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
-import axios from '../api/axios'
 import { CenterContainer, Form } from '../components'
-import { HOME, LOG_IN, SIGN_UP } from '../constants/routes'
+import { HOME, SIGN_UP } from '../constants/routes'
+import login from '../api/login'
 
 const Login: React.FC = () => {
 	const [username, setUsername] = useState<string>('')
 	const [password, setPassword] = useState<string>('')
 	const [errMsg, setErrMsg] = useState<string>('')
 
-	const { auth, setAuth } = useContext(AuthContext)
+	const { setAuth } = useContext(AuthContext)
 
 	const { state } = useLocation() as { state: { path: string } }
 	const navigate = useNavigate()
 
 	async function handleSubmit(e: React.ChangeEvent<HTMLInputElement>) {
 		e.preventDefault()
-
 		try {
-			const res = await axios.post(
-				LOG_IN,
-				{ username, password },
-				{
-					headers: { 'Content-Type': 'application/json' },
-				}
-			)
+			const res = await login(username, password)
 			setAuth({
 				access_token: res.data.access_token,
 				username: res.data.user.username,

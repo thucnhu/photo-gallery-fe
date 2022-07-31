@@ -4,7 +4,7 @@ import { CenterContainer, ErrorMessage } from '../components'
 const Error: React.FC = () => {
 	return (
 		<CenterContainer>
-			<ErrorMessage>404</ErrorMessage>
+			<ErrorMessage>404 Not found</ErrorMessage>
 		</CenterContainer>
 	)
 }

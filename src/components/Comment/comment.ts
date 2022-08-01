@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
 
 export const Container = styled.div`
-	margin-bottom: 0.8rem;
+	margin-top: 1rem;
 `
 
 export const Text = styled.p`

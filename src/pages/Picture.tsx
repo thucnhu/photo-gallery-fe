@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useParams, useNavigate, Link, useLocation } from 'react-router-dom'
-import { Alert, Post, PrimaryContainer, Comment } from '../components'
+import { Alert, Post, PrimaryContainer, Comment, Icon } from '../components'
 import { LOG_IN, SERVER_BASE_URL } from '../constants/routes'
 import { CommentType } from '../types/props'
 import AuthContext from '../context/AuthContext'
@@ -72,17 +72,24 @@ const Picture: React.FC = () => {
 		<PrimaryContainer>
 			<Post>
 				<Post.Caption>{caption}</Post.Caption>
-				<Post.AvatarArea>
-					<Post.Avatar src='https://i.pravatar.cc/300' />
-					<Post.AvatarRightArea>
-						<Post.Username>{username}</Post.Username>
-						<Post.CreatedAt>{createdAt}</Post.CreatedAt>
-					</Post.AvatarRightArea>
-				</Post.AvatarArea>
+				<Post.InfoArea>
+					<Post.AvatarArea>
+						<Post.Avatar src='https://i.pravatar.cc/300' />
+						<Post.AvatarRightArea>
+							<Post.Username>{username}</Post.Username>
+							<Post.CreatedAt>{createdAt}</Post.CreatedAt>
+						</Post.AvatarRightArea>
+					</Post.AvatarArea>
+					{isToggled ? (
+						<Icon.HeartFill onClick={toggle}></Icon.HeartFill>
+					) : (
+						<Icon.Heart onClick={toggle}></Icon.Heart>
+					)}
+				</Post.InfoArea>
 				<Post.Description>{description}</Post.Description>
 				<Post.Picture src={imgPath} />
 
-				{isToggled ? (
+				{/* {isToggled ? (
 					<button onClick={toggle} style={buttonIconStyle}>
 						<BsSuitHeartFill size='1.5rem' style={{ color: 'red' }} />
 					</button>
@@ -90,7 +97,7 @@ const Picture: React.FC = () => {
 					<button onClick={toggle} style={buttonIconStyle}>
 						<BsSuitHeart size='1.5rem' />
 					</button>
-				)}
+				)} */}
 
 				{auth !== null ? (
 					<Post.CommentForm onSubmit={handlePostComment}>

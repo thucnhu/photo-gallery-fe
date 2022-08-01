@@ -1,4 +1,3 @@
-import React from 'react'
 import {
 	AvatarArea,
 	Avatar,
@@ -7,11 +6,14 @@ import {
 	CreatedAt,
 	InfoArea,
 } from '../../components/Post/post'
-import { BsSuitHeart, BsSuitHeartFill } from 'react-icons/bs'
+import { Icon } from '../../components'
 import { Container, Text } from './comment'
 import { CommentType } from '../../types/props'
+import useToggle from '../../hooks/useToggle'
 
 const Comment = (props: { comment: CommentType }) => {
+	const { isToggled, toggle } = useToggle()
+
 	return (
 		<Container key={props.comment.id}>
 			<InfoArea>
@@ -22,7 +24,11 @@ const Comment = (props: { comment: CommentType }) => {
 						<CreatedAt>{props.comment.created_at}</CreatedAt>
 					</AvatarRightArea>
 				</AvatarArea>
-				<BsSuitHeart />
+				{isToggled ? (
+					<Icon.HeartFill small onClick={toggle}></Icon.HeartFill>
+				) : (
+					<Icon.Heart small onClick={toggle}></Icon.Heart>
+				)}
 			</InfoArea>
 			<Text>{props.comment.text}</Text>
 		</Container>

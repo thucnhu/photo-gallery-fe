@@ -11,6 +11,7 @@ import {
 	Picture,
 	CommentForm,
 	CommentInput,
+	InfoArea,
 } from './post'
 import { RestPropsWithChildren } from '../../types/props'
 
@@ -60,6 +61,10 @@ Post.Username = ({ children, ...props }: RestPropsWithChildren) => {
 
 Post.CreatedAt = ({ children, ...props }: RestPropsWithChildren) => {
 	return <CreatedAt {...props}>{children}</CreatedAt>
+}
+
+Post.InfoArea = ({ children, ...props }: RestPropsWithChildren) => {
+	return <InfoArea {...props}>{children}</InfoArea>
 }
 
 export default Post

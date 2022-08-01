@@ -39,7 +39,6 @@ export const InfoArea = styled.div`
 
 export const AvatarArea = styled.div<{ small?: boolean }>`
 	display: flex;
-	/* justify-content: space-between; */
 	align-items: center;
 	height: ${props => (props.small ? '35px' : '45px')};
 	margin: ${props => (props.small ? '0.2rem 0' : '1rem 0')};
@@ -70,7 +69,6 @@ export const CommentForm = styled.form`
 	flex-direction: column;
 	align-items: flex-end;
 	justify-content: space-between;
-	margin: 0.6rem 0 1rem 0;
 `
 
 export const CommentInput = styled.textarea`

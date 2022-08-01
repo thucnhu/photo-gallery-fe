@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 import { CenterContainer, Form } from '../components'
@@ -10,7 +10,7 @@ const Login: React.FC = () => {
 	const [password, setPassword] = useState<string>('')
 	const [errMsg, setErrMsg] = useState<string>('')
 
-	const { auth, setAuth } = useContext(AuthContext)
+	const { setAuth } = useContext(AuthContext)
 	const { state } = useLocation() as { state: { path: string } }
 	const navigate = useNavigate()
 

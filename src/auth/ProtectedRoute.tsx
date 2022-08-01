@@ -4,16 +4,8 @@ import { LOG_IN } from '../constants/routes'
 import AuthContext from '../context/AuthContext'
 
 const ProtectedRoute = () => {
-	const { auth, setAuth } = useContext(AuthContext)
-	// console.log(auth)
+	const { auth } = useContext(AuthContext)
 	const location = useLocation()
-
-	// useEffect(() => {
-	// 	const auth = localStorage.getItem('auth')
-	// 	if (auth) {
-	// 		setAuth(JSON.parse(auth))
-	// 	}
-	// }, [])
 
 	return auth !== null ? (
 		<Outlet />

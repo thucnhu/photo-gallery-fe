@@ -15,7 +15,7 @@ const AppRoutes: React.FC = () => {
 			setAuth(JSON.parse(currAuth))
 			setIsLoaded(true)
 		}
-	}, [])
+	}, [setAuth])
 
 	return (
 		<>

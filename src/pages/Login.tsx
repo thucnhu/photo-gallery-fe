@@ -3,7 +3,7 @@ import { useNavigate, useLocation, Link } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 import { CenterContainer, Form } from '../components'
 import { HOME, SIGN_UP } from '../constants/routes'
-import login from '../api/login'
+import { login } from '../api/auth'
 
 const Login: React.FC = () => {
 	const [username, setUsername] = useState<string>('')

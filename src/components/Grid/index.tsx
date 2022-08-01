@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import PicCard from '../PicCard'
 import { Column, Container } from './grid'
 import { SERVER_BASE_URL } from '../../constants/routes'
-import getHomePic from '../../api/getHomePic'
+import { getHomePic } from '../../api/pictures'
 import { Picture } from '../../types/props'
 
 const Grid: React.FC = () => {

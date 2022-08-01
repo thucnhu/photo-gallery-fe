@@ -4,10 +4,10 @@ import { Alert, Post, PrimaryContainer, Comment, Icon } from '../components'
 import { LOG_IN, SERVER_BASE_URL } from '../constants/routes'
 import { CommentType } from '../types/props'
 import AuthContext from '../context/AuthContext'
-import postComment from '../api/postComment'
-import { getPic } from '../api/getPic'
+import postComment from '../api/comments'
+import { getPic } from '../api/pictures'
 import useToggle from '../hooks/useToggle'
-import { BsSuitHeart, BsSuitHeartFill } from 'react-icons/bs'
+import { postPicLike, deletePicLike } from '../api/likes'
 
 const Picture: React.FC = () => {
 	const [comment, setComment] = useState<string>('')
@@ -18,20 +18,15 @@ const Picture: React.FC = () => {
 	const [username, setUsername] = useState<string>('')
 	const [createdAt, setCreatedAt] = useState<string>('')
 
-	const { auth } = useContext(AuthContext)
 	const { picId } = useParams<{ picId: string }>()
 	const navigate = useNavigate()
 	const location = useLocation()
 
+	const { auth } = useContext(AuthContext)
 	const { isToggled, toggle } = useToggle()
-	const buttonIconStyle = {
-		border: 'none',
-		backgroundColor: 'transparent',
-		width: 'fit-content',
-	}
 
 	useEffect(() => {
-		if (picId !== undefined) {
+		if (picId) {
 			getPic(parseInt(picId))
 				.then(({ data }) => {
 					setComments(data.comments)
@@ -58,13 +53,37 @@ const Picture: React.FC = () => {
 	async function handlePostComment(e: React.ChangeEvent<HTMLInputElement>) {
 		e.preventDefault()
 		try {
-			if (picId !== undefined) {
+			if (picId) {
 				const res = await postComment(parseInt(picId), comment, auth)
 				setComments(prev => [...prev, res.data])
 				console.log(res)
 			}
 		} catch (err: any) {
 			alert('Error posting comment. Please try again later!')
+		}
+	}
+
+	async function handleLike() {
+		try {
+			if (picId) {
+				const res = await postPicLike(picId.toString(), auth)
+				toggle()
+				console.log(res)
+			}
+		} catch (err: any) {
+			alert('Error occured. Please try again later!')
+		}
+	}
+
+	async function handleUnlike() {
+		try {
+			if (picId) {
+				const res = await deletePicLike(picId.toString(), auth)
+				toggle()
+				console.log(res)
+			}
+		} catch (err: any) {
+			alert('Error occured. Please try again later!')
 		}
 	}
 
@@ -81,23 +100,13 @@ const Picture: React.FC = () => {
 						</Post.AvatarRightArea>
 					</Post.AvatarArea>
 					{isToggled ? (
-						<Icon.HeartFill onClick={toggle}></Icon.HeartFill>
+						<Icon.HeartFill onClick={handleUnlike}></Icon.HeartFill>
 					) : (
-						<Icon.Heart onClick={toggle}></Icon.Heart>
+						<Icon.Heart onClick={handleLike}></Icon.Heart>
 					)}
 				</Post.InfoArea>
 				<Post.Description>{description}</Post.Description>
 				<Post.Picture src={imgPath} />
-
-				{/* {isToggled ? (
-					<button onClick={toggle} style={buttonIconStyle}>
-						<BsSuitHeartFill size='1.5rem' style={{ color: 'red' }} />
-					</button>
-				) : (
-					<button onClick={toggle} style={buttonIconStyle}>
-						<BsSuitHeart size='1.5rem' />
-					</button>
-				)} */}
 
 				{auth !== null ? (
 					<Post.CommentForm onSubmit={handlePostComment}>

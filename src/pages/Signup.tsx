@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import signup from '../api/signup'
+import { signup } from '../api/auth'
 import { CenterContainer, Form } from '../components'
 import { HOME, LOG_IN } from '../constants/routes'
 

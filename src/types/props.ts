@@ -4,7 +4,7 @@ export type RestPropsWithChildren = React.PropsWithChildren & {
 	[key: string]: any
 }
 
-export type Comment = {
+export type CommentType = {
 	id: number
 	username: string
 	text: string

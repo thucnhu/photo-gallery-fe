@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useParams, useNavigate, Link, useLocation } from 'react-router-dom'
-import { Alert, Post, PrimaryContainer, Icon } from '../components'
+import { Alert, Post, PrimaryContainer, Comment } from '../components'
 import { LOG_IN, SERVER_BASE_URL } from '../constants/routes'
-import { Comment } from '../types/props'
+import { CommentType } from '../types/props'
 import AuthContext from '../context/AuthContext'
 import postComment from '../api/postComment'
 import { getPic } from '../api/getPic'
@@ -11,7 +11,7 @@ import { BsSuitHeart, BsSuitHeartFill } from 'react-icons/bs'
 
 const Picture: React.FC = () => {
 	const [comment, setComment] = useState<string>('')
-	const [comments, setComments] = useState<Comment[]>([])
+	const [comments, setComments] = useState<CommentType[]>([])
 	const [caption, setCaption] = useState<string>('')
 	const [description, setDescription] = useState<string>('')
 	const [imgPath, setImgPath] = useState<string>('')
@@ -117,16 +117,7 @@ const Picture: React.FC = () => {
 				)}
 
 				{comments.map(comment => (
-					<Post.Comment key={comment.id}>
-						<Post.AvatarArea small>
-							<Post.Avatar src='https://i.pravatar.cc/300' />
-							<Post.AvatarRightArea>
-								<Post.Username>{comment.username}</Post.Username>
-								<Post.CreatedAt>{comment.created_at}</Post.CreatedAt>
-							</Post.AvatarRightArea>
-						</Post.AvatarArea>
-						<Post.CommentText>{comment.text}</Post.CommentText>
-					</Post.Comment>
+					<Comment key={comment.id} comment={comment} />
 				))}
 			</Post>
 		</PrimaryContainer>

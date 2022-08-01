@@ -28,10 +28,18 @@ export const CreatedAt = styled.p`
 	font-size: 0.8em;
 `
 
-export const LikeIcon = styled.i``
+export const InfoArea = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-end;
+	height: fit-content;
+	width: 100%;
+`
 
 export const AvatarArea = styled.div<{ small?: boolean }>`
 	display: flex;
+	/* justify-content: space-between; */
 	align-items: center;
 	height: ${props => (props.small ? '35px' : '45px')};
 	margin: ${props => (props.small ? '0.2rem 0' : '1rem 0')};
@@ -65,10 +73,6 @@ export const CommentForm = styled.form`
 	margin: 0.6rem 0 1rem 0;
 `
 
-export const Comment = styled.div`
-	margin-bottom: 0.8rem;
-`
-
 export const CommentInput = styled.textarea`
 	border: none;
 	resize: none;
@@ -78,14 +82,6 @@ export const CommentInput = styled.textarea`
 	max-width: 100%;
 	min-width: 100%;
 	overflow: scroll;
-`
-
-export const CommentText = styled.p`
-	margin: 0.3rem 0;
-	font-size: 0.85rem;
-	margin-left: 44px;
-	border-bottom: 1px solid black;
-	padding-bottom: 0.3em;
 `
 
 export const CommentButton = styled(Button)`

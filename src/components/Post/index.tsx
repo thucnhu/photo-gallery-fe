@@ -6,27 +6,16 @@ import {
 	AvatarRightArea,
 	Caption,
 	Description,
-	LikeIcon,
 	Username,
 	CreatedAt,
 	Picture,
 	CommentForm,
 	CommentInput,
-	CommentText,
-	Comment,
 } from './post'
 import { RestPropsWithChildren } from '../../types/props'
 
 const Post = ({ children, ...props }: RestPropsWithChildren) => {
 	return <Container {...props}>{children}</Container>
-}
-
-Post.Comment = ({ children, ...props }: RestPropsWithChildren) => {
-	return <Comment {...props}>{children}</Comment>
-}
-
-Post.CommentText = ({ children, ...props }: RestPropsWithChildren) => {
-	return <CommentText {...props}>{children}</CommentText>
 }
 
 Post.CommentInput = ({ children, ...props }: RestPropsWithChildren) => {
@@ -63,10 +52,6 @@ Post.Caption = ({ children, ...props }: RestPropsWithChildren) => {
 
 Post.Description = ({ children, ...props }: RestPropsWithChildren) => {
 	return <Description {...props}>{children}</Description>
-}
-
-Post.LikeIcon = ({ children, ...props }: RestPropsWithChildren) => {
-	return <LikeIcon {...props}>{children}</LikeIcon>
 }
 
 Post.Username = ({ children, ...props }: RestPropsWithChildren) => {

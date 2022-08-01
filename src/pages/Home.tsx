@@ -3,8 +3,6 @@ import { PrimaryContainer, Grid } from '../components'
 import AuthContext from '../context/AuthContext'
 
 const Home: React.FC = () => {
-	const { auth } = useContext(AuthContext)
-	console.log(auth)
 	return (
 		<PrimaryContainer gray>
 			{/* <Labels>

@@ -22,6 +22,7 @@ const Grid: React.FC = () => {
 	const picCards = pictures?.map(pic => (
 		<PicCard
 			key={pic.id}
+			id={pic.id}
 			src={SERVER_BASE_URL + pic.img_path}
 			description={pic.description}
 			likes='200'

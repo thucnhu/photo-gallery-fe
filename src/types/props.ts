@@ -18,3 +18,11 @@ export type Picture = {
 	img_path: string
 	username: string
 }
+
+export type PicCardProp = {
+	id: number
+	src: string
+	description: string
+	likes: string
+	comments: string
+}

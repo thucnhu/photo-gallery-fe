@@ -8,24 +8,21 @@ import {
 	Likes,
 	Comments,
 } from './picCard'
+import { PicCardProp } from '../../types/props'
+import { useNavigate } from 'react-router-dom'
 
-type Props = {
-	src: string
-	description: string
-	likes: string
-	comments: string
-}
+const PicCard: React.FC<PicCardProp> = prop => {
+	const navigate = useNavigate()
 
-const PicCard: React.FC<Props> = ({ src, description, likes, comments }) => {
 	return (
-		<Container>
+		<Container onClick={() => navigate(`/pictures/${prop.id.toString()}`)}>
 			<ImgContainer>
-				<Image src={src} alt='image' />
+				<Image src={prop.src} alt='image' />
 			</ImgContainer>
-			<Description>{description}</Description>
+			<Description>{prop.description}</Description>
 			<Stats>
-				<Likes>{likes}</Likes>
-				<Comments>{comments}</Comments>
+				<Likes>{prop.likes}</Likes>
+				<Comments>{prop.comments}</Comments>
 			</Stats>
 		</Container>
 	)

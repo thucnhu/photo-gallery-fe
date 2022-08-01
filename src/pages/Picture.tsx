@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useParams, useNavigate, Link, useLocation } from 'react-router-dom'
-import { Alert, Post, PrimaryContainer } from '../components'
-import { AvatarArea } from '../components/Post/post'
+import { Alert, Post, PrimaryContainer, Icon } from '../components'
 import { LOG_IN, SERVER_BASE_URL } from '../constants/routes'
 import { Comment } from '../types/props'
 import AuthContext from '../context/AuthContext'
 import postComment from '../api/postComment'
 import { getPic } from '../api/getPic'
+import useToggle from '../hooks/useToggle'
+import { BsSuitHeart, BsSuitHeartFill } from 'react-icons/bs'
 
 const Picture: React.FC = () => {
 	const [comment, setComment] = useState<string>('')
@@ -21,6 +22,13 @@ const Picture: React.FC = () => {
 	const { picId } = useParams<{ picId: string }>()
 	const navigate = useNavigate()
 	const location = useLocation()
+
+	const { isToggled, toggle } = useToggle()
+	const buttonIconStyle = {
+		border: 'none',
+		backgroundColor: 'transparent',
+		width: 'fit-content',
+	}
 
 	useEffect(() => {
 		if (picId !== undefined) {
@@ -52,6 +60,7 @@ const Picture: React.FC = () => {
 		try {
 			if (picId !== undefined) {
 				const res = await postComment(parseInt(picId), comment, auth)
+				setComments(prev => [...prev, res.data])
 				console.log(res)
 			}
 		} catch (err: any) {
@@ -72,7 +81,16 @@ const Picture: React.FC = () => {
 				</Post.AvatarArea>
 				<Post.Description>{description}</Post.Description>
 				<Post.Picture src={imgPath} />
-				<Post.LikeIcon />
+
+				{isToggled ? (
+					<button onClick={toggle} style={buttonIconStyle}>
+						<BsSuitHeartFill size='1.5rem' style={{ color: 'red' }} />
+					</button>
+				) : (
+					<button onClick={toggle} style={buttonIconStyle}>
+						<BsSuitHeart size='1.5rem' />
+					</button>
+				)}
 
 				{auth !== null ? (
 					<Post.CommentForm onSubmit={handlePostComment}>
@@ -100,13 +118,13 @@ const Picture: React.FC = () => {
 
 				{comments.map(comment => (
 					<Post.Comment key={comment.id}>
-						<AvatarArea small>
+						<Post.AvatarArea small>
 							<Post.Avatar src='https://i.pravatar.cc/300' />
 							<Post.AvatarRightArea>
 								<Post.Username>{comment.username}</Post.Username>
 								<Post.CreatedAt>{comment.created_at}</Post.CreatedAt>
 							</Post.AvatarRightArea>
-						</AvatarArea>
+						</Post.AvatarArea>
 						<Post.CommentText>{comment.text}</Post.CommentText>
 					</Post.Comment>
 				))}

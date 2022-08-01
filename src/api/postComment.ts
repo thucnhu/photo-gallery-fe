@@ -3,7 +3,7 @@ import axios from './axios'
 
 function postComment(picId: number, comment: string, auth: AuthData) {
 	return axios.post(
-		`/comments`,
+		`/comments/`,
 		{
 			pic_id: picId,
 			text: comment,

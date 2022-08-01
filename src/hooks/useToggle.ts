@@ -7,5 +7,5 @@ export default function useToggle() {
 		setIsToggled(!isToggled)
 	}
 
-	return [isToggled, toggle]
+	return { isToggled, toggle }
 }

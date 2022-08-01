@@ -62,14 +62,17 @@ export const CommentForm = styled.form`
 	flex-direction: column;
 	align-items: flex-end;
 	justify-content: space-between;
+	margin: 0.6rem 0 1rem 0;
 `
 
 export const Comment = styled.div`
-	margin-top: 0.8rem;
+	margin-bottom: 0.8rem;
 `
 
 export const CommentInput = styled.textarea`
 	border: none;
+	resize: none;
+	outline: none;
 	max-height: 60%;
 	min-height: 60%;
 	max-width: 100%;

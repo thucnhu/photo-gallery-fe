@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 import { CenterContainer, Form } from '../components'
@@ -10,7 +10,7 @@ const Login: React.FC = () => {
 	const [password, setPassword] = useState<string>('')
 	const [errMsg, setErrMsg] = useState<string>('')
 
-	const { setAuth } = useContext(AuthContext)
+	const { auth, setAuth } = useContext(AuthContext)
 	const { state } = useLocation() as { state: { path: string } }
 	const navigate = useNavigate()
 
@@ -31,6 +31,14 @@ const Login: React.FC = () => {
 				username: res.data.user.username,
 				id: res.data.user.id,
 			})
+			localStorage.setItem(
+				'auth',
+				JSON.stringify({
+					access_token: res.data.access_token,
+					username: res.data.user.username,
+					id: res.data.user.id,
+				})
+			)
 			navigate(state?.path || HOME)
 		} catch (err: any) {
 			if (!err?.response) {

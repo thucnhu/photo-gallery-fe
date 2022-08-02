@@ -86,4 +86,18 @@ export const SearchInput = styled.input`
 export const Profile = styled.div`
 	display: flex;
 	margin-left: 2rem;
+	cursor: pointer;
+	align-items: center;
+`
+
+export const Avatar = styled.img`
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	margin-right: 0.5rem;
+
+	:hover {
+		outline: 3.5px solid #ebeced;
+		box-shadow: var(--shadow);
+	}
 `

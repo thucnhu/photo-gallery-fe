@@ -23,18 +23,23 @@ const Picture: React.FC = () => {
 	const location = useLocation()
 
 	const { auth } = useContext(AuthContext)
-	const { isToggled, toggle } = useToggle()
+	// console.log(auth)
+	const { isToggled, toggle } = useToggle(false)
 
 	useEffect(() => {
-		if (picId) {
-			getPic(parseInt(picId))
+		if (picId && auth) {
+			getPic(parseInt(picId), auth?.access_token)
 				.then(({ data }) => {
+					console.log(data)
 					setComments(data.comments)
 					setCaption(data.caption)
 					setDescription(data.description)
 					setUsername(data.username)
 					setImgPath(SERVER_BASE_URL + data.img_path)
 					setCreatedAt(data.created_at)
+					if (data.is_liked) {
+						toggle()
+					}
 				})
 				.catch(err => {
 					if (err.response?.status === 404) {
@@ -44,7 +49,7 @@ const Picture: React.FC = () => {
 					}
 				})
 		}
-	}, [picId, navigate])
+	}, [picId, navigate, auth])
 
 	function handleChangeComment(e: React.ChangeEvent<HTMLInputElement>) {
 		setComment(e.target.value)
@@ -65,10 +70,9 @@ const Picture: React.FC = () => {
 
 	async function handleLike() {
 		try {
-			if (picId) {
-				const res = await postPicLike(picId.toString(), auth)
+			if (picId && auth) {
+				await postPicLike(picId.toString(), auth?.access_token)
 				toggle()
-				console.log(res)
 			}
 		} catch (err: any) {
 			alert('Error occured. Please try again later!')
@@ -77,10 +81,9 @@ const Picture: React.FC = () => {
 
 	async function handleUnlike() {
 		try {
-			if (picId) {
-				const res = await deletePicLike(picId.toString(), auth)
+			if (picId && auth) {
+				await deletePicLike(picId.toString(), auth?.access_token)
 				toggle()
-				console.log(res)
 			}
 		} catch (err: any) {
 			alert('Error occured. Please try again later!')
@@ -93,7 +96,7 @@ const Picture: React.FC = () => {
 				<Post.Caption>{caption}</Post.Caption>
 				<Post.InfoArea>
 					<Post.AvatarArea>
-						<Post.Avatar src='https://i.pravatar.cc/300' />
+						<Post.Avatar src='https://i.pravatar.cc/302' />
 						<Post.AvatarRightArea>
 							<Post.Username>{username}</Post.Username>
 							<Post.CreatedAt>{createdAt}</Post.CreatedAt>

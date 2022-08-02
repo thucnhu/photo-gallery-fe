@@ -15,16 +15,14 @@ import { useContext } from 'react'
 import AuthContext from '../../context/AuthContext'
 
 const Comment = ({ comment }: { comment: CommentType }) => {
-	const { isToggled, toggle } = useToggle()
+	const { isToggled, toggle } = useToggle(comment.isLiked)
 	const { auth } = useContext(AuthContext)
-	console.log(auth)
 
 	async function handleLike() {
 		try {
-			if (comment.id) {
-				const res = await postCommentLike(comment.id.toString(), auth)
+			if (comment.id && auth) {
+				await postCommentLike(comment.id.toString(), auth?.access_token)
 				toggle()
-				console.log(res)
 			}
 		} catch (err: any) {
 			alert('Error occured. Please try again later!')
@@ -33,10 +31,9 @@ const Comment = ({ comment }: { comment: CommentType }) => {
 
 	async function handleUnlike() {
 		try {
-			if (comment.id) {
-				const res = await deleteCommentLike(comment.id.toString(), auth)
+			if (comment.id && auth) {
+				await deleteCommentLike(comment.id.toString(), auth?.access_token)
 				toggle()
-				console.log(res)
 			}
 		} catch (err: any) {
 			alert('Error occured. Please try again later!')
@@ -47,7 +44,7 @@ const Comment = ({ comment }: { comment: CommentType }) => {
 		<Container key={comment.id}>
 			<InfoArea>
 				<AvatarArea small>
-					<Avatar src='https://i.pravatar.cc/300' />
+					<Avatar src='https://i.pravatar.cc/301' />
 					<AvatarRightArea>
 						<Username>{comment.username}</Username>
 						<CreatedAt>{comment.created_at}</CreatedAt>

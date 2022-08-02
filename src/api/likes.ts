@@ -1,42 +1,41 @@
 import axios from './axios'
-import { AuthData } from '../context/AuthContext'
 
-function postPicLike(picId: string, auth: AuthData) {
+function postPicLike(picId: string, token: string) {
 	return axios.post(
 		`/pictures/${picId}/likes`,
 		{},
 		{
 			headers: {
-				Authorization: `Bearer ${auth?.access_token}`,
+				Authorization: `Bearer ${token}`,
 			},
 		}
 	)
 }
 
-function deletePicLike(picId: string, auth: AuthData) {
+function deletePicLike(picId: string, token: string) {
 	return axios.delete(`/pictures/${picId}/likes`, {
 		headers: {
-			Authorization: `Bearer ${auth?.access_token}`,
+			Authorization: `Bearer ${token}`,
 		},
 	})
 }
 
-function postCommentLike(commentId: string, auth: AuthData) {
+function postCommentLike(commentId: string, token: string) {
 	return axios.post(
 		`/comments/${commentId}/likes`,
 		{},
 		{
 			headers: {
-				Authorization: `Bearer ${auth?.access_token}`,
+				Authorization: `Bearer ${token}`,
 			},
 		}
 	)
 }
 
-function deleteCommentLike(commentId: string, auth: AuthData) {
+function deleteCommentLike(commentId: string, token: string) {
 	return axios.delete(`/comments/${commentId}/likes`, {
 		headers: {
-			Authorization: `Bearer ${auth?.access_token}`,
+			Authorization: `Bearer ${token}`,
 		},
 	})
 }

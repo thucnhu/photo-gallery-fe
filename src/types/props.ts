@@ -8,6 +8,7 @@ export type CommentType = {
 	id: number
 	username: string
 	text: string
+	isLiked: boolean
 	created_at: string
 }
 

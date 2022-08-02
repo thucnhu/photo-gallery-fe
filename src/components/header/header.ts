@@ -83,7 +83,7 @@ export const SearchInput = styled.input`
 	height: 40px;
 `
 
-export const Profile = styled.div`
+export const Profile = styled.div<{ onClick: any }>`
 	display: flex;
 	margin-left: 2rem;
 	cursor: pointer;
@@ -97,7 +97,34 @@ export const Avatar = styled.img`
 	margin-right: 0.5rem;
 
 	:hover {
-		outline: 3.5px solid #ebeced;
+		outline: 3.5px solid var(--light-gray);
 		box-shadow: var(--shadow);
+	}
+`
+
+export const Popup = styled.div`
+	width: 120px;
+	height: auto;
+	background-color: white;
+	border-radius: 8px;
+	box-shadow: var(--shadow-lg);
+	position: absolute;
+	top: 67px;
+	right: 10px;
+	display: flex;
+	flex-direction: column;
+	padding: 0.5em 0;
+	font-size: 0.9rem;
+`
+
+export const PopupItem = styled(NavLink)`
+	padding: 1em;
+	width: 100%;
+	height: auto;
+	cursor: pointer;
+	text-decoration: none;
+	color: black;
+	&:hover {
+		background-color: var(--light-gray);
 	}
 `

@@ -1,7 +1,7 @@
 import React from 'react'
 
 export type AuthData = null | {
-	access_token: string
+	accessToken: string
 	username: string
 	id: number
 }

@@ -27,7 +27,7 @@ const Picture: React.FC = () => {
 
 	useEffect(() => {
 		if (picId && auth) {
-			getPic(parseInt(picId), auth?.access_token)
+			getPic(parseInt(picId))
 				.then(({ data }) => {
 					console.log(data)
 					setComments(data.comments)
@@ -58,7 +58,7 @@ const Picture: React.FC = () => {
 		e.preventDefault()
 		try {
 			if (picId) {
-				const res = await postComment(parseInt(picId), comment, auth)
+				const res = await postComment(parseInt(picId), comment)
 				setComments(prev => [...prev, res.data])
 				console.log(res)
 			}
@@ -70,7 +70,7 @@ const Picture: React.FC = () => {
 	async function handleLike() {
 		try {
 			if (picId && auth) {
-				await postPicLike(picId.toString(), auth?.access_token)
+				await postPicLike(picId.toString())
 				toggle()
 			}
 		} catch (err: any) {
@@ -81,7 +81,7 @@ const Picture: React.FC = () => {
 	async function handleUnlike() {
 		try {
 			if (picId && auth) {
-				await deletePicLike(picId.toString(), auth?.access_token)
+				await deletePicLike(picId.toString())
 				toggle()
 			}
 		} catch (err: any) {
@@ -110,7 +110,7 @@ const Picture: React.FC = () => {
 				<Post.Description>{description}</Post.Description>
 				<Post.Picture src={imgPath} />
 
-				{auth !== null ? (
+				{auth ? (
 					<Post.CommentForm onSubmit={handlePostComment}>
 						<Post.CommentInput
 							type='text'
@@ -134,7 +134,7 @@ const Picture: React.FC = () => {
 					</Alert>
 				)}
 
-				{comments.map(comment => (
+				{comments?.map(comment => (
 					<Comment key={comment.id} comment={comment} />
 				))}
 			</Post>

@@ -27,7 +27,7 @@ const Login: React.FC = () => {
 		try {
 			const res = await login(username, password)
 			setAuth({
-				access_token: res.data.access_token,
+				accessToken: res.data.access_token,
 				username: res.data.user.username,
 				id: res.data.user.id,
 			})

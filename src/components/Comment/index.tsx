@@ -21,7 +21,7 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
 	async function handleLike() {
 		try {
 			if (comment.id && auth) {
-				await postCommentLike(comment.id.toString(), auth?.access_token)
+				await postCommentLike(comment.id.toString())
 				toggle()
 			}
 		} catch (err: any) {
@@ -32,7 +32,7 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
 	async function handleUnlike() {
 		try {
 			if (comment.id && auth) {
-				await deleteCommentLike(comment.id.toString(), auth?.access_token)
+				await deleteCommentLike(comment.id.toString())
 				toggle()
 			}
 		} catch (err: any) {

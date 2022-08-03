@@ -11,6 +11,7 @@ import {
 import { UPLOAD } from '../constants/routes'
 import backgroundImg from '../images/upload.jpeg'
 import AuthContext from '../context/AuthContext'
+import { postPic } from '../api/pictures'
 
 const Upload: React.FC = () => {
 	const [uploadedImg, setUploadedImg] = React.useState<File | null>()
@@ -31,28 +32,17 @@ const Upload: React.FC = () => {
 
 	async function handlePublish(e: React.ChangeEvent<HTMLFormElement>) {
 		e.preventDefault()
-		try {
-			const res = await axios.post(
-				UPLOAD,
-				{
-					img_file: uploadedImg,
-					caption: caption,
-					description: description,
-				},
-				{
-					headers: {
-						'Content-Type': 'multipart/form-data',
-						Authorization: `Bearer ${auth?.access_token}`,
-					},
+		if (uploadedImg) {
+			try {
+				const res = await postPic(uploadedImg, caption, description)
+				console.log(res)
+				navigate(`/pictures/${res.data.id}`)
+			} catch (err: any) {
+				if (!err?.response) {
+					alert('Network Error')
+				} else {
+					alert('Please try again later!')
 				}
-			)
-			console.log(res)
-			navigate(`/pictures/${res.data.id}`)
-		} catch (err: any) {
-			if (!err?.response) {
-				alert('Network Error')
-			} else {
-				alert('Please try again later!')
 			}
 		}
 	}

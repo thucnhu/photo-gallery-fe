@@ -82,7 +82,7 @@ const Picture: React.FC = () => {
 
 	async function handleUnlike() {
 		try {
-			if (picId && auth) {
+			if (picId) {
 				await deletePicLike(picId.toString())
 				toggle()
 			}

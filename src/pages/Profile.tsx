@@ -11,7 +11,6 @@ const Profile: React.FC = () => {
 		getProfile(username)
 			.then(res => {
 				setProfile(res.data)
-				console.log(res.data)
 			})
 			.catch(err => console.log(err))
 	}, [])

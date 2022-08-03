@@ -40,9 +40,9 @@ const AppRoutes: React.FC = () => {
 					<Route element={<ProtectedRoute />}>
 						<Route path={UPLOAD} element={<Upload />} />
 						<Route path={EDIT_PROFILE} element={<EditProfile />} />
+						<Route path={PICTURE} element={<Picture />} />
 					</Route>
 					<Route path={HOME} element={<Home />} />
-					<Route path={PICTURE} element={<Picture />} />
 					<Route path='/:username' element={<Profile />} />
 					<Route path={LOG_IN} element={<Login />} />
 					<Route path={SIGN_UP} element={<Signup />} />

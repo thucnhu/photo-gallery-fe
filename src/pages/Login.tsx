@@ -39,7 +39,7 @@ const Login: React.FC = () => {
 					id: res.data.user.id,
 				})
 			)
-			localStorage.setItem('isLoggedOut', 'false')
+			// localStorage.setItem('isLoggedOut', 'false')
 			navigate(state?.path || HOME)
 		} catch (err: any) {
 			if (!err?.response) {

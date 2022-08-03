@@ -17,16 +17,18 @@ import {
 import logo from '../../images/zalopay_logo.svg'
 import { HOME, UPLOAD, LOG_IN, SIGN_UP } from '../../constants/routes'
 import useClickOutside from '../../hooks/useClickOutside'
+import { useNavigate } from 'react-router-dom'
 
 const Header: React.FC = () => {
 	const [searchValue, setSearchValue] = useState<string>('')
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 	const clickRef = useClickOutside(() => setIsOpen(false))
 	const { auth } = useContext(AuthContext)
+	const navigate = useNavigate()
 
 	function logout() {
 		localStorage.removeItem('auth')
-		localStorage.setItem('isLoggedOut', 'true')
+		navigate(LOG_IN)
 		window.location.reload()
 	}
 

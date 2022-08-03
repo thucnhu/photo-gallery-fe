@@ -5,11 +5,11 @@ function getProfile(username: string) {
 }
 
 function followUser(username: string) {
-	return axios.post(`/${username}/follow`)
+	return axios.post(`/follow/${username}`)
 }
 
 function unfollowUser(username: string) {
-	return axios.delete(`/${username}/follow`)
+	return axios.delete(`/unfollow/${username}`)
 }
 
 export { getProfile, followUser, unfollowUser }

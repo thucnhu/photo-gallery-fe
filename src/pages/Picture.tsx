@@ -21,25 +21,20 @@ const Picture: React.FC = () => {
 	const { picId } = useParams<{ picId: string }>()
 	const navigate = useNavigate()
 	const location = useLocation()
-
 	const { auth } = useContext(AuthContext)
-	console.log(auth)
-	if (localStorage.getItem('auth')) {
-		console.log(JSON.parse(localStorage.getItem('auth')!).access_token)
-	}
 	const { isToggled, toggle } = useToggle(false)
 
 	useEffect(() => {
 		if (picId) {
 			getPic(parseInt(picId))
 				.then(({ data }) => {
-					console.log(data)
 					setComments(data.comments)
 					setCaption(data.caption)
 					setDescription(data.description)
 					setUsername(data.username)
 					setImgPath(SERVER_BASE_URL + data.img_path)
 					setCreatedAt(data.created_at)
+
 					if (data.is_liked) {
 						toggle()
 					}
@@ -64,7 +59,6 @@ const Picture: React.FC = () => {
 			if (picId) {
 				const res = await postComment(parseInt(picId), comment)
 				setComments(prev => [...prev, res.data])
-				console.log(res)
 			}
 		} catch (err: any) {
 			alert('Error posting comment. Please try again later!')

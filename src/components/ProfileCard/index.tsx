@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
 import {
@@ -17,13 +17,17 @@ import { unfollowUser, followUser } from '../../api/users'
 import { EDIT_PROFILE } from '../../constants/routes'
 
 const ProfileCard = ({ props }: { props: ProfileCardProps }) => {
+	const [isFollowed, setIsFollowed] = useState<boolean | undefined>(
+		props.is_followed
+	)
 	const { auth } = useContext(AuthContext)
 	const navigate = useNavigate()
 
 	async function handleClickButton() {
-		switch (props.isFollowed) {
+		switch (isFollowed) {
 			case true:
 				const res = await unfollowUser(props.username)
+				setIsFollowed(false)
 				console.log(res)
 				break
 
@@ -32,6 +36,7 @@ const ProfileCard = ({ props }: { props: ProfileCardProps }) => {
 					navigate(EDIT_PROFILE)
 				} else {
 					const res = await followUser(props.username)
+					setIsFollowed(true)
 					console.log(res)
 				}
 				break
@@ -50,12 +55,12 @@ const ProfileCard = ({ props }: { props: ProfileCardProps }) => {
 				</Stats>
 				{auth && (
 					<Button
-						color={props.isFollowed ? 'gray' : 'green'}
+						color={isFollowed ? 'gray' : 'green'}
 						onClick={handleClickButton}
 					>
 						{auth.username === props.username
 							? 'Edit Profile'
-							: props.isFollowed
+							: isFollowed
 							? 'Unfollow'
 							: 'Follow'}
 					</Button>

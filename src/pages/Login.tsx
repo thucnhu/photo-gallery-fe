@@ -40,6 +40,7 @@ const Login: React.FC = () => {
 				})
 			)
 			navigate(state?.path || HOME)
+			window.location.reload()
 		} catch (err: any) {
 			if (!err?.response) {
 				setErrMsg('Network Error')

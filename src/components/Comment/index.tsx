@@ -8,13 +8,13 @@ import {
 } from '../../components/Post/post'
 import { Icon } from '../../components'
 import { Container, Text } from './comment'
-import { CommentType } from '../../types/props'
+import { CommentProps } from '../../types/props'
 import useToggle from '../../hooks/useToggle'
 import { postCommentLike, deleteCommentLike } from '../../api/likes'
 import { useContext } from 'react'
 import AuthContext from '../../context/AuthContext'
 
-const Comment = ({ comment }: { comment: CommentType }) => {
+const Comment = ({ comment }: { comment: CommentProps }) => {
 	const { isToggled, toggle } = useToggle(comment.is_liked)
 	const { auth } = useContext(AuthContext)
 

@@ -3,10 +3,10 @@ import PicCard from '../PicCard'
 import { Column, Container } from './grid'
 import { SERVER_BASE_URL } from '../../constants/routes'
 import { getHomePic } from '../../api/pictures'
-import { Picture } from '../../types/props'
+import { PictureProps } from '../../types/props'
 
 const Grid: React.FC = () => {
-	const [pictures, setPictures] = useState<Picture[]>()
+	const [pictures, setPictures] = useState<PictureProps[]>()
 	const NUM_COL = 5
 	let numPicPerCol = 0
 

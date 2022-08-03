@@ -1,3 +1,5 @@
+import { useContext } from 'react'
+import AuthContext from '../../context/AuthContext'
 import {
 	Stats,
 	Posts,
@@ -8,38 +10,32 @@ import {
 	Info,
 	Username,
 } from './profileCard'
-import { RestPropsWithChildren } from '../../types/props'
+import { Button } from '../'
+import { ProfileCardProps } from '../../types/props'
 
-const ProfileCard = ({ children, ...props }: RestPropsWithChildren) => {
-	return <Container {...props}>{children}</Container>
-}
+const ProfileCard = ({ props }: { props: ProfileCardProps }) => {
+	const { auth } = useContext(AuthContext)
 
-ProfileCard.Posts = ({ children, ...props }: RestPropsWithChildren) => {
-	return <Posts {...props}>{children}</Posts>
-}
-
-ProfileCard.Followers = ({ children, ...props }: RestPropsWithChildren) => {
-	return <Followers {...props}>{children}</Followers>
-}
-
-ProfileCard.Following = ({ children, ...props }: RestPropsWithChildren) => {
-	return <Following {...props}>{children}</Following>
-}
-
-ProfileCard.Info = ({ children, ...props }: RestPropsWithChildren) => {
-	return <Info {...props}>{children}</Info>
-}
-
-ProfileCard.Username = ({ children, ...props }: RestPropsWithChildren) => {
-	return <Username {...props}>{children}</Username>
-}
-
-ProfileCard.Stats = ({ children, ...props }: RestPropsWithChildren) => {
-	return <Stats {...props}>{children}</Stats>
-}
-
-ProfileCard.Avatar = ({ ...props }: RestPropsWithChildren) => {
-	return <Avatar {...props} />
+	return (
+		<Container>
+			<Avatar src='https://i.pravatar.cc/300' />
+			<Info>
+				<Username>{props.username}</Username>
+				<Stats>
+					<Posts>{props.posts} posts</Posts>
+					<Followers>{props.followers} followers</Followers>
+					<Following>{props.following} following</Following>
+				</Stats>
+				<Button color={props.isSubscribed ? 'gray' : 'green'}>
+					{auth?.username === props.username
+						? 'Edit Profile'
+						: props.isSubscribed
+						? 'Unsubscribe'
+						: 'Subscribe'}
+				</Button>
+			</Info>
+		</Container>
+	)
 }
 
 export default ProfileCard

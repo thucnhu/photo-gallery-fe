@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import { useParams, useNavigate, Link, useLocation } from 'react-router-dom'
 import { Alert, Post, PrimaryContainer, Comment, Icon } from '../components'
 import { LOG_IN, SERVER_BASE_URL } from '../constants/routes'
-import { CommentType } from '../types/props'
+import { CommentProps } from '../types/props'
 import AuthContext from '../context/AuthContext'
 import postComment from '../api/comments'
 import { getPic } from '../api/pictures'
@@ -11,7 +11,7 @@ import { postPicLike, deletePicLike } from '../api/likes'
 
 const Picture: React.FC = () => {
 	const [comment, setComment] = useState<string>('')
-	const [comments, setComments] = useState<CommentType[]>([])
+	const [comments, setComments] = useState<CommentProps[]>([])
 	const [caption, setCaption] = useState<string>('')
 	const [description, setDescription] = useState<string>('')
 	const [imgPath, setImgPath] = useState<string>('')

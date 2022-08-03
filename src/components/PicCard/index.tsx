@@ -8,10 +8,10 @@ import {
 	Likes,
 	Comments,
 } from './picCard'
-import { PicCardProp } from '../../types/props'
+import { PicCardProps } from '../../types/props'
 import { useNavigate } from 'react-router-dom'
 
-const PicCard: React.FC<PicCardProp> = prop => {
+const PicCard: React.FC<PicCardProps> = prop => {
 	const navigate = useNavigate()
 
 	return (

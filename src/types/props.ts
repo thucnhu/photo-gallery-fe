@@ -4,7 +4,15 @@ export type RestPropsWithChildren = React.PropsWithChildren & {
 	[key: string]: any
 }
 
-export type CommentType = {
+export type ProfileCardProps = {
+	username: string
+	followers: number
+	following: number
+	posts: number
+	isSubscribed?: boolean
+}
+
+export type CommentProps = {
 	id: number
 	username: string
 	text: string
@@ -12,7 +20,7 @@ export type CommentType = {
 	created_at: string
 }
 
-export type Picture = {
+export type PictureProps = {
 	id: number
 	caption: string
 	description: string
@@ -20,7 +28,7 @@ export type Picture = {
 	username: string
 }
 
-export type PicCardProp = {
+export type PicCardProps = {
 	id: number
 	src: string
 	description: string

@@ -6,14 +6,18 @@ export const Container = styled.div`
 	width: 100%;
 	align-items: center;
 	justify-content: flex-start;
+	height: 140px;
+	@media (max-width: 665px) {
+		height: 100px;
+	}
 `
 
 export const Avatar = styled.img`
-	width: 140px;
-	height: 140px;
+	height: 100%;
 	border-radius: 50%;
 	margin-right: 4rem;
 	object-fit: cover;
+	border: 0.5px solid var(--gray);
 `
 
 export const Info = styled.div`
@@ -21,6 +25,7 @@ export const Info = styled.div`
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: flex-start;
+	height: 80%;
 `
 
 export const Username = styled.h1``
@@ -31,10 +36,17 @@ export const Stats = styled.div`
 	width: 350px;
 	justify-content: space-between;
 	align-items: center;
+	@media (max-width: 665px) {
+		display: none;
+	}
 `
 
 export const Posts = styled.p``
 
-export const Followers = styled.p``
+export const Followers = styled.p`
+	cursor: pointer;
+`
 
-export const Following = styled.p``
+export const Following = styled.p`
+	cursor: pointer;
+`

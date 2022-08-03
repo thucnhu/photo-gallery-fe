@@ -20,18 +20,22 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
 
 	async function handleLike() {
 		try {
-			if (comment.id && auth) {
+			if (comment.id) {
 				await postCommentLike(comment.id.toString())
 				toggle()
 			}
 		} catch (err: any) {
-			alert('Error occured. Please try again later!')
+			if (err.response?.status === 401) {
+				alert('Please log in to like this comment')
+			} else {
+				alert('Please try again later!')
+			}
 		}
 	}
 
 	async function handleUnlike() {
 		try {
-			if (comment.id && auth) {
+			if (comment.id) {
 				await deleteCommentLike(comment.id.toString())
 				toggle()
 			}

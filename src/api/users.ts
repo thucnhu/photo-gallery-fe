@@ -4,4 +4,12 @@ function getProfile(username: string) {
 	return axios.get(`/${username}`)
 }
 
-export { getProfile }
+function followUser(username: string) {
+	return axios.post(`/${username}/follow`)
+}
+
+function unfollowUser(username: string) {
+	return axios.delete(`/${username}/follow`)
+}
+
+export { getProfile, followUser, unfollowUser }

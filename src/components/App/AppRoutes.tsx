@@ -7,8 +7,16 @@ import {
 	Upload,
 	Error,
 	Profile,
+	EditProfile,
 } from '../../pages'
-import { HOME, UPLOAD, SIGN_UP, LOG_IN, PICTURE } from '../../constants/routes'
+import {
+	HOME,
+	UPLOAD,
+	SIGN_UP,
+	LOG_IN,
+	PICTURE,
+	EDIT_PROFILE,
+} from '../../constants/routes'
 import { Route, Routes } from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
 import ProtectedRoute from '../../auth/ProtectedRoute'
@@ -22,7 +30,6 @@ const AppRoutes: React.FC = () => {
 		if (currAuth) {
 			setAuth(JSON.parse(currAuth))
 		}
-
 		setIsLoaded(true)
 	}, [setAuth])
 
@@ -32,6 +39,7 @@ const AppRoutes: React.FC = () => {
 				<Routes>
 					<Route element={<ProtectedRoute />}>
 						<Route path={UPLOAD} element={<Upload />} />
+						<Route path={EDIT_PROFILE} element={<EditProfile />} />
 					</Route>
 					<Route path={HOME} element={<Home />} />
 					<Route path={PICTURE} element={<Picture />} />

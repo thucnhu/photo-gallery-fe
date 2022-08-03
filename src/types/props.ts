@@ -9,7 +9,7 @@ export type ProfileCardProps = {
 	followers: number
 	following: number
 	posts: number
-	isSubscribed?: boolean
+	isFollowed?: boolean
 	pictures: PictureProps[]
 }
 

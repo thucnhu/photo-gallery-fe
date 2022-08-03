@@ -7,6 +7,6 @@ export const Container = styled.div<{ gray?: boolean }>`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 1.8rem 7vw 3rem 7vw;
+	padding: 1.8rem 5vw 3rem 5vw;
 	background-color: ${props => (props.gray ? 'var(--gray)' : 'var(--white)')};
 `

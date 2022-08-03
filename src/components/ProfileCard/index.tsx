@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
 import {
 	Stats,
@@ -12,9 +13,30 @@ import {
 } from './profileCard'
 import { Button } from '../'
 import { ProfileCardProps } from '../../types/props'
+import { unfollowUser, followUser } from '../../api/users'
+import { EDIT_PROFILE } from '../../constants/routes'
 
 const ProfileCard = ({ props }: { props: ProfileCardProps }) => {
 	const { auth } = useContext(AuthContext)
+	const navigate = useNavigate()
+
+	async function handleClickButton() {
+		switch (props.isFollowed) {
+			case true:
+				const res = await unfollowUser(props.username)
+				console.log(res)
+				break
+
+			default:
+				if (auth?.username === props.username) {
+					navigate(EDIT_PROFILE)
+				} else {
+					const res = await followUser(props.username)
+					console.log(res)
+				}
+				break
+		}
+	}
 
 	return (
 		<Container>
@@ -26,13 +48,18 @@ const ProfileCard = ({ props }: { props: ProfileCardProps }) => {
 					<Followers>{props.followers} followers</Followers>
 					<Following>{props.following} following</Following>
 				</Stats>
-				<Button color={props.isSubscribed ? 'gray' : 'green'}>
-					{auth?.username === props.username
-						? 'Edit Profile'
-						: props.isSubscribed
-						? 'Unfollow'
-						: 'Follow'}
-				</Button>
+				{auth && (
+					<Button
+						color={props.isFollowed ? 'gray' : 'green'}
+						onClick={handleClickButton}
+					>
+						{auth.username === props.username
+							? 'Edit Profile'
+							: props.isFollowed
+							? 'Unfollow'
+							: 'Follow'}
+					</Button>
+				)}
 			</Info>
 		</Container>
 	)

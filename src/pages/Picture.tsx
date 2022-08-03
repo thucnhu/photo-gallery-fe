@@ -23,10 +23,14 @@ const Picture: React.FC = () => {
 	const location = useLocation()
 
 	const { auth } = useContext(AuthContext)
+	console.log(auth)
+	if (localStorage.getItem('auth')) {
+		console.log(JSON.parse(localStorage.getItem('auth')!).access_token)
+	}
 	const { isToggled, toggle } = useToggle(false)
 
 	useEffect(() => {
-		if (picId && auth) {
+		if (picId) {
 			getPic(parseInt(picId))
 				.then(({ data }) => {
 					console.log(data)
@@ -69,12 +73,16 @@ const Picture: React.FC = () => {
 
 	async function handleLike() {
 		try {
-			if (picId && auth) {
+			if (picId) {
 				await postPicLike(picId.toString())
 				toggle()
 			}
 		} catch (err: any) {
-			alert('Error occured. Please try again later!')
+			if (err.response?.status === 401) {
+				alert('Please log in to like this picture')
+			} else {
+				alert('Please try again later!')
+			}
 		}
 	}
 

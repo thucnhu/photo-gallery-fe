@@ -15,7 +15,7 @@ import { useContext } from 'react'
 import AuthContext from '../../context/AuthContext'
 
 const Comment = ({ comment }: { comment: CommentType }) => {
-	const { isToggled, toggle } = useToggle(comment.isLiked)
+	const { isToggled, toggle } = useToggle(comment.is_liked)
 	const { auth } = useContext(AuthContext)
 
 	async function handleLike() {

@@ -23,7 +23,6 @@ const Picture: React.FC = () => {
 	const location = useLocation()
 
 	const { auth } = useContext(AuthContext)
-	// console.log(auth)
 	const { isToggled, toggle } = useToggle(false)
 
 	useEffect(() => {

@@ -5,17 +5,18 @@ export const Container = styled.div`
 	flex-direction: row;
 	width: 100%;
 	align-items: center;
-	justify-content: flex-start;
+	justify-content: center;
 	height: 140px;
 	@media (max-width: 665px) {
 		height: 100px;
 	}
+	margin-bottom: 1rem;
 `
 
 export const Avatar = styled.img`
 	height: 100%;
 	border-radius: 50%;
-	margin-right: 4rem;
+	margin-right: 3rem;
 	object-fit: cover;
 	border: 0.5px solid var(--gray);
 `

@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from '../api/axios'
 import {
 	Editor,
 	CenterContainer,
@@ -8,7 +7,6 @@ import {
 	UploadCard,
 	Button,
 } from '../components'
-import { UPLOAD } from '../constants/routes'
 import backgroundImg from '../images/upload.jpeg'
 import AuthContext from '../context/AuthContext'
 import { postPic } from '../api/pictures'

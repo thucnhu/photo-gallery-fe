@@ -1,17 +1,30 @@
-import React from 'react'
-import { PrimaryContainer, ProfileCard } from '../components'
+import React, { useEffect, useState } from 'react'
+import { Grid, PrimaryContainer, ProfileCard } from '../components'
 import { ProfileCardProps } from '../types/props'
+import { getProfile } from '../api/users'
+
 const Profile: React.FC = () => {
-	let data = {
-		username: 'thucnhu',
-		followers: 200,
-		following: 200,
-		posts: 10,
-	} as ProfileCardProps
+	const [profile, setProfile] = useState<ProfileCardProps>()
+	const username = window.location.pathname.split('/')[1]
+
+	useEffect(() => {
+		getProfile(username)
+			.then(res => {
+				setProfile(res.data)
+				console.log(res.data)
+			})
+			.catch(err => console.log(err))
+	}, [])
+
 	return (
-		<PrimaryContainer>
-			<ProfileCard props={data} />
-		</PrimaryContainer>
+		<>
+			{profile && (
+				<PrimaryContainer>
+					<ProfileCard props={profile} />
+					<Grid pictures={profile.pictures} />
+				</PrimaryContainer>
+			)}
+		</>
 	)
 }
 

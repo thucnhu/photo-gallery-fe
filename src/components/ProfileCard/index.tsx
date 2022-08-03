@@ -30,8 +30,8 @@ const ProfileCard = ({ props }: { props: ProfileCardProps }) => {
 					{auth?.username === props.username
 						? 'Edit Profile'
 						: props.isSubscribed
-						? 'Unsubscribe'
-						: 'Subscribe'}
+						? 'Unfollow'
+						: 'Follow'}
 				</Button>
 			</Info>
 		</Container>

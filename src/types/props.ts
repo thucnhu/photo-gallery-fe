@@ -10,6 +10,7 @@ export type ProfileCardProps = {
 	following: number
 	posts: number
 	isSubscribed?: boolean
+	pictures: PictureProps[]
 }
 
 export type CommentProps = {

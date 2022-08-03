@@ -4,7 +4,7 @@ import { SERVER_BASE_URL } from '../../constants/routes'
 import { PictureProps } from '../../types/props'
 
 const Grid = ({ pictures }: { pictures: PictureProps[] }) => {
-	const NUM_COL = 5
+	const NUM_COL = 4
 	let numPicPerCol = 0
 
 	if (pictures?.length !== undefined)

@@ -26,6 +26,8 @@ const Header: React.FC = () => {
 
 	function logout() {
 		localStorage.removeItem('auth')
+		localStorage.setItem('isLoggedOut', 'true')
+		window.location.reload()
 	}
 
 	return (
@@ -62,9 +64,7 @@ const Header: React.FC = () => {
 					)}
 					{isOpen && (
 						<Popup>
-							{auth && (
-								<PopupItem to={'/' + auth.username}>Profile</PopupItem>
-							)}
+							<PopupItem to={'/' + auth?.username}>Profile</PopupItem>
 							<PopupItem to={UPLOAD}>Upload</PopupItem>
 							<PopupItem to={LOG_IN} onClick={logout}>
 								Log out

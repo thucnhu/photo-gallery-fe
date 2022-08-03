@@ -19,8 +19,14 @@ const AppRoutes: React.FC = () => {
 
 	useEffect(() => {
 		let currAuth = localStorage.getItem('auth')
+		let isLoggedOut = localStorage.getItem('isLoggedOut')
+
 		if (currAuth) {
 			setAuth(JSON.parse(currAuth))
+			setIsLoaded(true)
+		}
+
+		if (isLoggedOut) {
 			setIsLoaded(true)
 		}
 	}, [setAuth])

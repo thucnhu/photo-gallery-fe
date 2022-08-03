@@ -1,15 +1,24 @@
-import React, { useContext } from 'react'
+import React, { useEffect, useState } from 'react'
+import { getHomePic } from '../api/pictures'
 import { PrimaryContainer, Grid } from '../components'
-import AuthContext from '../context/AuthContext'
+import { PictureProps } from '../types/props'
 
 const Home: React.FC = () => {
+	const [pictures, setPictures] = useState<PictureProps[]>()
+
+	useEffect(() => {
+		getHomePic()
+			.then(res => setPictures(res.data))
+			.catch(err => console.log(err))
+	}, [])
+
 	return (
 		<PrimaryContainer gray>
 			{/* <Labels>
 				<LabelItem>Trending</LabelItem>
 				<LabelItem>Recent</LabelItem>
 			</Labels> */}
-			<Grid />
+			{pictures && <Grid pictures={pictures} />}
 		</PrimaryContainer>
 	)
 }

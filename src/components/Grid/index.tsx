@@ -1,20 +1,11 @@
-import React, { useEffect, useState } from 'react'
 import PicCard from '../PicCard'
 import { Column, Container } from './grid'
 import { SERVER_BASE_URL } from '../../constants/routes'
-import { getHomePic } from '../../api/pictures'
 import { PictureProps } from '../../types/props'
 
-const Grid: React.FC = () => {
-	const [pictures, setPictures] = useState<PictureProps[]>()
+const Grid = ({ pictures }: { pictures: PictureProps[] }) => {
 	const NUM_COL = 5
 	let numPicPerCol = 0
-
-	useEffect(() => {
-		getHomePic()
-			.then(res => setPictures(res.data))
-			.catch(err => console.log(err))
-	}, [])
 
 	if (pictures?.length !== undefined)
 		numPicPerCol = Math.round(pictures?.length / NUM_COL)

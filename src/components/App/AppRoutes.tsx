@@ -1,5 +1,13 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { Home, Picture, Signup, Login, Upload, Error } from '../../pages'
+import {
+	Home,
+	Picture,
+	Signup,
+	Login,
+	Upload,
+	Error,
+	Profile,
+} from '../../pages'
 import { HOME, UPLOAD, SIGN_UP, LOG_IN, PICTURE } from '../../constants/routes'
 import { Route, Routes } from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
@@ -26,6 +34,7 @@ const AppRoutes: React.FC = () => {
 					</Route>
 					<Route path={HOME} element={<Home />} />
 					<Route path={PICTURE} element={<Picture />} />
+					<Route path='/:username' element={<Profile />} />
 					<Route path={LOG_IN} element={<Login />} />
 					<Route path={SIGN_UP} element={<Signup />} />
 					<Route path='*' element={<Error />} />

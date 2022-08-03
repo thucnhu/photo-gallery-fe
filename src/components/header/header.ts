@@ -9,17 +9,11 @@ export const Container = styled.header`
 	position: sticky;
 	top: 0;
 	display: flex;
-	justify-content: center;
-	align-items: center;
-	z-index: 100;
-`
-
-export const Inner = styled.div`
-	width: 95vw;
-	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
+	z-index: 100;
+	padding: 0 2.5vw;
 `
 
 export const InnerLeft = styled.div`
@@ -38,13 +32,16 @@ export const InnerRight = styled.div`
 
 export const Logo = styled.img`
 	height: 30px;
+	margin-right: 1.5rem;
 `
 
 export const Menu = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-start;
-	margin-left: 2rem;
+	@media (max-width: 530px) {
+		display: none;
+	}
 `
 
 export const MenuItem = styled(NavLink)`
@@ -56,11 +53,11 @@ export const MenuItem = styled(NavLink)`
 	padding: 0.5em 1em;
 	font-size: 0.95rem;
 	border-radius: 6px;
-	margin-right: 1rem;
+	margin-right: 0.5rem;
 	text-decoration: none;
-	@media (max-width: 770px) {
+	/* @media (max-width: 770px) {
 		display: none;
-	}
+	} */
 	transition: all 0.35s ease-in-out;
 `
 
@@ -68,8 +65,9 @@ export const SearchBar = styled.form`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin: 0 1rem;
 
-	@media (max-width: 770px) {
+	@media (max-width: 850px) {
 		display: none;
 	}
 `

@@ -83,7 +83,7 @@ export const SearchInput = styled.input`
 	height: 40px;
 `
 
-export const Profile = styled.div<{ onClick: any }>`
+export const Profile = styled.div`
 	display: flex;
 	margin-left: 2rem;
 	cursor: pointer;
@@ -103,6 +103,7 @@ export const Avatar = styled.img`
 `
 
 export const Popup = styled.div`
+	transition: all 0.35s ease-in-out;
 	width: 120px;
 	height: auto;
 	background-color: white;
@@ -110,7 +111,7 @@ export const Popup = styled.div`
 	box-shadow: var(--shadow-lg);
 	position: absolute;
 	top: 67px;
-	right: 10px;
+	right: 7px;
 	display: flex;
 	flex-direction: column;
 	padding: 0.5em 0;

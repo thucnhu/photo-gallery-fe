@@ -17,11 +17,12 @@ import {
 } from './header'
 import logo from '../../images/zalopay_logo.svg'
 import { HOME, UPLOAD, LOG_IN } from '../../constants/routes'
+import useClickOutside from '../../hooks/useClickOutside'
 
 const Header: React.FC = () => {
 	const [searchValue, setSearchValue] = useState<string>('')
 	const [isOpen, setIsOpen] = useState<boolean>(false)
-
+	const clickRef = useClickOutside(() => setIsOpen(false))
 	const { auth } = useContext(AuthContext)
 
 	return (
@@ -44,12 +45,12 @@ const Header: React.FC = () => {
 							value={searchValue}
 						/>
 					</SearchBar>
-					<Profile onClick={setIsOpen(!isOpen)}>
+					<Profile onClick={() => setIsOpen(!isOpen)}>
 						<Avatar src='https://i.pravatar.cc/300' alt='profile' />
 						<p>{auth?.username}</p>
 					</Profile>
 					{isOpen && (
-						<Popup>
+						<Popup ref={clickRef}>
 							{auth && (
 								<PopupItem to={'/' + auth.username}>Profile</PopupItem>
 							)}

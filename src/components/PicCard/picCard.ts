@@ -6,6 +6,7 @@ export const Container = styled.div`
 	vertical-align: middle;
 	box-shadow: var(--shadow-md);
 	margin: 1.5rem 0;
+	cursor: pointer;
 `
 
 export const ImgContainer = styled.div`

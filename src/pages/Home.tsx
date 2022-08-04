@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getHomePic } from '../api/pictures'
-import { PrimaryContainer, Grid } from '../components'
+import { PrimaryContainer, Grid, Filter } from '../components'
 import { PictureProps } from '../types/props'
 
 const Home: React.FC = () => {
@@ -14,10 +14,12 @@ const Home: React.FC = () => {
 
 	return (
 		<PrimaryContainer gray>
-			{/* <Labels>
-				<LabelItem>Trending</LabelItem>
-				<LabelItem>Recent</LabelItem>
-			</Labels> */}
+			<Filter>
+				<Filter.Label>All</Filter.Label>
+				<Filter.Label>Trending</Filter.Label>
+				<Filter.Label>Subscribed Topics</Filter.Label>
+				<Filter.Label>Following</Filter.Label>
+			</Filter>
 			{pictures && <Grid pictures={pictures} />}
 		</PrimaryContainer>
 	)

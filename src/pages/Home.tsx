@@ -18,7 +18,7 @@ const Home: React.FC = () => {
 				setSubscribed(res.data.subscribed)
 				setFollowing(res.data.following)
 			})
-			.catch(err => console.log(err))
+			.catch(err => alert('Error loading images. Please try again later.'))
 	}, [])
 
 	function handleFilter(state: FilterProps) {

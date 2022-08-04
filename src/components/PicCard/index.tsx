@@ -9,6 +9,8 @@ import {
 } from './picCard'
 import { PicCardProps } from '../../types/props'
 import { useNavigate } from 'react-router-dom'
+import { FiHeart } from 'react-icons/fi'
+import { BiCommentDetail } from 'react-icons/bi'
 
 const PicCard: React.FC<PicCardProps> = prop => {
 	const navigate = useNavigate()
@@ -18,8 +20,13 @@ const PicCard: React.FC<PicCardProps> = prop => {
 			<Image src={prop.src} alt='image' />
 			<Description>{prop.description}</Description>
 			<Stats>
-				<Likes>{prop.likes}</Likes>
-				<Comments>{prop.comments}</Comments>
+				<Likes>
+					<FiHeart style={{ marginRight: '0.4rem' }} /> {prop.likes}
+				</Likes>
+				<Comments>
+					<BiCommentDetail style={{ marginRight: '0.4rem' }} />
+					{prop.comments}
+				</Comments>
 			</Stats>
 		</Container>
 	)

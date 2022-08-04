@@ -28,6 +28,7 @@ const Picture: React.FC = () => {
 		if (picId) {
 			getPic(parseInt(picId))
 				.then(({ data }) => {
+					console.log(data)
 					setComments(data.comments)
 					setCaption(data.caption)
 					setDescription(data.description)
@@ -58,9 +59,11 @@ const Picture: React.FC = () => {
 		try {
 			if (picId) {
 				const res = await postComment(parseInt(picId), comment)
-				setComments(prev => [...prev, res.data])
+				if (comments) setComments(prev => [...prev, res.data])
+				else setComments([res.data])
 			}
 		} catch (err: any) {
+			console.log(err)
 			alert('Error posting comment. Please try again later!')
 		}
 	}

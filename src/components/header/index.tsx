@@ -23,13 +23,13 @@ const Header: React.FC = () => {
 	const [searchValue, setSearchValue] = useState<string>('')
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 	const clickRef = useClickOutside(() => setIsOpen(false))
-	const { auth } = useContext(AuthContext)
+	const { auth, setAuth } = useContext(AuthContext)
 	const navigate = useNavigate()
 
 	function logout() {
 		localStorage.removeItem('auth')
+		setAuth(null)
 		navigate(LOG_IN)
-		window.location.reload()
 	}
 
 	return (

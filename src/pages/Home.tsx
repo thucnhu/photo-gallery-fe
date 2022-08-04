@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { getHomePic } from '../api/pictures'
 import { PrimaryContainer, Grid, Filter } from '../components'
 import { FilterProps, PictureProps } from '../types/props'
+import AuthContext from '../context/AuthContext'
 
 const Home: React.FC = () => {
+	const { auth } = useContext(AuthContext)
 	const [all, setAll] = useState<PictureProps[]>()
 	const [trending, setTrending] = useState<PictureProps[]>()
 	const [subscribed, setSubscribed] = useState<PictureProps[]>()
 	const [following, setFollowing] = useState<PictureProps[]>()
 	const [filter, setFilter] = useState<FilterProps>('all')
+
+	console.log(auth)
 
 	useEffect(() => {
 		getHomePic()

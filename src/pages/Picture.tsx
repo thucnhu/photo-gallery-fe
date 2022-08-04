@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useReducer, useContext } from 'react'
 import { useParams, useNavigate, Link, useLocation } from 'react-router-dom'
 import { Alert, Post, PrimaryContainer, Comment, Icon } from '../components'
 import { LOG_IN, SERVER_BASE_URL } from '../constants/routes'
@@ -6,39 +6,99 @@ import { CommentProps } from '../types/props'
 import AuthContext from '../context/AuthContext'
 import postComment from '../api/comments'
 import { getPic } from '../api/pictures'
-import useToggle from '../hooks/useToggle'
 import { postPicLike, deletePicLike } from '../api/likes'
 
-const Picture: React.FC = () => {
-	const [comment, setComment] = useState<string>('')
-	const [comments, setComments] = useState<CommentProps[]>([])
-	const [caption, setCaption] = useState<string>('')
-	const [description, setDescription] = useState<string>('')
-	const [imgPath, setImgPath] = useState<string>('')
-	const [username, setUsername] = useState<string>('')
-	const [createdAt, setCreatedAt] = useState<string>('')
+const initialState = {
+	comments: [],
+	comment: '',
+	caption: '',
+	description: '',
+	imgPath: '',
+	likesCount: 0,
+	commentsCount: 0,
+	isLiked: false,
+	username: '',
+	createdAt: '',
+}
 
+type PictureState = {
+	comments: CommentProps[]
+	comment: string
+	caption: string
+	description: string
+	imgPath: string
+	likesCount: number
+	isLiked: boolean
+	commentsCount: number
+	username: string
+	createdAt: string
+}
+
+type PictureAction =
+	| {
+			type: 'change'
+			field: 'comment' | 'caption' | 'description'
+			payload: string
+	  }
+	| { type: 'likePost' | 'unlikePost' }
+	| { type: 'postComment'; payload: CommentProps[] }
+	| { type: 'render'; payload: PictureState }
+
+function pictureReducer(state: PictureState, action: PictureAction) {
+	switch (action.type) {
+		case 'render':
+			return { ...state, ...action.payload }
+		case 'change':
+			return { ...state, [action.field]: action.payload }
+		case 'likePost':
+			return { ...state, likesCount: state.likesCount + 1, isLiked: true }
+		case 'unlikePost':
+			return { ...state, likesCount: state.likesCount - 1, isLiked: false }
+		case 'postComment':
+			return { ...state, comments: action.payload }
+		default:
+			return state
+	}
+}
+
+const Picture: React.FC = () => {
+	const [pictureState, dispatch] = useReducer(pictureReducer, initialState)
+	const {
+		comments,
+		comment,
+		caption,
+		description,
+		imgPath,
+		likesCount,
+		commentsCount,
+		isLiked,
+		username,
+		createdAt,
+	} = pictureState
 	const { picId } = useParams<{ picId: string }>()
 	const navigate = useNavigate()
 	const location = useLocation()
 	const { auth } = useContext(AuthContext)
-	const { isToggled, toggle } = useToggle(false)
 
 	useEffect(() => {
 		if (picId) {
 			getPic(parseInt(picId))
 				.then(({ data }) => {
-					console.log(data)
-					setComments(data.comments)
-					setCaption(data.caption)
-					setDescription(data.description)
-					setUsername(data.username)
-					setImgPath(SERVER_BASE_URL + data.img_path)
-					setCreatedAt(data.created_at)
-
-					if (data.is_liked) {
-						toggle()
-					}
+					dispatch({
+						type: 'render',
+						payload: {
+							comments: data.comments,
+							comment: '',
+							caption: data.caption,
+							description: data.description,
+							imgPath: SERVER_BASE_URL + data.img_path,
+							likesCount: data.likes_count,
+							commentsCount: data.comments_count,
+							isLiked: data.is_liked,
+							username: data.username,
+							createdAt: data.created_at,
+						},
+					})
 				})
 				.catch(err => {
 					if (err.response?.status === 404) {
@@ -51,7 +111,7 @@ const Picture: React.FC = () => {
 	}, [picId, navigate, auth])
 
 	function handleChangeComment(e: React.ChangeEvent<HTMLInputElement>) {
-		setComment(e.target.value)
+		dispatch({ type: 'change', field: 'comment', payload: e.target.value })
 	}
 
 	async function handlePostComment(e: React.ChangeEvent<HTMLInputElement>) {
@@ -59,8 +119,12 @@ const Picture: React.FC = () => {
 		try {
 			if (picId) {
 				const res = await postComment(parseInt(picId), comment)
-				if (comments) setComments(prev => [...prev, res.data])
-				else setComments([res.data])
+				if (comments)
+					dispatch({
+						type: 'postComment',
+						payload: [...comments, res.data],
+					})
+				else dispatch({ type: 'postComment', payload: [res.data] })
 			}
 		} catch (err: any) {
 			console.log(err)
@@ -72,7 +136,7 @@ const Picture: React.FC = () => {
 		try {
 			if (picId) {
 				await postPicLike(picId.toString())
-				toggle()
+				dispatch({ type: 'likePost' })
 			}
 		} catch (err: any) {
 			if (err.response?.status === 401) {
@@ -87,7 +151,7 @@ const Picture: React.FC = () => {
 		try {
 			if (picId) {
 				await deletePicLike(picId.toString())
-				toggle()
+				dispatch({ type: 'unlikePost' })
 			}
 		} catch (err: any) {
 			alert('Error occured. Please try again later!')
@@ -106,7 +170,7 @@ const Picture: React.FC = () => {
 							<Post.CreatedAt>{createdAt}</Post.CreatedAt>
 						</Post.AvatarRightArea>
 					</Post.AvatarArea>
-					{isToggled ? (
+					{isLiked ? (
 						<Icon.HeartFill onClick={handleUnlike}></Icon.HeartFill>
 					) : (
 						<Icon.Heart onClick={handleLike}></Icon.Heart>

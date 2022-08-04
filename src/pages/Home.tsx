@@ -1,23 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getHomePic } from '../api/pictures'
 import { PrimaryContainer, Grid, Filter } from '../components'
 import { FilterProps, PictureProps } from '../types/props'
-import AuthContext from '../context/AuthContext'
 
 const Home: React.FC = () => {
-	const { auth } = useContext(AuthContext)
 	const [all, setAll] = useState<PictureProps[]>()
 	const [trending, setTrending] = useState<PictureProps[]>()
 	const [subscribed, setSubscribed] = useState<PictureProps[]>()
 	const [following, setFollowing] = useState<PictureProps[]>()
 	const [filter, setFilter] = useState<FilterProps>('all')
 
-	console.log(auth)
-
 	useEffect(() => {
 		getHomePic()
 			.then(res => {
-				console.log(res.data)
 				setAll(res.data.all)
 				setTrending(res.data.trending)
 				setSubscribed(res.data.subscribed)
@@ -46,8 +41,10 @@ const Home: React.FC = () => {
 			</Filter>
 			{filter === 'all' && all && <Grid pictures={all} />}
 			{filter === 'trending' && trending && <Grid pictures={trending} />}
-			{filter === 'all' && subscribed && <Grid pictures={subscribed} />}
-			{filter === 'all' && following && <Grid pictures={following} />}
+			{filter === 'subscribed' && subscribed && (
+				<Grid pictures={subscribed} />
+			)}
+			{filter === 'following' && following && <Grid pictures={following} />}
 		</PrimaryContainer>
 	)
 }

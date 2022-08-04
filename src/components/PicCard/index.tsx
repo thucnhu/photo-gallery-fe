@@ -2,7 +2,6 @@ import React from 'react'
 import {
 	Container,
 	Image,
-	ImgContainer,
 	Description,
 	Stats,
 	Likes,
@@ -16,9 +15,7 @@ const PicCard: React.FC<PicCardProps> = prop => {
 
 	return (
 		<Container onClick={() => navigate(`/pictures/${prop.id.toString()}`)}>
-			<ImgContainer>
-				<Image src={prop.src} alt='image' />
-			</ImgContainer>
+			<Image src={prop.src} alt='image' />
 			<Description>{prop.description}</Description>
 			<Stats>
 				<Likes>{prop.likes}</Likes>

@@ -1,17 +1,12 @@
 import styled from 'styled-components/macro'
 
 export const Container = styled.div`
-	width: 100%;
 	border-radius: 10px;
-	vertical-align: middle;
 	box-shadow: var(--shadow-md);
-	margin: 1.5rem 0;
+	margin-bottom: 1.5rem;
 	cursor: pointer;
-`
-
-export const ImgContainer = styled.div`
-	width: 100%;
-	height: auto;
+	display: block;
+	break-inside: avoid;
 `
 
 export const Image = styled.img`

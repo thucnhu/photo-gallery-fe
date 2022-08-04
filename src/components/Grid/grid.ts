@@ -1,30 +1,19 @@
 import styled from 'styled-components/macro'
 
 export const Container = styled.div`
-	display: flex;
-	flex-wrap: wrap;
-	width: 100%;
-`
-
-export const Column = styled.div`
-	flex: 25%;
-	max-width: 25%;
-	padding: 0 10px;
-
+	columns: 4;
+	column-fill: balance;
+	column-gap: 1.5rem;
+	margin-top: 1.5rem;
 	@media (max-width: 1100px) {
-		flex: calc(100% / 3);
-		max-width: calc(100% / 3);
+		columns: 3;
 	}
 
 	@media (max-width: 800px) {
-		-ms-flex: 50%;
-		flex: 50%;
-		max-width: 50%;
+		columns: 2;
 	}
 
-	@media (max-width: 500px) {
-		-ms-flex: 100%;
-		flex: 100%;
-		max-width: 100%;
+	@media (max-width: 480px) {
+		columns: 1;
 	}
 `

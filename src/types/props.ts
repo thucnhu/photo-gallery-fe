@@ -4,6 +4,8 @@ export type RestPropsWithChildren = React.PropsWithChildren & {
 	[key: string]: any
 }
 
+export type FilterProps = 'all' | 'following' | 'subscribed' | 'trending'
+
 export type ProfileCardProps = {
 	username: string
 	followers: number
@@ -26,7 +28,7 @@ export type PictureProps = {
 	caption: string
 	description: string
 	img_path: string
-	username: string
+	username?: string
 }
 
 export type PicCardProps = {

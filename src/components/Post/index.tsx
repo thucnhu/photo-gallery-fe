@@ -12,11 +12,26 @@ import {
 	CommentForm,
 	CommentInput,
 	InfoArea,
+	Stats,
+	LikesCount,
+	CommentsCount,
 } from './post'
 import { RestPropsWithChildren } from '../../types/props'
 
 const Post = ({ children, ...props }: RestPropsWithChildren) => {
 	return <Container {...props}>{children}</Container>
+}
+
+Post.Stats = ({ children, ...props }: RestPropsWithChildren) => {
+	return <Stats {...props}>{children}</Stats>
+}
+
+Post.LikesCount = ({ children, ...props }: RestPropsWithChildren) => {
+	return <LikesCount {...props}>{children}</LikesCount>
+}
+
+Post.CommentsCount = ({ children, ...props }: RestPropsWithChildren) => {
+	return <CommentsCount {...props}>{children}</CommentsCount>
 }
 
 Post.CommentInput = ({ children, ...props }: RestPropsWithChildren) => {

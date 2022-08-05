@@ -1,9 +1,8 @@
-import React, { useEffect, useReducer, useContext } from 'react'
-import { useParams, useNavigate, Link, useLocation } from 'react-router-dom'
-import { Alert, Post, PrimaryContainer, Comment, Icon } from '../components'
-import { LOG_IN, SERVER_BASE_URL } from '../constants/routes'
+import React, { useEffect, useReducer } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+import { Post, PrimaryContainer, Comment, Icon } from '../components'
+import { SERVER_BASE_URL } from '../constants/routes'
 import { CommentProps } from '../types/props'
-import AuthContext from '../context/AuthContext'
 import postComment from '../api/comments'
 import { getPic } from '../api/pictures'
 import { postPicLike, deletePicLike } from '../api/likes'
@@ -55,7 +54,12 @@ function pictureReducer(state: PictureState, action: PictureAction) {
 		case 'unlikePost':
 			return { ...state, likesCount: state.likesCount - 1, isLiked: false }
 		case 'postComment':
-			return { ...state, comments: action.payload }
+			return {
+				...state,
+				comments: action.payload,
+				commentsCount: state.commentsCount + 1,
+				comment: '',
+			}
 		default:
 			return state
 	}
@@ -77,8 +81,6 @@ const Picture: React.FC = () => {
 	} = pictureState
 	const { picId } = useParams<{ picId: string }>()
 	const navigate = useNavigate()
-	const location = useLocation()
-	const { auth } = useContext(AuthContext)
 
 	useEffect(() => {
 		if (picId) {
@@ -108,7 +110,7 @@ const Picture: React.FC = () => {
 					}
 				})
 		}
-	}, [picId, navigate, auth])
+	}, [picId, navigate])
 
 	function handleChangeComment(e: React.ChangeEvent<HTMLInputElement>) {
 		dispatch({ type: 'change', field: 'comment', payload: e.target.value })
@@ -158,6 +160,10 @@ const Picture: React.FC = () => {
 		}
 	}
 
+	function handleClickDots() {
+		console.log('clicked')
+	}
+
 	return (
 		<PrimaryContainer>
 			<Post>
@@ -170,38 +176,39 @@ const Picture: React.FC = () => {
 							<Post.CreatedAt>{createdAt}</Post.CreatedAt>
 						</Post.AvatarRightArea>
 					</Post.AvatarArea>
-					{isLiked ? (
-						<Icon.HeartFill onClick={handleUnlike}></Icon.HeartFill>
-					) : (
-						<Icon.Heart onClick={handleLike}></Icon.Heart>
-					)}
+					<Icon.ThreeDots onClick={handleClickDots}></Icon.ThreeDots>
 				</Post.InfoArea>
 				<Post.Description>{description}</Post.Description>
 				<Post.Picture src={imgPath} />
 
-				{auth ? (
-					<Post.CommentForm onSubmit={handlePostComment}>
-						<Post.CommentInput
-							type='text'
-							name='comment'
-							value={comment}
-							onChange={handleChangeComment}
-							placeholder='Write a comment...'
-							required
-						/>
-						<Post.CommentButton type='submit' color='gray'>
-							Send
-						</Post.CommentButton>
-					</Post.CommentForm>
-				) : (
-					<Alert>
-						Please{' '}
-						<Link to={LOG_IN} replace state={{ path: location.pathname }}>
-							log in
-						</Link>{' '}
-						to post your comment
-					</Alert>
-				)}
+				<Post.Stats>
+					<Post.LikesCount>
+						{isLiked ? (
+							<Icon.HeartFill onClick={handleUnlike}></Icon.HeartFill>
+						) : (
+							<Icon.Heart onClick={handleLike}></Icon.Heart>
+						)}
+						{likesCount}
+					</Post.LikesCount>
+					<Post.CommentsCount>
+						<Icon.Comment></Icon.Comment>
+						{commentsCount}
+					</Post.CommentsCount>
+				</Post.Stats>
+
+				<Post.CommentForm onSubmit={handlePostComment}>
+					<Post.CommentInput
+						type='text'
+						name='comment'
+						value={comment}
+						onChange={handleChangeComment}
+						placeholder='Write a comment...'
+						required
+					/>
+					<Post.CommentButton type='submit' color='gray'>
+						Send
+					</Post.CommentButton>
+				</Post.CommentForm>
 
 				{comments?.map(comment => (
 					<Comment key={comment.id} comment={comment} />

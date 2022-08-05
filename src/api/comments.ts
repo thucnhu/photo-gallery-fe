@@ -7,4 +7,10 @@ function postComment(picId: number, comment: string) {
 	})
 }
 
-export default postComment
+function updateComment(commentId: string, comment: string) {
+	return axios.patch(`/comments/${commentId}`, {
+		text: comment,
+	})
+}
+
+export { postComment, updateComment }

@@ -7,30 +7,35 @@ import {
 	InfoArea,
 	Stats,
 } from '../../components/Post/post'
-import { useEffect, useReducer } from 'react'
+import AuthContext from '../../context/AuthContext'
+import React, { useEffect, useContext, useReducer } from 'react'
 import { Icon } from '../../components'
-import { Container, Text } from './comment'
+import { Container, Text, TextInput } from './comment'
 import { CommentProps } from '../../types/props'
 import { postCommentLike, deleteCommentLike } from '../../api/likes'
+import { updateComment } from '../../api/comments'
 
 const initialState = {
 	text: '',
 	isLiked: false,
 	likesCount: 0,
+	isEditable: false,
 }
 
 type CommentState = typeof initialState
 
 type CommentAction =
-	| { type: 'change'; payload: string }
+	| { type: 'editSucceed' | 'edit'; payload: string }
 	| { type: 'like' }
 	| { type: 'unlike' }
 	| { type: 'render'; payload: CommentState }
 
 function commentReducer(state: CommentState, action: CommentAction) {
 	switch (action.type) {
-		case 'change':
-			return { ...state, text: action.payload }
+		case 'edit':
+			return { ...state, isEditable: true, text: action.payload }
+		case 'editSucceed':
+			return { ...state, text: action.payload, isEditable: false }
 		case 'like':
 			return { ...state, isLiked: true, likesCount: state.likesCount + 1 }
 		case 'unlike':
@@ -44,7 +49,8 @@ function commentReducer(state: CommentState, action: CommentAction) {
 
 const Comment = ({ comment }: { comment: CommentProps }) => {
 	const [state, dispatch] = useReducer(commentReducer, initialState)
-	const { text, isLiked, likesCount } = state
+	const { text, isLiked, likesCount, isEditable } = state
+	const { auth } = useContext(AuthContext)
 
 	useEffect(() => {
 		dispatch({
@@ -53,6 +59,7 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
 				text: comment.text,
 				isLiked: comment.is_liked,
 				likesCount: comment.likes_count,
+				isEditable: false,
 			},
 		})
 	}, [comment])
@@ -83,8 +90,28 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
 		}
 	}
 
-	function handleUpdateComment() {
-		console.log('update comment')
+	function handleChangeComment(e: React.ChangeEvent<HTMLInputElement>) {
+		dispatch({ type: 'edit', payload: e.target.value })
+	}
+
+	async function handleKeyPress(e: React.KeyboardEvent<HTMLInputElement>) {
+		if (e.key === 'Enter') {
+			dispatch({ type: 'editSucceed', payload: text })
+			e.preventDefault()
+			e.stopPropagation()
+
+			if (text !== comment.text) {
+				// only make API request if text has been changed
+				const res = await updateComment(comment.id.toString(), text)
+				console.log(res)
+			}
+		}
+	}
+
+	function handleDoubleClick() {
+		if (auth?.username === comment.username) {
+			dispatch({ type: 'edit', payload: text })
+		}
 	}
 
 	return (
@@ -106,7 +133,15 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
 					{likesCount}
 				</Stats>
 			</InfoArea>
-			<Text>{text}</Text>
+			{isEditable ? (
+				<TextInput
+					value={text}
+					onChange={handleChangeComment}
+					onKeyPress={handleKeyPress}
+				/>
+			) : (
+				<Text onDoubleClick={handleDoubleClick}>{text}</Text>
+			)}
 		</Container>
 	)
 }

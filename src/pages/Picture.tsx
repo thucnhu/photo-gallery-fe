@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { Post, PrimaryContainer, Comment, Icon } from '../components'
 import { SERVER_BASE_URL } from '../constants/routes'
 import { CommentProps } from '../types/props'
-import postComment from '../api/comments'
+import { postComment } from '../api/comments'
 import { getPic } from '../api/pictures'
 import { postPicLike, deletePicLike } from '../api/likes'
 

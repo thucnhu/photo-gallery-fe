@@ -9,7 +9,7 @@ export const Container = styled.div`
 	border-radius: 8px;
 	box-shadow: var(--shadow-lg);
 	position: absolute;
-	top: 60px;
+	top: 65px;
 	right: 5px;
 	display: flex;
 	flex-direction: column;

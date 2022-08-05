@@ -51,30 +51,30 @@ const Header: React.FC = () => {
 					/>
 				</SearchBar>
 
-				<div ref={clickRef} style={{ position: 'relative' }}>
-					{auth ? (
+				{auth ? (
+					<div ref={clickRef} style={{ position: 'relative' }}>
 						<Profile onClick={() => setIsOpen(!isOpen)}>
 							<Avatar src='https://i.pravatar.cc/300' alt='profile' />
 							<p>{auth?.username}</p>
 						</Profile>
-					) : (
-						<Menu>
-							<MenuItem to={LOG_IN}>Log In</MenuItem>
-							<MenuItem to={SIGN_UP}>Sign Up</MenuItem>
-						</Menu>
-					)}
-					{isOpen && (
-						<Popup>
-							<Popup.LinkItem to={'/' + auth?.username}>
-								Profile
-							</Popup.LinkItem>
-							<Popup.LinkItem to={UPLOAD}>Upload</Popup.LinkItem>
-							<Popup.LinkItem to={LOG_IN} onClick={logout}>
-								Log out
-							</Popup.LinkItem>
-						</Popup>
-					)}
-				</div>
+					</div>
+				) : (
+					<Menu>
+						<MenuItem to={LOG_IN}>Log In</MenuItem>
+						<MenuItem to={SIGN_UP}>Sign Up</MenuItem>
+					</Menu>
+				)}
+				{isOpen && (
+					<Popup>
+						<Popup.LinkItem to={'/' + auth?.username}>
+							Profile
+						</Popup.LinkItem>
+						<Popup.LinkItem to={UPLOAD}>Upload</Popup.LinkItem>
+						<Popup.LinkItem to={LOG_IN} onClick={logout}>
+							Log out
+						</Popup.LinkItem>
+					</Popup>
+				)}
 			</InnerRight>
 		</Container>
 	)

@@ -43,7 +43,7 @@ type PictureAction =
 			field: 'comment' | 'caption' | 'description'
 			payload: string
 	  }
-	| { type: 'likePost' | 'unlikePost' | 'openPopup' | 'closePopup' }
+	| { type: 'likePost' | 'unlikePost' | 'closePopup' | 'togglePopup' }
 	| { type: 'postComment'; payload: CommentProps[] }
 	| { type: 'render'; payload: PictureState }
 
@@ -64,10 +64,10 @@ function pictureReducer(state: PictureState, action: PictureAction) {
 				commentsCount: state.commentsCount + 1,
 				comment: '',
 			}
-		case 'openPopup':
-			return { ...state, isOpen: true }
 		case 'closePopup':
 			return { ...state, isOpen: false }
+		case 'togglePopup':
+			return { ...state, isOpen: !state.isOpen }
 		default:
 			return state
 	}
@@ -173,7 +173,7 @@ const Picture: React.FC = () => {
 	}
 
 	function handleClickDots() {
-		dispatch({ type: 'openPopup' })
+		dispatch({ type: 'togglePopup' })
 	}
 
 	function handleEdit() {}
@@ -192,21 +192,19 @@ const Picture: React.FC = () => {
 							<Post.CreatedAt>{createdAt}</Post.CreatedAt>
 						</Post.AvatarRightArea>
 					</Post.AvatarArea>
-					<div ref={clickRef}>
-						{auth?.username === username && (
+					{auth?.username === username && (
+						<div ref={clickRef}>
 							<Icon.ThreeDots onClick={handleClickDots}></Icon.ThreeDots>
-						)}
-						{isOpen && (
-							<Popup>
-								<Popup.Item onClick={handleEdit}>
-									Edit picture
-								</Popup.Item>
-								<Popup.Item onClick={handleDelete}>
-									Delete picture
-								</Popup.Item>
-							</Popup>
-						)}
-					</div>
+						</div>
+					)}
+					{isOpen && (
+						<Popup>
+							<Popup.Item onClick={handleEdit}>Edit picture</Popup.Item>
+							<Popup.Item onClick={handleDelete}>
+								Delete picture
+							</Popup.Item>
+						</Popup>
+					)}
 				</Post.InfoArea>
 				<Post.Description>{description}</Post.Description>
 				<Post.Picture src={imgPath} />

@@ -11,3 +11,5 @@ export const Text = styled.p`
 	border-bottom: 1px solid black;
 	padding-bottom: 0.3em;
 `
+
+export const Stats = styled.div``

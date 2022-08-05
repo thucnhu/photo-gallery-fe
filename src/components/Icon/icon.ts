@@ -9,6 +9,9 @@ export const Container = styled.button<{ small?: boolean }>`
 	width: fit-content;
 	cursor: pointer;
 	font-size: ${props => (props.small ? '0.85rem' : '1.3rem')};
+	display: flex;
+	justify-content: center;
+	align-items: center;
 `
 
 export const Comment = styled(BiCommentDetail)`

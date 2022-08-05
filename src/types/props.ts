@@ -21,7 +21,6 @@ export type CommentProps = {
 	text: string
 	is_liked: boolean
 	likes_count: number
-	comments_count: number
 	created_at: string
 }
 

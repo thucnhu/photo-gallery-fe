@@ -1,11 +1,13 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useEffect, useReducer, useContext } from 'react'
+import AuthContext from '../context/AuthContext'
 import { useParams, useNavigate } from 'react-router-dom'
-import { Post, PrimaryContainer, Comment, Icon } from '../components'
+import { Post, PrimaryContainer, Comment, Icon, Popup } from '../components'
 import { SERVER_BASE_URL } from '../constants/routes'
 import { CommentProps } from '../types/props'
 import { postComment } from '../api/comments'
 import { getPic } from '../api/pictures'
 import { postPicLike, deletePicLike } from '../api/likes'
+import useClickOutside from '../hooks/useClickOutside'
 
 const initialState = {
 	comments: [],
@@ -18,6 +20,7 @@ const initialState = {
 	isLiked: false,
 	username: '',
 	createdAt: '',
+	isOpen: false,
 }
 
 type PictureState = {
@@ -31,6 +34,7 @@ type PictureState = {
 	commentsCount: number
 	username: string
 	createdAt: string
+	isOpen: boolean
 }
 
 type PictureAction =
@@ -39,7 +43,7 @@ type PictureAction =
 			field: 'comment' | 'caption' | 'description'
 			payload: string
 	  }
-	| { type: 'likePost' | 'unlikePost' }
+	| { type: 'likePost' | 'unlikePost' | 'openPopup' | 'closePopup' }
 	| { type: 'postComment'; payload: CommentProps[] }
 	| { type: 'render'; payload: PictureState }
 
@@ -60,6 +64,10 @@ function pictureReducer(state: PictureState, action: PictureAction) {
 				commentsCount: state.commentsCount + 1,
 				comment: '',
 			}
+		case 'openPopup':
+			return { ...state, isOpen: true }
+		case 'closePopup':
+			return { ...state, isOpen: false }
 		default:
 			return state
 	}
@@ -78,9 +86,12 @@ const Picture: React.FC = () => {
 		isLiked,
 		username,
 		createdAt,
+		isOpen,
 	} = pictureState
 	const { picId } = useParams<{ picId: string }>()
 	const navigate = useNavigate()
+	const { auth } = useContext(AuthContext)
+	const clickRef = useClickOutside(() => dispatch({ type: 'closePopup' }))
 
 	useEffect(() => {
 		if (picId) {
@@ -99,6 +110,7 @@ const Picture: React.FC = () => {
 							isLiked: data.is_liked,
 							username: data.username,
 							createdAt: data.created_at,
+							isOpen: false,
 						},
 					})
 				})
@@ -161,8 +173,12 @@ const Picture: React.FC = () => {
 	}
 
 	function handleClickDots() {
-		console.log('clicked')
+		dispatch({ type: 'openPopup' })
 	}
+
+	function handleEdit() {}
+
+	function handleDelete() {}
 
 	return (
 		<PrimaryContainer>
@@ -176,7 +192,21 @@ const Picture: React.FC = () => {
 							<Post.CreatedAt>{createdAt}</Post.CreatedAt>
 						</Post.AvatarRightArea>
 					</Post.AvatarArea>
-					<Icon.ThreeDots onClick={handleClickDots}></Icon.ThreeDots>
+					<div ref={clickRef}>
+						{auth?.username === username && (
+							<Icon.ThreeDots onClick={handleClickDots}></Icon.ThreeDots>
+						)}
+						{isOpen && (
+							<Popup>
+								<Popup.Item onClick={handleEdit}>
+									Edit picture
+								</Popup.Item>
+								<Popup.Item onClick={handleDelete}>
+									Delete picture
+								</Popup.Item>
+							</Popup>
+						)}
+					</div>
 				</Post.InfoArea>
 				<Post.Description>{description}</Post.Description>
 				<Post.Picture src={imgPath} />

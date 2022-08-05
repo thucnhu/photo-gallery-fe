@@ -51,7 +51,7 @@ const Header: React.FC = () => {
 					/>
 				</SearchBar>
 
-				<div ref={clickRef}>
+				<div ref={clickRef} style={{ position: 'relative' }}>
 					{auth ? (
 						<Profile onClick={() => setIsOpen(!isOpen)}>
 							<Avatar src='https://i.pravatar.cc/300' alt='profile' />
@@ -65,11 +65,13 @@ const Header: React.FC = () => {
 					)}
 					{isOpen && (
 						<Popup>
-							<Popup.Item to={'/' + auth?.username}>Profile</Popup.Item>
-							<Popup.Item to={UPLOAD}>Upload</Popup.Item>
-							<Popup.Item to={LOG_IN} onClick={logout}>
+							<Popup.LinkItem to={'/' + auth?.username}>
+								Profile
+							</Popup.LinkItem>
+							<Popup.LinkItem to={UPLOAD}>Upload</Popup.LinkItem>
+							<Popup.LinkItem to={LOG_IN} onClick={logout}>
 								Log out
-							</Popup.Item>
+							</Popup.LinkItem>
 						</Popup>
 					)}
 				</div>

@@ -34,6 +34,7 @@ export const InfoArea = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	height: fit-content;
+	position: relative;
 	width: 100%;
 `
 

@@ -21,6 +21,10 @@ export const Comment = styled(BiCommentDetail)`
 export const ThreeDots = styled(BsThreeDotsVertical)`
 	cursor: pointer;
 	font-size: 1.2rem;
+	:hover {
+		border-radius: 50%;
+		background-color: var(--gray);
+	}
 `
 
 export const HeartFill = styled(BsSuitHeartFill)`

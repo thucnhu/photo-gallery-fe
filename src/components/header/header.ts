@@ -99,31 +99,3 @@ export const Avatar = styled.img`
 		box-shadow: var(--shadow);
 	}
 `
-
-export const Popup = styled.div`
-	transition: all 0.35s ease-in-out;
-	width: 120px;
-	height: auto;
-	background-color: white;
-	border-radius: 8px;
-	box-shadow: var(--shadow-lg);
-	position: absolute;
-	top: 67px;
-	right: 7px;
-	display: flex;
-	flex-direction: column;
-	padding: 0.5em 0;
-	font-size: 0.9rem;
-`
-
-export const PopupItem = styled(NavLink)`
-	padding: 1em;
-	width: 100%;
-	height: auto;
-	cursor: pointer;
-	text-decoration: none;
-	color: black;
-	&:hover {
-		background-color: var(--light-gray);
-	}
-`

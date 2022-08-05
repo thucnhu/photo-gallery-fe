@@ -7,13 +7,12 @@ import {
 	Logo,
 	Menu,
 	MenuItem,
-	Popup,
-	PopupItem,
 	SearchBar,
 	SearchInput,
 	Profile,
 	Avatar,
 } from './header'
+import { Popup } from '../../components'
 import logo from '../../images/zalopay_logo.svg'
 import { HOME, UPLOAD, LOG_IN, SIGN_UP } from '../../constants/routes'
 import useClickOutside from '../../hooks/useClickOutside'
@@ -66,11 +65,11 @@ const Header: React.FC = () => {
 					)}
 					{isOpen && (
 						<Popup>
-							<PopupItem to={'/' + auth?.username}>Profile</PopupItem>
-							<PopupItem to={UPLOAD}>Upload</PopupItem>
-							<PopupItem to={LOG_IN} onClick={logout}>
+							<Popup.Item to={'/' + auth?.username}>Profile</Popup.Item>
+							<Popup.Item to={UPLOAD}>Upload</Popup.Item>
+							<Popup.Item to={LOG_IN} onClick={logout}>
 								Log out
-							</PopupItem>
+							</Popup.Item>
 						</Popup>
 					)}
 				</div>

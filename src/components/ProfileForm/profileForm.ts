@@ -31,7 +31,8 @@ export const Input = styled.input`
 	border: 1px solid var(--dark-gray);
 	border-radius: 2.5px;
 	:focus {
-		border: 2px solid var(--blue);
+		outline: 1px solid var(--blue);
+		border: 1px solid var(--blue);
 	}
 	font-size: 1rem;
 `

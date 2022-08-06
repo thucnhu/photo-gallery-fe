@@ -24,6 +24,13 @@ export type CommentProps = {
 	created_at: string
 }
 
+export type AllPicturesProps = {
+	all: PictureProps[]
+	following: PictureProps[]
+	subscribed: PictureProps[]
+	trending: PictureProps[]
+}
+
 export type PictureProps = {
 	id: number
 	caption: string
@@ -38,6 +45,6 @@ export type PicCardProps = {
 	id: number
 	src: string
 	description: string
-	likes: string
-	comments: string
+	likes_count: number
+	comments_count: number
 }

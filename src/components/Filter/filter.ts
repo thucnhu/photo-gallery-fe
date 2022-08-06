@@ -9,7 +9,7 @@ export const Container = styled.div`
 	margin-bottom: 0.5rem;
 `
 
-export const Label = styled.div`
+export const Label = styled.div<{ focus?: boolean }>`
 	width: fit-content;
 	padding: 0 3em;
 	height: 100%;
@@ -18,14 +18,11 @@ export const Label = styled.div`
 	justify-content: center;
 	cursor: pointer;
 	transition: all 0.25s ease-in-out;
+	border-bottom: ${({ focus }) =>
+		focus ? '2.5px solid var(--blue)' : 'none'};
+
 	:hover {
 		border-bottom: 2.5px solid var(--dark-gray);
-		margin-top: 2.5px;
 		padding-bottom: 1em;
-	}
-
-	:focus {
-		border-bottom: 2.5px solid var(--blue);
-		margin-top: 2.5px;
 	}
 `

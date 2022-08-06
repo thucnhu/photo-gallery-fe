@@ -81,7 +81,7 @@ const Home: React.FC = () => {
 	}, [])
 
 	return (
-		<Container.Primary gray>
+		<>
 			<Filter>
 				<Filter.Label
 					focus={focusAll}
@@ -108,11 +108,13 @@ const Home: React.FC = () => {
 					Following
 				</Filter.Label>
 			</Filter>
-			{focusAll && <Grid pictures={data.all} />}
-			{focusFollowing && <Grid pictures={data.following} />}
-			{focusSubscribed && <Grid pictures={data.subscribed} />}
-			{focusTrending && <Grid pictures={data.trending} />}
-		</Container.Primary>
+			<Container.Primary gray>
+				{focusAll && <Grid pictures={data.all} />}
+				{focusFollowing && <Grid pictures={data.following} />}
+				{focusSubscribed && <Grid pictures={data.subscribed} />}
+				{focusTrending && <Grid pictures={data.trending} />}
+			</Container.Primary>
+		</>
 	)
 }
 

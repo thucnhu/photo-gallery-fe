@@ -2,11 +2,14 @@ import styled from 'styled-components/macro'
 
 export const Container = styled.div`
 	display: flex;
+	position: sticky;
+	top: 60px;
+	background-color: var(--gray);
 	flex-direction: row;
 	justify-content: flex-start;
 	height: 55px;
 	width: 100%;
-	margin-bottom: 0.5rem;
+	padding: 0px 5vw;
 `
 
 export const Label = styled.div<{ focus?: boolean }>`

@@ -90,7 +90,6 @@ export const CommentButton = styled(Button)`
 export const Stats = styled.div`
 	display: flex;
 	flex-direction: row;
-
 	margin-bottom: 0.5rem;
 `
 
@@ -98,11 +97,12 @@ export const LikesCount = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: flex-start;
-	margin-right: 2rem;
+	width: 80px;
 `
 
 export const CommentsCount = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: flex-start;
+	width: 80px;
 `

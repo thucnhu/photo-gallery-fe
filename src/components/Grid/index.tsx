@@ -12,8 +12,8 @@ const Grid = ({ pictures }: { pictures: PictureProps[] }) => {
 					id={pic.id}
 					src={SERVER_BASE_URL + pic.img_path}
 					description={pic.description}
-					likes='200'
-					comments='200'
+					likes={pic.likes_count.toString()}
+					comments={pic.comments_count.toString()}
 				/>
 			))}
 		</Container>

@@ -31,7 +31,7 @@ export const Stats = styled.div`
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	padding: 0.5em 0.7em 0.7em 0.7em;
+	padding: 0.4em 0.7em 0.7em 0.7em;
 `
 
 export const Likes = styled.div`

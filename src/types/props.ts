@@ -30,6 +30,8 @@ export type PictureProps = {
 	description: string
 	img_path: string
 	username?: string
+	likes_count: number
+	comments_count: number
 }
 
 export type PicCardProps = {

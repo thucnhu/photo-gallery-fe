@@ -11,13 +11,11 @@ const Profile: React.FC = () => {
 
 	useEffect(() => {
 		getProfile(username)
-			.then(res => {
-				setProfile(res.data)
-			})
+			.then(res => setProfile(res.data))
 			.catch(err => {
 				if (err.response.status === 404) navigate('*')
 			})
-	}, [])
+	}, [username, navigate])
 
 	return (
 		<>

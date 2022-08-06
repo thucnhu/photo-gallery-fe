@@ -2,7 +2,7 @@ import React, { useReducer, useContext } from 'react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 import { Container, Form } from '../components'
-import { HOME, SIGN_UP } from '../constants/routes'
+import { HOME, SIGN_UP, SERVER_BASE_URL } from '../constants/routes'
 import { login } from '../api/auth'
 
 const initialState = {
@@ -58,20 +58,16 @@ const Login: React.FC = () => {
 			const res = await login(username, password)
 			localStorage.setItem(
 				'auth',
-				JSON.stringify({
-					access_token: res.data.access_token,
-					username: res.data.user.username,
-					id: res.data.user.id,
-				})
+				JSON.stringify({ access_token: res.data.access_token })
 			)
 			setAuth({
 				accessToken: res.data.access_token,
 				username: res.data.user.username,
 				id: res.data.user.id,
+				avatarPath: SERVER_BASE_URL + res.data.user.avatar_path,
 			})
 			dispatch({ type: 'success' })
 			navigate(state?.path || HOME)
-			window.location.reload()
 		} catch (err: any) {
 			if (err.response?.status === 401 || err.response?.status === 404) {
 				dispatch({ type: 'error', payload: 'Invalid username or password' })

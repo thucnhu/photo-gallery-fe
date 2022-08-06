@@ -14,7 +14,7 @@ import {
 import { Button } from '../'
 import { ProfileCardProps } from '../../types/props'
 import { unfollowUser, followUser } from '../../api/users'
-import { EDIT_PROFILE } from '../../constants/routes'
+import { EDIT_PROFILE, SERVER_BASE_URL } from '../../constants/routes'
 
 const ProfileCard = ({ props }: { props: ProfileCardProps }) => {
 	const [isFollowed, setIsFollowed] = useState<boolean | undefined>(
@@ -45,7 +45,7 @@ const ProfileCard = ({ props }: { props: ProfileCardProps }) => {
 
 	return (
 		<Container>
-			<Avatar src='https://i.pravatar.cc/300' />
+			<Avatar src={SERVER_BASE_URL + props.avatar_path} />
 			<Info>
 				<Username>{props.username}</Username>
 				<Stats>

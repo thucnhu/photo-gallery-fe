@@ -11,6 +11,7 @@ export type ProfileCardProps = {
 	followers: number
 	following: number
 	posts: number
+	avatar_path: string
 	is_followed?: boolean
 	pictures: PictureProps[]
 }

@@ -4,6 +4,7 @@ export type AuthData = null | {
 	accessToken: string
 	username: string
 	id: number
+	avatarPath: string
 }
 
 type AuthContextType = {

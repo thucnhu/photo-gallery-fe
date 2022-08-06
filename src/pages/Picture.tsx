@@ -7,12 +7,14 @@ import {
 	Comment,
 	Icon,
 	Popup,
-	PictureModal,
+	Modal,
+	Editor,
+	Button,
 } from '../components'
 import { SERVER_BASE_URL } from '../constants/routes'
-import { CommentProps, PictureProps } from '../types/props'
+import { CommentProps } from '../types/props'
 import { postComment } from '../api/comments'
-import { getPic } from '../api/pictures'
+import { getPic, updatePic } from '../api/pictures'
 import { postPicLike, deletePicLike } from '../api/likes'
 import useClickOutside from '../hooks/useClickOutside'
 
@@ -29,6 +31,8 @@ const initialState = {
 	createdAt: '',
 	isOpen: false,
 	isShowed: false,
+	captionInput: '',
+	descriptionInput: '',
 }
 
 type PictureState = {
@@ -44,10 +48,16 @@ type PictureState = {
 	createdAt: string
 	isOpen: boolean
 	isShowed: boolean
+	captionInput: string
+	descriptionInput: string
 }
 
 type PictureAction =
-	| { type: 'changeComment'; payload: string }
+	| {
+			type: 'change'
+			field: 'comment' | 'captionInput' | 'descriptionInput'
+			payload: string
+	  }
 	| {
 			type:
 				| 'likePost'
@@ -55,6 +65,8 @@ type PictureAction =
 				| 'closePopup'
 				| 'togglePopup'
 				| 'showModal'
+				| 'updateSucceed'
+				| 'cancelUpdate'
 	  }
 	| { type: 'postComment'; payload: CommentProps[] }
 	| { type: 'render'; payload: PictureState }
@@ -63,8 +75,8 @@ function pictureReducer(state: PictureState, action: PictureAction) {
 	switch (action.type) {
 		case 'render':
 			return { ...state, ...action.payload }
-		case 'changeComment':
-			return { ...state, comment: action.payload }
+		case 'change':
+			return { ...state, [action.field]: action.payload }
 		case 'likePost':
 			return { ...state, likesCount: state.likesCount + 1, isLiked: true }
 		case 'unlikePost':
@@ -81,7 +93,27 @@ function pictureReducer(state: PictureState, action: PictureAction) {
 		case 'togglePopup':
 			return { ...state, isOpen: !state.isOpen }
 		case 'showModal':
-			return { ...state, isShowed: true, isOpen: false }
+			return {
+				...state,
+				isShowed: true,
+				isOpen: false,
+				captionInput: state.caption,
+				descriptionInput: state.description,
+			}
+		case 'updateSucceed':
+			return {
+				...state,
+				isShowed: false,
+				caption: state.captionInput,
+				description: state.descriptionInput,
+			}
+		case 'cancelUpdate':
+			return {
+				...state,
+				isShowed: false,
+				caption: state.caption,
+				description: state.description,
+			}
 		default:
 			return state
 	}
@@ -102,18 +134,13 @@ const Picture: React.FC = () => {
 		createdAt,
 		isOpen,
 		isShowed,
+		captionInput,
+		descriptionInput,
 	} = pictureState
 	const { picId } = useParams<{ picId: string }>() as { picId: string }
 	const navigate = useNavigate()
 	const { auth } = useContext(AuthContext)
 	const clickRef = useClickOutside(() => dispatch({ type: 'closePopup' }))
-	let picture: PictureProps = {
-		id: parseInt(picId),
-		username: username,
-		caption: caption,
-		description: description,
-		img_path: imgPath,
-	}
 
 	useEffect(() => {
 		if (picId) {
@@ -134,6 +161,8 @@ const Picture: React.FC = () => {
 							createdAt: data.created_at,
 							isOpen: false,
 							isShowed: false,
+							captionInput: '',
+							descriptionInput: '',
 						},
 					})
 				})
@@ -148,7 +177,7 @@ const Picture: React.FC = () => {
 	}, [picId, navigate])
 
 	function handleChangeComment(e: React.ChangeEvent<HTMLInputElement>) {
-		dispatch({ type: 'changeComment', payload: e.target.value })
+		dispatch({ type: 'change', field: 'comment', payload: e.target.value })
 	}
 
 	async function handlePostComment(e: React.ChangeEvent<HTMLInputElement>) {
@@ -206,9 +235,72 @@ const Picture: React.FC = () => {
 
 	function handleDelete() {}
 
+	function handleChangeDescription(e: React.ChangeEvent<HTMLTextAreaElement>) {
+		dispatch({
+			type: 'change',
+			field: 'descriptionInput',
+			payload: e.target.value,
+		})
+	}
+
+	function handleChangeCaption(e: React.ChangeEvent<HTMLTextAreaElement>) {
+		dispatch({
+			type: 'change',
+			field: 'captionInput',
+			payload: e.target.value,
+		})
+	}
+
+	async function handleUpdatePicture(e: React.FormEvent<HTMLFormElement>) {
+		e.preventDefault()
+		try {
+			if (picId) {
+				await updatePic(parseInt(picId), captionInput, descriptionInput)
+				dispatch({ type: 'updateSucceed' })
+				document.body.style.overflow = 'auto'
+			}
+		} catch (err: any) {
+			alert('Error updating picture. Please try again later!')
+		}
+	}
+
+	function handleCancel() {
+		dispatch({ type: 'cancelUpdate' })
+		document.body.style.overflow = 'auto'
+	}
+
 	return (
 		<PrimaryContainer>
-			{isShowed && <PictureModal picture={picture} />}
+			{isShowed && (
+				<Modal>
+					<Editor modal onSubmit={handleUpdatePicture}>
+						<Editor.Caption
+							value={captionInput}
+							onChange={handleChangeCaption}
+							type='text'
+							name='caption'
+							required
+						/>
+						<Editor.ImgContainer>
+							<Editor.Img src={imgPath} />
+							<Editor.Description
+								modal
+								value={descriptionInput}
+								onChange={handleChangeDescription}
+								type='text'
+								name='description'
+								required
+							/>
+						</Editor.ImgContainer>
+						<Editor.ButtonContainer>
+							<Button type='submit'>Publish</Button>
+							<Button color='gray' onClick={handleCancel}>
+								Cancel
+							</Button>
+						</Editor.ButtonContainer>
+					</Editor>
+				</Modal>
+			)}
 			<Post>
 				<Post.Caption>{caption}</Post.Caption>
 				<Post.InfoArea>

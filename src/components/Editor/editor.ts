@@ -40,3 +40,10 @@ export const Description = styled.textarea<{ modal?: boolean }>`
 	border: none;
 	height: auto;
 `
+
+export const ButtonContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	width: 190px;
+	justify-content: space-between;
+`

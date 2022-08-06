@@ -1,9 +1,16 @@
 import React, { useEffect, useReducer, useContext } from 'react'
 import AuthContext from '../context/AuthContext'
 import { useParams, useNavigate } from 'react-router-dom'
-import { Post, PrimaryContainer, Comment, Icon, Popup } from '../components'
+import {
+	Post,
+	PrimaryContainer,
+	Comment,
+	Icon,
+	Popup,
+	PictureModal,
+} from '../components'
 import { SERVER_BASE_URL } from '../constants/routes'
-import { CommentProps } from '../types/props'
+import { CommentProps, PictureProps } from '../types/props'
 import { postComment } from '../api/comments'
 import { getPic } from '../api/pictures'
 import { postPicLike, deletePicLike } from '../api/likes'
@@ -21,6 +28,7 @@ const initialState = {
 	username: '',
 	createdAt: '',
 	isOpen: false,
+	isShowed: false,
 }
 
 type PictureState = {
@@ -35,15 +43,19 @@ type PictureState = {
 	username: string
 	createdAt: string
 	isOpen: boolean
+	isShowed: boolean
 }
 
 type PictureAction =
+	| { type: 'changeComment'; payload: string }
 	| {
-			type: 'change'
-			field: 'comment' | 'caption' | 'description'
-			payload: string
+			type:
+				| 'likePost'
+				| 'unlikePost'
+				| 'closePopup'
+				| 'togglePopup'
+				| 'showModal'
 	  }
-	| { type: 'likePost' | 'unlikePost' | 'closePopup' | 'togglePopup' }
 	| { type: 'postComment'; payload: CommentProps[] }
 	| { type: 'render'; payload: PictureState }
 
@@ -51,8 +63,8 @@ function pictureReducer(state: PictureState, action: PictureAction) {
 	switch (action.type) {
 		case 'render':
 			return { ...state, ...action.payload }
-		case 'change':
-			return { ...state, [action.field]: action.payload }
+		case 'changeComment':
+			return { ...state, comment: action.payload }
 		case 'likePost':
 			return { ...state, likesCount: state.likesCount + 1, isLiked: true }
 		case 'unlikePost':
@@ -68,6 +80,8 @@ function pictureReducer(state: PictureState, action: PictureAction) {
 			return { ...state, isOpen: false }
 		case 'togglePopup':
 			return { ...state, isOpen: !state.isOpen }
+		case 'showModal':
+			return { ...state, isShowed: true, isOpen: false }
 		default:
 			return state
 	}
@@ -87,11 +101,19 @@ const Picture: React.FC = () => {
 		username,
 		createdAt,
 		isOpen,
+		isShowed,
 	} = pictureState
-	const { picId } = useParams<{ picId: string }>()
+	const { picId } = useParams<{ picId: string }>() as { picId: string }
 	const navigate = useNavigate()
 	const { auth } = useContext(AuthContext)
 	const clickRef = useClickOutside(() => dispatch({ type: 'closePopup' }))
+	let picture: PictureProps = {
+		id: parseInt(picId),
+		username: username,
+		caption: caption,
+		description: description,
+		img_path: imgPath,
+	}
 
 	useEffect(() => {
 		if (picId) {
@@ -111,6 +133,7 @@ const Picture: React.FC = () => {
 							username: data.username,
 							createdAt: data.created_at,
 							isOpen: false,
+							isShowed: false,
 						},
 					})
 				})
@@ -125,7 +148,7 @@ const Picture: React.FC = () => {
 	}, [picId, navigate])
 
 	function handleChangeComment(e: React.ChangeEvent<HTMLInputElement>) {
-		dispatch({ type: 'change', field: 'comment', payload: e.target.value })
+		dispatch({ type: 'changeComment', payload: e.target.value })
 	}
 
 	async function handlePostComment(e: React.ChangeEvent<HTMLInputElement>) {
@@ -176,12 +199,16 @@ const Picture: React.FC = () => {
 		dispatch({ type: 'togglePopup' })
 	}
 
-	function handleEdit() {}
+	function handleEdit() {
+		dispatch({ type: 'showModal' })
+		document.body.style.overflow = 'hidden'
+	}
 
 	function handleDelete() {}
 
 	return (
 		<PrimaryContainer>
+			{isShowed && <PictureModal picture={picture} />}
 			<Post>
 				<Post.Caption>{caption}</Post.Caption>
 				<Post.InfoArea>
@@ -192,19 +219,21 @@ const Picture: React.FC = () => {
 							<Post.CreatedAt>{createdAt}</Post.CreatedAt>
 						</Post.AvatarRightArea>
 					</Post.AvatarArea>
-					{auth?.username === username && (
-						<div ref={clickRef}>
+					<div ref={clickRef}>
+						{auth?.username === username && (
 							<Icon.ThreeDots onClick={handleClickDots}></Icon.ThreeDots>
-						</div>
-					)}
-					{isOpen && (
-						<Popup>
-							<Popup.Item onClick={handleEdit}>Edit picture</Popup.Item>
-							<Popup.Item onClick={handleDelete}>
-								Delete picture
-							</Popup.Item>
-						</Popup>
-					)}
+						)}
+						{isOpen && (
+							<Popup>
+								<Popup.Item onClick={handleEdit}>
+									Edit picture
+								</Popup.Item>
+								<Popup.Item onClick={handleDelete}>
+									Delete picture
+								</Popup.Item>
+							</Popup>
+						)}
+					</div>
 				</Post.InfoArea>
 				<Post.Description>{description}</Post.Description>
 				<Post.Picture src={imgPath} />

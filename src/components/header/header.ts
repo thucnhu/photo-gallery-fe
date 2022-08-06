@@ -12,7 +12,7 @@ export const Container = styled.header`
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	z-index: 100;
+	z-index: 1;
 	padding: 0 2.5vw;
 `
 

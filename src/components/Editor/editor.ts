@@ -1,10 +1,12 @@
 import styled from 'styled-components/macro'
 
-export const Container = styled.form`
+export const Container = styled.form<{ modal?: boolean }>`
+	max-height: 100vh;
 	width: 550px;
 	@media (max-width: 600px) {
 		width: 90%;
 	}
+	z-index: ${({ modal }) => (modal ? '10' : '0')};
 `
 
 export const Caption = styled.input`
@@ -29,8 +31,9 @@ export const Img = styled.img`
 	object-fit: cover;
 `
 
-export const Description = styled.textarea`
-	max-width: 100%;
+export const Description = styled.textarea<{ modal?: boolean }>`
+	width: 100%;
+	resize: ${({ modal }) => (modal ? 'none' : 'vertical')};
 	min-height: 90px;
 	background-color: var(--gray);
 	padding: 1em;

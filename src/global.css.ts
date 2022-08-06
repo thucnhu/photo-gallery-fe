@@ -28,4 +28,8 @@ export default createGlobalStyle`
 	box-sizing: border-box;
 	font-family: 'Oswald', sans-serif;
 }
+
+body {
+   /* overflow: hidden; */
+}
 `

@@ -25,4 +25,19 @@ function postPic(uploadedImg: File, caption: string, description: string) {
 	)
 }
 
-export { getHomePic, getPic, postPic }
+function updatePic(picId: number, caption: string, description: string) {
+	return axios.patch(
+		`/pictures/${picId}`,
+		{
+			caption: caption,
+			description: description,
+		},
+		{
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		}
+	)
+}
+
+export { getHomePic, getPic, postPic, updatePic }

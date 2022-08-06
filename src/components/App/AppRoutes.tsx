@@ -10,6 +10,7 @@ import {
 	EditProfile,
 	Topics,
 	SearchResults,
+	Password,
 } from '../../pages'
 import {
 	HOME,
@@ -19,6 +20,7 @@ import {
 	PICTURE,
 	EDIT_PROFILE,
 	TOPICS,
+	PASSWORD,
 } from '../../constants/routes'
 import { Route, Routes } from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
@@ -44,6 +46,7 @@ const AppRoutes: React.FC = () => {
 						<Route path={UPLOAD} element={<Upload />} />
 						<Route path={EDIT_PROFILE} element={<EditProfile />} />
 						<Route path={PICTURE} element={<Picture />} />
+						<Route path={PASSWORD} element={<Password />} />
 					</Route>
 					<Route path={HOME} element={<Home />} />
 					<Route path='/:username' element={<Profile />} />

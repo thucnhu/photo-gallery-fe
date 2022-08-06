@@ -65,7 +65,7 @@ const Header: React.FC = () => {
 				<div ref={clickRef}>
 					{auth ? (
 						<Profile onClick={() => setIsOpen(!isOpen)}>
-							<Avatar src={auth.avatarPath} alt='avatar' />
+							<Avatar src='https://i.pravatar.cc/300' alt='avatar' />
 							<p>{auth?.username}</p>
 						</Profile>
 					) : (

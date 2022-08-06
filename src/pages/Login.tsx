@@ -58,13 +58,18 @@ const Login: React.FC = () => {
 			const res = await login(username, password)
 			localStorage.setItem(
 				'auth',
-				JSON.stringify({ access_token: res.data.access_token })
+				JSON.stringify({
+					access_token: res.data.access_token,
+					username: res.data.user.username,
+					avatar_path: res.data.user.avatar_path,
+					id: res.data.user.id,
+				})
 			)
 			setAuth({
 				accessToken: res.data.access_token,
 				username: res.data.user.username,
 				id: res.data.user.id,
-				avatarPath: SERVER_BASE_URL + res.data.user.avatar_path,
+				// avatarPath: SERVER_BASE_URL + res.data.user.avatar_path,
 			})
 			dispatch({ type: 'success' })
 			navigate(state?.path || HOME)

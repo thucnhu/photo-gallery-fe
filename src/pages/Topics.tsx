@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { TopicCard, Container } from '../components'
-import { getTopics } from '../api/topic'
+import { getTopics } from '../api/topics'
 import { TopicType } from '../types/props'
 import { SERVER_BASE_URL } from '../constants/routes'
 

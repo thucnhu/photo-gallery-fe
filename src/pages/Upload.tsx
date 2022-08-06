@@ -12,7 +12,6 @@ const Upload: React.FC = () => {
 
 	const navigate = useNavigate()
 	const { auth } = useContext(AuthContext)
-	console.log(auth)
 
 	function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
 		e.preventDefault()

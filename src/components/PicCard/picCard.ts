@@ -38,10 +38,12 @@ export const Likes = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	gap: 0.5rem;
 `
 
 export const Comments = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	gap: 0.5rem;
 `

@@ -21,11 +21,10 @@ const PicCard: React.FC<PicCardProps> = prop => {
 			<Description>{prop.description}</Description>
 			<Stats>
 				<Likes>
-					<FiHeart style={{ marginRight: '0.4rem' }} /> {prop.likes_count}
+					<FiHeart /> {prop.likes_count}
 				</Likes>
 				<Comments>
-					<BiCommentDetail style={{ marginRight: '0.4rem' }} />
-					{prop.comments_count}
+					<BiCommentDetail /> {prop.comments_count}
 				</Comments>
 			</Stats>
 		</Container>

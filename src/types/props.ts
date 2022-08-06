@@ -48,3 +48,10 @@ export type PicCardProps = {
 	likes_count: number
 	comments_count: number
 }
+
+export type TopicType = {
+	id: number
+	name: string
+	posts_count: number
+	avatar_path: string
+}

@@ -4,7 +4,6 @@ export const Container = styled.div`
 	columns: 4;
 	column-fill: balance;
 	column-gap: 1.5rem;
-	margin-top: 1.5rem;
 	@media (max-width: 1100px) {
 		columns: 3;
 	}

@@ -40,4 +40,8 @@ function updatePic(picId: number, caption: string, description: string) {
 	)
 }
 
-export { getHomePic, getPic, postPic, updatePic }
+function getPicByTopic(topic: string, page: string) {
+	return axios.get(`/search?topic=${topic}&page=${page}`)
+}
+
+export { getHomePic, getPic, postPic, updatePic, getPicByTopic }

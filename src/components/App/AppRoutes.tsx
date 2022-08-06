@@ -8,6 +8,8 @@ import {
 	Error,
 	Profile,
 	EditProfile,
+	Topics,
+	SearchResults,
 } from '../../pages'
 import {
 	HOME,
@@ -16,6 +18,7 @@ import {
 	LOG_IN,
 	PICTURE,
 	EDIT_PROFILE,
+	TOPICS,
 } from '../../constants/routes'
 import { Route, Routes } from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
@@ -44,6 +47,8 @@ const AppRoutes: React.FC = () => {
 					</Route>
 					<Route path={HOME} element={<Home />} />
 					<Route path='/:username' element={<Profile />} />
+					<Route path={TOPICS} element={<Topics />} />
+					<Route path='/search?topic=:topic' element={<SearchResults />} />
 					<Route path={LOG_IN} element={<Login />} />
 					<Route path={SIGN_UP} element={<Signup />} />
 					<Route path='*' element={<Error />} />

@@ -91,18 +91,19 @@ export const Stats = styled.div`
 	display: flex;
 	flex-direction: row;
 	margin-bottom: 0.5rem;
+	gap: 3rem;
 `
 
 export const LikesCount = styled.div`
 	display: flex;
 	flex-direction: row;
-	align-items: flex-start;
-	width: 80px;
+	align-items: center;
+	gap: 0.5rem;
 `
 
 export const CommentsCount = styled.div`
 	display: flex;
 	flex-direction: row;
-	align-items: flex-start;
-	width: 80px;
+	align-items: center;
+	gap: 0.5rem;
 `

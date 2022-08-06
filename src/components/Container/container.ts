@@ -7,7 +7,7 @@ export const Primary = styled.div<{ gray?: boolean }>`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 1rem 5vw 3rem 5vw;
+	padding: 1.8rem 5vw 3rem 5vw;
 	background-color: ${props => (props.gray ? 'var(--gray)' : 'var(--white)')};
 `
 
@@ -16,4 +16,11 @@ export const Center = styled.div`
 	justify-content: center;
 	align-items: center;
 	height: calc(100vh - 60px);
+`
+
+export const Flex = styled.div`
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 2rem;
 `

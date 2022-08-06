@@ -71,7 +71,12 @@ const Upload: React.FC = () => {
 								required
 							/>
 						</Editor.ImgContainer>
-						<Button type='submit'>Publish</Button>
+						<Editor.ButtonContainer>
+							<Button type='submit'>Publish</Button>
+							<Button color='red' onClick={() => setUploadedImg(null)}>
+								Cancel
+							</Button>
+						</Editor.ButtonContainer>
 					</Editor>
 				</Container.Primary>
 			) : (

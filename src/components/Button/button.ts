@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro'
 
-export const Container = styled.button<{ color?: 'blue' | 'gray' | 'green' }>`
+export const Container = styled.button<{ color?: 'gray' | 'green' | 'red' }>`
 	padding: 0.65em 1.5em;
 	border-radius: 6px;
 	background-color: ${props =>

@@ -9,6 +9,7 @@ export const Primary = styled.div<{ gray?: boolean }>`
 	align-items: center;
 	padding: 1.8rem 5vw 3rem 5vw;
 	background-color: ${props => (props.gray ? 'var(--gray)' : 'var(--white)')};
+	gap: 2.5rem;
 `
 
 export const Center = styled.div`

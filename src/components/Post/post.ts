@@ -9,6 +9,7 @@ export const Container = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	gap: 1.2rem;
 `
 
 export const Caption = styled.h4``
@@ -40,21 +41,19 @@ export const InfoArea = styled.div`
 
 export const AvatarArea = styled.div<{ small?: boolean }>`
 	display: flex;
+	gap: 1rem;
 	align-items: center;
 	height: ${props => (props.small ? '35px' : '45px')};
-	margin: ${props => (props.small ? '0.2rem 0' : '1rem 0')};
 	font-size: ${props => (props.small ? '0.85rem' : '1rem')};
 `
 
 export const Picture = styled.img`
 	width: auto;
-	margin: 1.2rem 0;
 `
 
 export const AvatarRightArea = styled.div`
 	display: flex;
 	flex-direction: column;
-	margin-left: 0.6rem;
 	height: 100%;
 	justify-content: space-evenly;
 `
@@ -90,7 +89,6 @@ export const CommentButton = styled(Button)`
 export const Stats = styled.div`
 	display: flex;
 	flex-direction: row;
-	margin-bottom: 0.5rem;
 	gap: 3rem;
 `
 

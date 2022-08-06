@@ -25,10 +25,21 @@ const Header: React.FC = () => {
 	const { auth, setAuth } = useContext(AuthContext)
 	const navigate = useNavigate()
 
-	function logout() {
+	function handleLogout() {
 		localStorage.removeItem('auth')
 		setAuth(null)
 		navigate(LOG_IN)
+		setIsOpen(false)
+	}
+
+	function handleToProfile() {
+		navigate('/' + auth?.username)
+		setIsOpen(false)
+	}
+
+	function handleToUpload() {
+		navigate(UPLOAD)
+		setIsOpen(false)
 	}
 
 	return (
@@ -65,13 +76,9 @@ const Header: React.FC = () => {
 					)}
 					{isOpen && (
 						<Popup>
-							<Popup.LinkItem to={'/' + auth?.username}>
-								Profile
-							</Popup.LinkItem>
-							<Popup.LinkItem to={UPLOAD}>Upload</Popup.LinkItem>
-							<Popup.LinkItem to={LOG_IN} onClick={logout}>
-								Log out
-							</Popup.LinkItem>
+							<Popup.Item onClick={handleToProfile}>Profile</Popup.Item>
+							<Popup.Item onClick={handleToUpload}>Upload</Popup.Item>
+							<Popup.Item onClick={handleLogout}>Log out</Popup.Item>
 						</Popup>
 					)}
 				</div>

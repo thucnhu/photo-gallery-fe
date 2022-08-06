@@ -10,13 +10,12 @@ export const Container = styled.div`
 	@media (max-width: 665px) {
 		height: 100px;
 	}
-	margin-bottom: 1rem;
+	gap: 3rem;
 `
 
 export const Avatar = styled.img`
 	height: 100%;
 	border-radius: 50%;
-	margin-right: 3rem;
 	object-fit: cover;
 	border: 0.5px solid var(--gray);
 `

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { signup } from '../api/auth'
-import { CenterContainer, Form } from '../components'
+import { Container, Form } from '../components'
 import { HOME, LOG_IN } from '../constants/routes'
 
 const Signup: React.FC = () => {
@@ -38,7 +38,7 @@ const Signup: React.FC = () => {
 	}
 
 	return (
-		<CenterContainer>
+		<Container.Center>
 			{errMsg && <Form.ErrBox>{errMsg}</Form.ErrBox>}
 			<Form onSubmit={handleSubmit}>
 				<Form.Input
@@ -62,7 +62,7 @@ const Signup: React.FC = () => {
 					Already a member? Log in <Link to={LOG_IN}>here</Link>
 				</Form.CTA>
 			</Form>
-		</CenterContainer>
+		</Container.Center>
 	)
 }
 

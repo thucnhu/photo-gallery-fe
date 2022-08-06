@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getHomePic } from '../api/pictures'
-import { PrimaryContainer, Grid, Filter } from '../components'
+import { Container, Grid, Filter } from '../components'
 import { FilterProps, PictureProps } from '../types/props'
 
 const Home: React.FC = () => {
@@ -26,7 +26,7 @@ const Home: React.FC = () => {
 	}
 
 	return (
-		<PrimaryContainer gray>
+		<Container.Primary gray>
 			<Filter>
 				<Filter.Label onClick={() => handleFilter('all')}>All</Filter.Label>
 				<Filter.Label onClick={() => handleFilter('trending')}>
@@ -45,7 +45,7 @@ const Home: React.FC = () => {
 				<Grid pictures={subscribed} />
 			)}
 			{filter === 'following' && following && <Grid pictures={following} />}
-		</PrimaryContainer>
+		</Container.Primary>
 	)
 }
 

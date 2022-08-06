@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Grid, PrimaryContainer, ProfileCard } from '../components'
+import { Grid, Container, ProfileCard } from '../components'
 import { ProfileCardProps } from '../types/props'
 import { getProfile } from '../api/users'
 
@@ -22,10 +22,10 @@ const Profile: React.FC = () => {
 	return (
 		<>
 			{profile && (
-				<PrimaryContainer>
+				<Container.Primary>
 					<ProfileCard props={profile} />
 					<Grid pictures={profile.pictures} />
-				</PrimaryContainer>
+				</Container.Primary>
 			)}
 		</>
 	)

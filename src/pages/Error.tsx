@@ -1,11 +1,11 @@
 import React from 'react'
-import { CenterContainer, ErrorMessage } from '../components'
+import { Container, ErrorMessage } from '../components'
 
 const Error: React.FC = () => {
 	return (
-		<CenterContainer>
+		<Container.Center>
 			<ErrorMessage>404 Not found</ErrorMessage>
-		</CenterContainer>
+		</Container.Center>
 	)
 }
 

@@ -1,12 +1,6 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import {
-	Editor,
-	CenterContainer,
-	PrimaryContainer,
-	UploadCard,
-	Button,
-} from '../components'
+import { Editor, Container, UploadCard, Button } from '../components'
 import backgroundImg from '../images/upload.jpeg'
 import AuthContext from '../context/AuthContext'
 import { postPic } from '../api/pictures'
@@ -56,7 +50,7 @@ const Upload: React.FC = () => {
 	return (
 		<>
 			{uploadedImg ? (
-				<PrimaryContainer>
+				<Container.Primary>
 					<Editor onSubmit={handlePublish}>
 						<Editor.Caption
 							placeholder='Your punchy caption goes here'
@@ -79,9 +73,9 @@ const Upload: React.FC = () => {
 						</Editor.ImgContainer>
 						<Button type='submit'>Publish</Button>
 					</Editor>
-				</PrimaryContainer>
+				</Container.Primary>
 			) : (
-				<CenterContainer>
+				<Container.Center>
 					<UploadCard>
 						<UploadCard.ImgContainer>
 							<UploadCard.Image src={backgroundImg} />
@@ -101,7 +95,7 @@ const Upload: React.FC = () => {
 							/>
 						</UploadCard.Label>
 					</UploadCard>
-				</CenterContainer>
+				</Container.Center>
 			)}
 		</>
 	)

@@ -3,7 +3,7 @@ import AuthContext from '../context/AuthContext'
 import { useParams, useNavigate } from 'react-router-dom'
 import {
 	Post,
-	PrimaryContainer,
+	Container,
 	Comment,
 	Icon,
 	Popup,
@@ -193,7 +193,6 @@ const Picture: React.FC = () => {
 				else dispatch({ type: 'postComment', payload: [res.data] })
 			}
 		} catch (err: any) {
-			console.log(err)
 			alert('Error posting comment. Please try again later!')
 		}
 	}
@@ -205,11 +204,7 @@ const Picture: React.FC = () => {
 				dispatch({ type: 'likePost' })
 			}
 		} catch (err: any) {
-			if (err.response?.status === 401) {
-				alert('Please log in to like this picture')
-			} else {
-				alert('Please try again later!')
-			}
+			alert('Please try again later!')
 		}
 	}
 
@@ -270,7 +265,7 @@ const Picture: React.FC = () => {
 	}
 
 	return (
-		<PrimaryContainer>
+		<Container.Primary>
 			{isShowed && (
 				<Modal>
 					<Editor modal onSubmit={handleUpdatePicture}>
@@ -363,7 +358,7 @@ const Picture: React.FC = () => {
 					<Comment key={comment.id} comment={comment} />
 				))}
 			</Post>
-		</PrimaryContainer>
+		</Container.Primary>
 	)
 }
 

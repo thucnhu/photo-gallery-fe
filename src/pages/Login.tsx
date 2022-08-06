@@ -1,7 +1,7 @@
 import React, { useReducer, useContext } from 'react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
-import { CenterContainer, Form } from '../components'
+import { Container, Form } from '../components'
 import { HOME, SIGN_UP } from '../constants/routes'
 import { login } from '../api/auth'
 
@@ -82,7 +82,7 @@ const Login: React.FC = () => {
 	}
 
 	return (
-		<CenterContainer>
+		<Container.Center>
 			{error && <Form.ErrBox>{error}</Form.ErrBox>}
 			<Form onSubmit={handleSubmit}>
 				<Form.Input
@@ -108,7 +108,7 @@ const Login: React.FC = () => {
 					Not a member yet? Sign up <Link to={SIGN_UP}>here</Link>
 				</Form.CTA>
 			</Form>
-		</CenterContainer>
+		</Container.Center>
 	)
 }
 

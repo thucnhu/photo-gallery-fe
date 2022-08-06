@@ -7,21 +7,20 @@ const EditProfile: React.FC = () => {
 	const { auth } = useContext(AuthContext)
 	const [username, setUsername] = React.useState(auth?.username)
 
-	// async function handleSubmit(e: React.ChangeEvent<HTMLFormElement>) {
-	// 	e.preventDefault()
-	// 	if (auth) {
-	// 		try {
-	// 			const res = await updateProfile({
-	// 				username: e.target.username.value,
-	// 				avatar_path: auth?.avatarPath,
-	// 			})
-	// 			console.log(res)
-	// 		} catch (err: any) {
-	// 			console.log(err)
-	// 		}
-	// 	}
-	// }
-	console.log(auth)
+	async function handleSubmit(e: React.ChangeEvent<HTMLFormElement>) {
+		e.preventDefault()
+		if (auth) {
+			try {
+				const res = await updateProfile({
+					username: e.target.username.value,
+					avatar_path: auth?.avatar_path,
+				})
+				console.log(res)
+			} catch (err: any) {
+				console.log(err)
+			}
+		}
+	}
 
 	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
 		setUsername(e.target.value)
@@ -33,19 +32,17 @@ const EditProfile: React.FC = () => {
 		<Container.Primary>
 			<ProfileForm onSubmit={() => console.log('submit')}>
 				<ProfileForm.RowItem>
-					<ProfileForm.Label>
-						<ProfileForm.AvatarLabel
-							htmlFor='upload-avatar'
-							// imgPath='https://i.pravatar.cc/300'
-						>
-							<ProfileForm.AvatarInput
-								id='upload-avatar'
-								type='file'
-								onChange={handleUploadAvatar}
-								accept='image/*'
-							/>
-						</ProfileForm.AvatarLabel>
-					</ProfileForm.Label>
+					<ProfileForm.AvatarLabel
+						htmlFor='upload-avatar'
+						avatarPath={auth?.avatar_path}
+					>
+						<ProfileForm.AvatarInput
+							id='upload-avatar'
+							type='file'
+							onChange={handleUploadAvatar}
+							accept='image/*'
+						/>
+					</ProfileForm.AvatarLabel>
 					<ProfileForm.Username>{auth?.username}</ProfileForm.Username>
 				</ProfileForm.RowItem>
 				<ProfileForm.RowItem>

@@ -15,6 +15,7 @@ export const RowItem = styled.div`
 	flex-direction: row;
 	gap: 4rem;
 	align-items: center;
+	justify-content: flex-end;
 	width: 100%;
 	height: 70px;
 `
@@ -51,10 +52,7 @@ export const AvatarInput = styled.input`
 
 export const AvatarLabel = styled.label<{ avatarPath?: string }>`
 	cursor: pointer;
-	background-image: ${props =>
-		props.avatarPath
-			? `url('${props.avatarPath}')`
-			: `url('https://i.pravatar.cc/301')`};
+	background-image: url('https://i.pravatar.cc/301');
 	width: 70px;
 	height: 70px;
 	border-radius: 50%;

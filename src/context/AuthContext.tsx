@@ -1,10 +1,10 @@
 import React from 'react'
 
 export type AuthData = null | {
-	accessToken: string
+	access_token: string
 	username: string
 	id: number
-	// avatarPath: string
+	avatar_path: string
 }
 
 type AuthContextType = {

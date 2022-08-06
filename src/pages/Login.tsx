@@ -61,15 +61,15 @@ const Login: React.FC = () => {
 				JSON.stringify({
 					access_token: res.data.access_token,
 					username: res.data.user.username,
-					avatar_path: res.data.user.avatar_path,
 					id: res.data.user.id,
+					avatar_path: SERVER_BASE_URL + res.data.user.avatar_path,
 				})
 			)
 			setAuth({
-				accessToken: res.data.access_token,
+				access_token: res.data.access_token,
 				username: res.data.user.username,
 				id: res.data.user.id,
-				// avatarPath: SERVER_BASE_URL + res.data.user.avatar_path,
+				avatar_path: SERVER_BASE_URL + res.data.user.avatar_path,
 			})
 			dispatch({ type: 'success' })
 			navigate(state?.path || HOME)

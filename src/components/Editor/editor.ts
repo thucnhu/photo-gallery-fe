@@ -19,16 +19,26 @@ export const Caption = styled.input`
 `
 
 export const ImgContainer = styled.div`
-	width: 100%;
+	justify-content: center;
+	align-items: center;
 	margin: 1.5rem 0;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
+	background-color: var(--gray);
 `
 
 export const Img = styled.img`
-	max-width: 100%;
-	height: auto;
-	object-fit: cover;
+	height: 530px;
+	@media (max-height: 740px) {
+		height: 400px;
+	}
+
+	@media (max-height: 600px) {
+		height: 350px;
+	}
+	width: 100%;
+	object-fit: contain;
 `
 
 export const Description = styled.textarea<{ modal?: boolean }>`

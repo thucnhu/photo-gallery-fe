@@ -2,7 +2,7 @@ import { Primary, Center } from './container'
 import { RestPropsWithChildren } from '../../types/props'
 
 const Container = ({ children, ...props }: RestPropsWithChildren) => {
-	return <Container {...props}>{children}</Container>
+	return <div {...props}>{children}</div>
 }
 
 Container.Primary = ({ children, ...props }: RestPropsWithChildren) => {

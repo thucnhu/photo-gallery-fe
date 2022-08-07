@@ -53,7 +53,7 @@ export const AvatarInput = styled.input`
 
 export const AvatarLabel = styled.label<{ avatarPath?: string }>`
 	cursor: pointer;
-	background-image: url('https://i.pravatar.cc/301');
+	background-image: url(${({ avatarPath }) => avatarPath});
 	width: 70px;
 	height: 70px;
 	border-radius: 50%;

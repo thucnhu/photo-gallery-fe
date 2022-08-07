@@ -1,8 +1,7 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Editor, Container, UploadCard, Button } from '../components'
 import backgroundImg from '../images/upload.jpeg'
-import AuthContext from '../context/AuthContext'
 import { postPic } from '../api/pictures'
 
 const Upload: React.FC = () => {
@@ -11,14 +10,10 @@ const Upload: React.FC = () => {
 	const [description, setDescription] = React.useState<string>('')
 
 	const navigate = useNavigate()
-	const { auth } = useContext(AuthContext)
 
 	function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
 		e.preventDefault()
-		if (e.target.files) {
-			setUploadedImg(e.target.files[0])
-			console.log(e.target.files[0])
-		}
+		if (e.target.files) setUploadedImg(e.target.files[0])
 	}
 
 	async function handlePublish(e: React.ChangeEvent<HTMLFormElement>) {
@@ -26,7 +21,6 @@ const Upload: React.FC = () => {
 		if (uploadedImg) {
 			try {
 				const res = await postPic(uploadedImg, caption, description)
-				console.log(res)
 				navigate(`/pictures/${res.data.id}`)
 			} catch (err: any) {
 				if (!err?.response) {
@@ -45,6 +39,8 @@ const Upload: React.FC = () => {
 	function handleChangeDescription(e: React.ChangeEvent<HTMLInputElement>) {
 		setDescription(e.target.value)
 	}
+
+	const handleCancel = () => setUploadedImg(null)
 
 	return (
 		<>
@@ -72,7 +68,7 @@ const Upload: React.FC = () => {
 						</Editor.ImgContainer>
 						<Editor.ButtonContainer>
 							<Button type='submit'>Publish</Button>
-							<Button color='red' onClick={() => setUploadedImg(null)}>
+							<Button color='red' onClick={handleCancel} type='reset'>
 								Cancel
 							</Button>
 						</Editor.ButtonContainer>

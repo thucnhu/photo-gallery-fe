@@ -14,13 +14,7 @@ import {
 } from './header'
 import { Popup } from '../../components'
 import logo from '../../images/zalopay_logo.svg'
-import {
-	HOME,
-	UPLOAD,
-	LOG_IN,
-	SIGN_UP,
-	SERVER_BASE_URL,
-} from '../../constants/routes'
+import { HOME, UPLOAD, LOG_IN, SIGN_UP } from '../../constants/routes'
 import useClickOutside from '../../hooks/useClickOutside'
 import { useNavigate } from 'react-router-dom'
 
@@ -37,7 +31,6 @@ const Header: React.FC = () => {
 		navigate(LOG_IN)
 		setIsOpen(false)
 	}
-	console.log(auth)
 
 	function handleToProfile() {
 		navigate('/' + auth?.username)

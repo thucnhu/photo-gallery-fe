@@ -14,7 +14,8 @@ export const Container = styled.div`
 `
 
 export const Avatar = styled.img`
-	height: 100%;
+	height: 140px;
+	width: 140px;
 	border-radius: 50%;
 	object-fit: cover;
 	border: 0.5px solid var(--gray);

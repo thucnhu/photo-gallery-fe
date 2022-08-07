@@ -1,11 +1,6 @@
 import axios from './axios'
 import { EDIT_PROFILE } from '../constants/routes'
 
-type UpdateProfile = {
-	username: string
-	avatar_path: string
-}
-
 function getProfile(username: string) {
 	return axios.get(`/${username}`)
 }
@@ -18,8 +13,10 @@ function unfollowUser(username: string) {
 	return axios.delete(`/unfollow/${username}`)
 }
 
-function updateProfile(data: UpdateProfile) {
-	return axios.patch(EDIT_PROFILE, data)
+function updateProfile(data: { username: string; avatar_file?: File }) {
+	return axios.patch(EDIT_PROFILE, data, {
+		headers: { 'Content-Type': 'multipart/form-data' },
+	})
 }
 
 export { getProfile, followUser, unfollowUser, updateProfile }

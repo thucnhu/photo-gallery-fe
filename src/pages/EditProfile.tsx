@@ -1,23 +1,60 @@
 import React, { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 import { Container, ProfileForm, Button } from '../components'
 import { updateProfile } from '../api/users'
+import { SERVER_BASE_URL } from '../constants/routes'
 
 const EditProfile: React.FC = () => {
-	const { auth } = useContext(AuthContext)
+	const { auth, setAuth } = useContext(AuthContext)
 	const [username, setUsername] = React.useState(auth?.username)
+	const [uploadedAvatar, setUploadedAvatar] = React.useState<File | null>()
+	const navigate = useNavigate()
 
 	async function handleSubmit(e: React.ChangeEvent<HTMLFormElement>) {
 		e.preventDefault()
 		if (auth) {
 			try {
-				const res = await updateProfile({
-					username: e.target.username.value,
-					avatar_path: auth?.avatar_path,
-				})
-				console.log(res)
+				if (uploadedAvatar) {
+					const res = await updateProfile({
+						username: e.target.username.value,
+						avatar_file: uploadedAvatar,
+					})
+					localStorage.setItem(
+						'auth',
+						JSON.stringify({
+							access_token: auth.access_token,
+							username: res.data.username,
+							avatar_path: res.data.avatar_path,
+							id: auth.id,
+						})
+					)
+					setAuth({
+						...auth,
+						username: res.data.username,
+						avatar_path: SERVER_BASE_URL + res.data.avatar_path,
+					})
+				} else {
+					const res = await updateProfile({
+						username: e.target.username.value,
+					})
+					setAuth({
+						...auth,
+						username: res.data.username,
+					})
+					localStorage.setItem(
+						'auth',
+						JSON.stringify({
+							access_token: auth.access_token,
+							username: res.data.username,
+							avatar_path: auth.avatar_path,
+							id: auth.id,
+						})
+					)
+				}
+				navigate(`/${e.target.username.value}`)
 			} catch (err: any) {
-				console.log(err)
+				alert('Username alreay exists')
 			}
 		}
 	}
@@ -26,15 +63,24 @@ const EditProfile: React.FC = () => {
 		setUsername(e.target.value)
 	}
 
-	function handleUploadAvatar() {}
+	function handleUploadAvatar(e: React.ChangeEvent<HTMLInputElement>) {
+		e.preventDefault()
+		if (e.target.files) setUploadedAvatar(e.target.files[0])
+	}
+
+	const handleCancel = () => navigate(`/${auth?.username}`)
 
 	return (
 		<Container.Primary>
-			<ProfileForm onSubmit={() => console.log('submit')}>
+			<ProfileForm onSubmit={handleSubmit}>
 				<ProfileForm.RowItem>
 					<ProfileForm.AvatarLabel
 						htmlFor='upload-avatar'
-						avatarPath={auth?.avatar_path}
+						avatarPath={
+							uploadedAvatar
+								? URL.createObjectURL(uploadedAvatar)
+								: auth?.avatar_path
+						}
 					>
 						<ProfileForm.AvatarInput
 							id='upload-avatar'
@@ -67,7 +113,9 @@ const EditProfile: React.FC = () => {
 					<ProfileForm.Label></ProfileForm.Label>
 					<ProfileForm.ButtonArea>
 						<Button type='submit'>Submit</Button>
-						<Button color='red'>Cancel</Button>
+						<Button color='red' type='reset' onClick={handleCancel}>
+							Cancel
+						</Button>
 					</ProfileForm.ButtonArea>
 				</ProfileForm.RowItem>
 			</ProfileForm>

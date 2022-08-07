@@ -289,7 +289,7 @@ const Picture: React.FC = () => {
 						</Editor.ImgContainer>
 						<Editor.ButtonContainer>
 							<Button type='submit'>Publish</Button>
-							<Button color='gray' onClick={handleCancel}>
+							<Button color='gray' type='reset' onClick={handleCancel}>
 								Cancel
 							</Button>
 						</Editor.ButtonContainer>

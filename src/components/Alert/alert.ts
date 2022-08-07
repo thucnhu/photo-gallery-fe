@@ -9,6 +9,7 @@ export const Container = styled.div<{ type?: 'warning' | 'primary' }>`
 	background-color: ${props =>
 		props.type === 'warning' ? '#f8d7da' : '#cfe2ff'};
 	height: 43px;
+	width: 100%;
 	border: 1px solid
 		${props => (props.type === 'warning' ? '#f5c2c7' : '#b6d4fe')};
 	color: ${props => (props.type === 'warning' ? '#842029' : '#084298')};

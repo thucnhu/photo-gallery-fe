@@ -9,6 +9,7 @@ import {
 	Avatar,
 	AvatarLabel,
 	AvatarInput,
+	LinkItem,
 } from './profileForm'
 
 const ProfileForm = ({ children, ...props }: RestPropsWithChildren) => {
@@ -21,6 +22,13 @@ ProfileForm.AvatarLabel = ({ children, ...props }: RestPropsWithChildren) => {
 
 ProfileForm.AvatarInput = ({ children, ...props }: RestPropsWithChildren) => {
 	return <AvatarInput {...props}>{children}</AvatarInput>
+}
+
+ProfileForm.LinkItem = ({
+	children,
+	...props
+}: RestPropsWithChildren & { to: string }) => {
+	return <LinkItem {...props}>{children}</LinkItem>
 }
 
 ProfileForm.RowItem = ({ children, ...props }: RestPropsWithChildren) => {

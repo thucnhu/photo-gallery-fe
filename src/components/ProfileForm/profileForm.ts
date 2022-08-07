@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro'
-import upload from '../../images/upload.png'
+import { Link } from 'react-router-dom'
 
 export const Form = styled.form`
 	display: flex;
@@ -47,6 +47,12 @@ export const Avatar = styled.img`
 	}
 `
 
+export const LinkItem = styled(Link)`
+	text-decoration: none;
+	color: var(--blue);
+	font-weight: bold;
+`
+
 export const AvatarInput = styled.input`
 	display: none;
 `
@@ -69,6 +75,7 @@ export const ButtonArea = styled.div`
 	display: flex;
 	flex-direction: row;
 	gap: 1.2rem;
+	width: calc(100% - 30% - 4rem);
 `
 
 export const Username = styled.h2`

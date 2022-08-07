@@ -1,5 +1,5 @@
 import axios from './axios'
-import { EDIT_PROFILE } from '../constants/routes'
+import { EDIT_PROFILE, PASSWORD } from '../constants/routes'
 
 function getProfile(username: string) {
 	return axios.get(`/${username}`)
@@ -19,4 +19,8 @@ function updateProfile(data: { username: string; avatar_file?: File }) {
 	})
 }
 
-export { getProfile, followUser, unfollowUser, updateProfile }
+function updatePassword(data: { curr_password: string; new_password: string }) {
+	return axios.patch(PASSWORD, data)
+}
+
+export { getProfile, followUser, unfollowUser, updateProfile, updatePassword }

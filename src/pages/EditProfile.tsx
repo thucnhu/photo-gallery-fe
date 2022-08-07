@@ -1,9 +1,10 @@
 import React, { useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 import { Container, ProfileForm, Button } from '../components'
 import { updateProfile } from '../api/users'
-import { SERVER_BASE_URL } from '../constants/routes'
+import { PASSWORD, SERVER_BASE_URL } from '../constants/routes'
+import { CTA } from '../components/Form/form'
 
 const EditProfile: React.FC = () => {
 	const { auth, setAuth } = useContext(AuthContext)
@@ -116,6 +117,14 @@ const EditProfile: React.FC = () => {
 						<Button color='red' type='reset' onClick={handleCancel}>
 							Cancel
 						</Button>
+					</ProfileForm.ButtonArea>
+				</ProfileForm.RowItem>
+				<ProfileForm.RowItem>
+					<ProfileForm.Label></ProfileForm.Label>
+					<ProfileForm.ButtonArea>
+						<ProfileForm.LinkItem to={PASSWORD}>
+							Change password
+						</ProfileForm.LinkItem>
 					</ProfileForm.ButtonArea>
 				</ProfileForm.RowItem>
 			</ProfileForm>

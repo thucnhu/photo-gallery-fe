@@ -11,10 +11,10 @@ import {
 	Editor,
 	Button,
 } from '../components'
-import { SERVER_BASE_URL } from '../constants/routes'
+import { HOME, SERVER_BASE_URL } from '../constants/routes'
 import { CommentProps } from '../types/props'
 import { postComment } from '../api/comments'
-import { getPic, updatePic } from '../api/pictures'
+import { getPic, updatePic, deletePic } from '../api/pictures'
 import { postPicLike, deletePicLike } from '../api/likes'
 import useClickOutside from '../hooks/useClickOutside'
 
@@ -31,7 +31,8 @@ const initialState = {
 	username: '',
 	createdAt: '',
 	isOpen: false,
-	isShowed: false,
+	picPopupShowed: false,
+	deletePopupShowed: false,
 	captionInput: '',
 	descriptionInput: '',
 }
@@ -49,7 +50,8 @@ type PictureState = {
 	username: string
 	createdAt: string
 	isOpen: boolean
-	isShowed: boolean
+	picPopupShowed: boolean
+	deletePopupShowed: boolean
 	captionInput: string
 	descriptionInput: string
 }
@@ -69,6 +71,9 @@ type PictureAction =
 				| 'showModal'
 				| 'updateSucceed'
 				| 'cancelUpdate'
+				| 'cancelDelete'
+				| 'deleteSucceed'
+				| 'requestDelete'
 	  }
 	| { type: 'postComment'; payload: CommentProps[] }
 	| { type: 'render'; payload: PictureState }
@@ -97,7 +102,7 @@ function pictureReducer(state: PictureState, action: PictureAction) {
 		case 'showModal':
 			return {
 				...state,
-				isShowed: true,
+				picPopupShowed: true,
 				isOpen: false,
 				captionInput: state.caption,
 				descriptionInput: state.description,
@@ -105,17 +110,21 @@ function pictureReducer(state: PictureState, action: PictureAction) {
 		case 'updateSucceed':
 			return {
 				...state,
-				isShowed: false,
+				picPopupShowed: false,
 				caption: state.captionInput,
 				description: state.descriptionInput,
 			}
 		case 'cancelUpdate':
 			return {
 				...state,
-				isShowed: false,
+				picPopupShowed: false,
 				caption: state.caption,
 				description: state.description,
 			}
+		case 'requestDelete':
+			return { ...state, deletePopupShowed: true, isOpen: false }
+		case 'cancelDelete':
+			return { ...state, deletePopupShowed: false }
 		default:
 			return state
 	}
@@ -136,7 +145,8 @@ const Picture: React.FC = () => {
 		username,
 		createdAt,
 		isOpen,
-		isShowed,
+		picPopupShowed,
+		deletePopupShowed,
 		captionInput,
 		descriptionInput,
 	} = pictureState
@@ -164,7 +174,8 @@ const Picture: React.FC = () => {
 							username: data.username,
 							createdAt: data.created_at,
 							isOpen: false,
-							isShowed: false,
+							picPopupShowed: false,
+							deletePopupShowed: false,
 							captionInput: '',
 							descriptionInput: '',
 						},
@@ -232,8 +243,6 @@ const Picture: React.FC = () => {
 		document.body.style.overflow = 'hidden'
 	}
 
-	function handleDelete() {}
-
 	function handleChangeDescription(e: React.ChangeEvent<HTMLTextAreaElement>) {
 		dispatch({
 			type: 'change',
@@ -263,14 +272,43 @@ const Picture: React.FC = () => {
 		}
 	}
 
-	function handleCancel() {
-		dispatch({ type: 'cancelUpdate' })
+	function handleCancel(props: 'delete' | 'update') {
+		if (props === 'update') dispatch({ type: 'cancelUpdate' })
+		if (props === 'delete') dispatch({ type: 'cancelDelete' })
 		document.body.style.overflow = 'auto'
+	}
+
+	async function handleDelete() {
+		try {
+			const res = await deletePic(picId)
+			navigate(HOME)
+			console.log(res)
+		} catch (err: any) {
+			alert('Error deleting picture. Please try again later!')
+			console.log(err)
+		}
+	}
+
+	function handleClickDelete() {
+		dispatch({ type: 'requestDelete' })
 	}
 
 	return (
 		<Container.Primary>
-			{isShowed && (
+			{deletePopupShowed && (
+				<Modal>
+					<Popup center>
+						<Popup.Text>Are you sure you want to delete?</Popup.Text>
+						<Popup.Item center onClick={handleDelete}>
+							OK
+						</Popup.Item>
+						<Popup.Item center onClick={() => handleCancel('delete')}>
+							Cancel
+						</Popup.Item>
+					</Popup>
+				</Modal>
+			)}
+			{picPopupShowed && (
 				<Modal>
 					<Editor modal onSubmit={handleUpdatePicture}>
 						<Editor.Caption
@@ -293,7 +331,11 @@ const Picture: React.FC = () => {
 						</Editor.ImgContainer>
 						<Editor.ButtonContainer>
 							<Button type='submit'>Publish</Button>
-							<Button color='gray' type='reset' onClick={handleCancel}>
+							<Button
+								color='gray'
+								type='reset'
+								onClick={() => handleCancel('update')}
+							>
 								Cancel
 							</Button>
 						</Editor.ButtonContainer>
@@ -319,7 +361,7 @@ const Picture: React.FC = () => {
 								<Popup.Item onClick={handleEdit}>
 									Edit picture
 								</Popup.Item>
-								<Popup.Item onClick={handleDelete}>
+								<Popup.Item onClick={handleClickDelete}>
 									Delete picture
 								</Popup.Item>
 							</Popup>

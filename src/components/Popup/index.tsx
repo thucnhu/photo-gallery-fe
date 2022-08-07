@@ -1,4 +1,4 @@
-import { Container, Item, LinkItem } from './popup'
+import { Container, Item, LinkItem, Text } from './popup'
 import { RestPropsWithChildren } from '../../types/props'
 
 type LinkItemProps = RestPropsWithChildren & {
@@ -11,6 +11,10 @@ type ItemProps = RestPropsWithChildren & {
 
 const Popup = ({ children, ...props }: RestPropsWithChildren) => {
 	return <Container {...props}>{children}</Container>
+}
+
+Popup.Text = ({ children, ...props }: RestPropsWithChildren) => {
+	return <Text {...props}>{children}</Text>
 }
 
 Popup.LinkItem = ({ children, ...props }: LinkItemProps) => {

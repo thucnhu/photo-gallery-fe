@@ -8,9 +8,9 @@ import {
 	Error,
 	Profile,
 	EditProfile,
-	Topics,
-	SearchResults,
+	Explore,
 	Password,
+	Topic,
 } from '../../pages'
 import {
 	HOME,
@@ -50,8 +50,8 @@ const AppRoutes: React.FC = () => {
 					</Route>
 					<Route path={HOME} element={<Home />} />
 					<Route path='/:username' element={<Profile />} />
-					<Route path={TOPICS} element={<Topics />} />
-					<Route path='/search?topic=:topic' element={<SearchResults />} />
+					<Route path={TOPICS} element={<Explore />} />
+					<Route path='/search?topic=:topic' element={<Topic />} />
 					<Route path={LOG_IN} element={<Login />} />
 					<Route path={SIGN_UP} element={<Signup />} />
 					<Route path='*' element={<Error />} />

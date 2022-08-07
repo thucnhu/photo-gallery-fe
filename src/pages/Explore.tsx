@@ -4,7 +4,7 @@ import { getTopics } from '../api/topics'
 import { TopicType } from '../types/props'
 import { SERVER_BASE_URL } from '../constants/routes'
 
-const Topics: React.FC = () => {
+const Explore: React.FC = () => {
 	const [topics, setTopics] = React.useState<TopicType[]>([])
 
 	useEffect(() => {
@@ -30,4 +30,4 @@ const Topics: React.FC = () => {
 	)
 }
 
-export default Topics
+export default Explore

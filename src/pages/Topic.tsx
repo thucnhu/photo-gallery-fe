@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { getPicByTopic } from '../api/pictures'
 
-const SearchResult: React.FC = () => {
+const Topic: React.FC = () => {
 	const [searchParams, setSearchParams] = useSearchParams()
 	const topic = searchParams.get('topic')
 	const page = searchParams.get('page') || '0'
@@ -19,4 +19,4 @@ const SearchResult: React.FC = () => {
 	return <div>SearchResult</div>
 }
 
-export default SearchResult
+export default Topic

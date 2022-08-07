@@ -24,6 +24,7 @@ const initialState = {
 	caption: '',
 	description: '',
 	imgPath: '',
+	avatarPath: '',
 	likesCount: 0,
 	commentsCount: 0,
 	isLiked: false,
@@ -41,6 +42,7 @@ type PictureState = {
 	caption: string
 	description: string
 	imgPath: string
+	avatarPath: string
 	likesCount: number
 	isLiked: boolean
 	commentsCount: number
@@ -127,6 +129,7 @@ const Picture: React.FC = () => {
 		caption,
 		description,
 		imgPath,
+		avatarPath,
 		likesCount,
 		commentsCount,
 		isLiked,
@@ -154,6 +157,7 @@ const Picture: React.FC = () => {
 							caption: data.caption,
 							description: data.description,
 							imgPath: SERVER_BASE_URL + data.img_path,
+							avatarPath: SERVER_BASE_URL + data.avatar_path,
 							likesCount: data.likes_count,
 							commentsCount: data.comments_count,
 							isLiked: data.is_liked,
@@ -300,7 +304,7 @@ const Picture: React.FC = () => {
 				<Post.Caption>{caption}</Post.Caption>
 				<Post.InfoArea>
 					<Post.AvatarArea>
-						<Post.Avatar src='https://i.pravatar.cc/302' />
+						<Post.Avatar src={avatarPath} />
 						<Post.AvatarRightArea>
 							<Post.Username>{username}</Post.Username>
 							<Post.CreatedAt>{createdAt}</Post.CreatedAt>

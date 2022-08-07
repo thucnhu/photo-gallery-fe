@@ -14,6 +14,7 @@ import { Container, Text, TextInput } from './comment'
 import { CommentProps } from '../../types/props'
 import { postCommentLike, deleteCommentLike } from '../../api/likes'
 import { updateComment } from '../../api/comments'
+import { SERVER_BASE_URL } from '../../constants/routes'
 
 const initialState = {
 	text: '',
@@ -118,7 +119,7 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
 		<Container key={comment.id}>
 			<InfoArea>
 				<AvatarArea small>
-					<Avatar src='https://i.pravatar.cc/301' />
+					<Avatar small src={SERVER_BASE_URL + comment.avatar_path} />
 					<AvatarRightArea>
 						<Username>{comment.username}</Username>
 						<CreatedAt>{comment.created_at}</CreatedAt>

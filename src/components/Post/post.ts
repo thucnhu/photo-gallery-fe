@@ -18,9 +18,10 @@ export const Description = styled.p`
 	font-size: 0.95rem;
 `
 
-export const Avatar = styled.img`
+export const Avatar = styled.img<{ small?: boolean }>`
 	border-radius: 50%;
-	height: 100%;
+	height: ${props => (props.small ? '35px' : '45px')};
+	width: ${props => (props.small ? '35px' : '45px')};
 `
 
 export const Username = styled.p``

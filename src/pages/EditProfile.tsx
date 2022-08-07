@@ -25,7 +25,7 @@ const EditProfile: React.FC = () => {
 						JSON.stringify({
 							access_token: auth.access_token,
 							username: res.data.username,
-							avatar_path: res.data.avatar_path,
+							avatar_path: SERVER_BASE_URL + res.data.avatar_path,
 							id: auth.id,
 						})
 					)
@@ -38,19 +38,19 @@ const EditProfile: React.FC = () => {
 					const res = await updateProfile({
 						username: e.target.username.value,
 					})
-					setAuth({
-						...auth,
-						username: res.data.username,
-					})
 					localStorage.setItem(
 						'auth',
 						JSON.stringify({
 							access_token: auth.access_token,
 							username: res.data.username,
-							avatar_path: auth.avatar_path,
+							avatar_path: auth?.avatar_path,
 							id: auth.id,
 						})
 					)
+					setAuth({
+						...auth,
+						username: res.data.username,
+					})
 				}
 				navigate(`/${e.target.username.value}`)
 			} catch (err: any) {

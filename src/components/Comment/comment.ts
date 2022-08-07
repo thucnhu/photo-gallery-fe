@@ -7,7 +7,7 @@ export const Container = styled.div`
 export const Text = styled.p`
 	margin: 0.3rem 0;
 	font-size: 0.85rem;
-	margin-left: 44px;
+	margin-left: 51px;
 	border-bottom: 1px solid black;
 	padding-bottom: 0.3em;
 `

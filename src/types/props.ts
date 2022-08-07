@@ -22,6 +22,7 @@ export type CommentProps = {
 	text: string
 	is_liked: boolean
 	likes_count: number
+	avatar_path: string
 	created_at: string
 }
 
@@ -40,6 +41,7 @@ export type PictureProps = {
 	username?: string
 	likes_count: number
 	comments_count: number
+	avatar_path: string
 }
 
 export type PicCardProps = {

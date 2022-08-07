@@ -13,8 +13,9 @@ import {
 	CommentInput,
 	InfoArea,
 	Stats,
-	LikesCount,
-	CommentsCount,
+	Likes,
+	Comments,
+	Count,
 } from './post'
 import { RestPropsWithChildren } from '../../types/props'
 
@@ -26,12 +27,16 @@ Post.Stats = ({ children, ...props }: RestPropsWithChildren) => {
 	return <Stats {...props}>{children}</Stats>
 }
 
-Post.LikesCount = ({ children, ...props }: RestPropsWithChildren) => {
-	return <LikesCount {...props}>{children}</LikesCount>
+Post.Likes = ({ children, ...props }: RestPropsWithChildren) => {
+	return <Likes {...props}>{children}</Likes>
 }
 
-Post.CommentsCount = ({ children, ...props }: RestPropsWithChildren) => {
-	return <CommentsCount {...props}>{children}</CommentsCount>
+Post.Comments = ({ children, ...props }: RestPropsWithChildren) => {
+	return <Comments {...props}>{children}</Comments>
+}
+
+Post.Count = ({ children, ...props }: RestPropsWithChildren) => {
+	return <Count {...props}>{children}</Count>
 }
 
 Post.CommentInput = ({ children, ...props }: RestPropsWithChildren) => {

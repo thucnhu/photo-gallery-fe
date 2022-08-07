@@ -293,6 +293,10 @@ const Picture: React.FC = () => {
 		dispatch({ type: 'requestDelete' })
 	}
 
+	function showLikes() {}
+
+	function showComments() {}
+
 	return (
 		<Container.Primary>
 			{deletePopupShowed && (
@@ -372,18 +376,20 @@ const Picture: React.FC = () => {
 				<Post.Picture src={imgPath} />
 
 				<Post.Stats>
-					<Post.LikesCount>
+					<Post.Likes>
 						{isLiked ? (
 							<Icon.HeartFill onClick={handleUnlike}></Icon.HeartFill>
 						) : (
 							<Icon.Heart onClick={handleLike}></Icon.Heart>
 						)}
-						{likesCount}
-					</Post.LikesCount>
-					<Post.CommentsCount>
+						<Post.Count onClick={showLikes}>{likesCount}</Post.Count>
+					</Post.Likes>
+					<Post.Comments>
 						<Icon.Comment></Icon.Comment>
-						{commentsCount}
-					</Post.CommentsCount>
+						<Post.Count onClick={showComments}>
+							{commentsCount}
+						</Post.Count>
+					</Post.Comments>
 				</Post.Stats>
 
 				<Post.CommentForm onSubmit={handlePostComment}>

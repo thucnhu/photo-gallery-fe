@@ -5,7 +5,8 @@ import {
 	Username,
 	CreatedAt,
 	InfoArea,
-	LikesCount,
+	Likes,
+	Count,
 } from '../../components/Post/post'
 import AuthContext from '../../context/AuthContext'
 import React, { useEffect, useContext, useReducer } from 'react'
@@ -125,14 +126,14 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
 						<CreatedAt>{comment.created_at}</CreatedAt>
 					</AvatarRightArea>
 				</AvatarArea>
-				<LikesCount>
+				<Likes>
 					{isLiked ? (
 						<Icon.HeartFill small onClick={handleUnlike}></Icon.HeartFill>
 					) : (
 						<Icon.Heart small onClick={handleLike}></Icon.Heart>
 					)}
-					{likesCount}
-				</LikesCount>
+					<Count>{likesCount}</Count>
+				</Likes>
 			</InfoArea>
 			{isEditable ? (
 				<TextInput

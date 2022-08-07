@@ -93,14 +93,18 @@ export const Stats = styled.div`
 	gap: 3rem;
 `
 
-export const LikesCount = styled.div`
+export const Likes = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	gap: 0.5rem;
 `
 
-export const CommentsCount = styled.div`
+export const Count = styled.p`
+	cursor: pointer;
+`
+
+export const Comments = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;

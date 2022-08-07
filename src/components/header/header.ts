@@ -95,7 +95,7 @@ export const Avatar = styled.img`
 	margin-right: 0.5rem;
 
 	:hover {
-		outline: 3.5px solid var(--light-gray);
+		outline: 3px solid rgba(0, 0, 0, 0.06);
 		box-shadow: var(--shadow);
 	}
 `

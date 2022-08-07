@@ -16,6 +16,8 @@ export const Img = styled.img`
 	width: 100%;
 	height: 110px;
 	object-fit: cover;
+	border-top-right-radius: 8px;
+	border-top-left-radius: 8px;
 `
 
 export const Info = styled.div`

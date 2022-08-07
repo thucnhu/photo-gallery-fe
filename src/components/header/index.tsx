@@ -14,7 +14,7 @@ import {
 } from './header'
 import { Popup } from '../../components'
 import logo from '../../images/zalopay_logo.svg'
-import { HOME, UPLOAD, LOG_IN, SIGN_UP } from '../../constants/routes'
+import { HOME, UPLOAD, LOG_IN, SIGN_UP, TOPICS } from '../../constants/routes'
 import useClickOutside from '../../hooks/useClickOutside'
 import { useNavigate } from 'react-router-dom'
 
@@ -49,6 +49,7 @@ const Header: React.FC = () => {
 				<Menu>
 					<MenuItem to={HOME}>Home</MenuItem>
 					<MenuItem to={UPLOAD}>Upload</MenuItem>
+					<MenuItem to={TOPICS}>Explore</MenuItem>
 				</Menu>
 			</InnerLeft>
 			<InnerRight>

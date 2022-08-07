@@ -1,10 +1,9 @@
 import React, { useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 import { Container, ProfileForm, Button } from '../components'
 import { updateProfile } from '../api/users'
 import { PASSWORD, SERVER_BASE_URL } from '../constants/routes'
-import { CTA } from '../components/Form/form'
 
 const EditProfile: React.FC = () => {
 	const { auth, setAuth } = useContext(AuthContext)

@@ -51,7 +51,7 @@ const AppRoutes: React.FC = () => {
 					<Route path={HOME} element={<Home />} />
 					<Route path='/:username' element={<Profile />} />
 					<Route path={TOPICS} element={<Explore />} />
-					<Route path='/search?topic=:topic' element={<Topic />} />
+					<Route path='/search' element={<Topic />} />
 					<Route path={LOG_IN} element={<Login />} />
 					<Route path={SIGN_UP} element={<Signup />} />
 					<Route path='*' element={<Error />} />

@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react'
 import AuthContext from '../../../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
-import { Modal, Icon, Button } from '../..'
+import { Modal, Icon } from '../..'
 import { Avatar } from '../../Post/post'
 import useClickOutside from '../../../hooks/useClickOutside'
 import {
@@ -49,7 +49,7 @@ const UserList = ({ hideList, picId, commentId }: Props) => {
 				.then(res => setData(res.data))
 				.catch(err => alert('Please try again later!'))
 		}
-	}, [])
+	}, [commentId, picId])
 
 	function directToProfile(username: string) {
 		navigate(`/${username}`)

@@ -12,7 +12,8 @@ const FollowButton = ({ is_followed, username }: Props) => {
 
 	async function handleFollowUser(username: string) {
 		try {
-			await followUser(username)
+			const res = await followUser(username)
+			console.log(res)
 			setIsFollowed(true)
 		} catch (err: any) {
 			if (err.response?.status === 401) {

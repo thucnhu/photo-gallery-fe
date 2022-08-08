@@ -14,8 +14,9 @@ export const Container = styled.div`
 
 export const Caption = styled.h4``
 
-export const Description = styled.p`
+export const Description = styled.div`
 	font-size: 0.95rem;
+	white-space: pre-wrap;
 `
 
 export const Avatar = styled.img<{ small?: boolean }>`

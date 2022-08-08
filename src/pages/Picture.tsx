@@ -218,7 +218,10 @@ const Picture: React.FC = () => {
 						type: 'postComment',
 						payload: [...comments, res.data],
 					})
-				else dispatch({ type: 'postComment', payload: [res.data] })
+				else {
+					dispatch({ type: 'postComment', payload: [res.data] })
+					window.location.reload()
+				}
 			}
 		} catch (err: any) {
 			alert('Error posting comment. Please try again later!')
@@ -355,7 +358,7 @@ const Picture: React.FC = () => {
 						) : (
 							<Icon.Heart onClick={handleLike}></Icon.Heart>
 						)}
-						<Post.Count cursor='true' onClick={showLikesList}>
+						<Post.Count cursor onClick={showLikesList}>
 							{likesCount}
 						</Post.Count>
 					</Post.Likes>

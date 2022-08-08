@@ -16,6 +16,7 @@ import { CommentProps } from '../../types/props'
 import { postCommentLike, deleteCommentLike } from '../../api/likes'
 import { updateComment } from '../../api/comments'
 import { SERVER_BASE_URL } from '../../constants/routes'
+import { useNavigate } from 'react-router-dom'
 
 const initialState = {
 	text: '',
@@ -55,6 +56,7 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
 	const [state, dispatch] = useReducer(commentReducer, initialState)
 	const { text, isLiked, likesCount, isEditable, likesListShowed } = state
 	const { auth } = useContext(AuthContext)
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		dispatch({
@@ -138,7 +140,11 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
 		<Container key={comment.id}>
 			<InfoArea>
 				<AvatarArea small>
-					<Avatar small src={SERVER_BASE_URL + comment.avatar_path} />
+					<Avatar
+						small
+						src={SERVER_BASE_URL + comment.avatar_path}
+						onClick={() => navigate(`/${comment.username}`)}
+					/>
 					<AvatarRightArea>
 						<Username>{comment.username}</Username>
 						<CreatedAt>{comment.created_at}</CreatedAt>

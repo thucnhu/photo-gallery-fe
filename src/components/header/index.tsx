@@ -29,6 +29,7 @@ const Header: React.FC = () => {
 		localStorage.removeItem('auth')
 		setAuth(null)
 		navigate(LOG_IN)
+		window.location.reload()
 		setIsOpen(false)
 	}
 

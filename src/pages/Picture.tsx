@@ -6,10 +6,9 @@ import {
 	Container,
 	Comment,
 	Icon,
-	Popup,
-	Modal,
-	Editor,
-	Button,
+	DeletePopup,
+	MainPopup,
+	EditorPopup,
 } from '../components'
 import { HOME, SERVER_BASE_URL } from '../constants/routes'
 import { CommentProps } from '../types/props'
@@ -238,7 +237,7 @@ const Picture: React.FC = () => {
 		dispatch({ type: 'togglePopup' })
 	}
 
-	function handleEdit() {
+	function handleClickEdit() {
 		dispatch({ type: 'showModal' })
 		document.body.style.overflow = 'hidden'
 	}
@@ -299,53 +298,6 @@ const Picture: React.FC = () => {
 
 	return (
 		<Container.Primary>
-			{deletePopupShowed && (
-				<Modal>
-					<Popup center>
-						<Popup.Text>Are you sure you want to delete?</Popup.Text>
-						<Popup.Item center onClick={handleDelete}>
-							OK
-						</Popup.Item>
-						<Popup.Item center onClick={() => handleCancel('delete')}>
-							Cancel
-						</Popup.Item>
-					</Popup>
-				</Modal>
-			)}
-			{picPopupShowed && (
-				<Modal>
-					<Editor modal onSubmit={handleUpdatePicture}>
-						<Editor.Caption
-							value={captionInput}
-							onChange={handleChangeCaption}
-							type='text'
-							name='caption'
-							required
-						/>
-						<Editor.ImgContainer>
-							<Editor.Img src={imgPath} />
-							<Editor.Description
-								modal
-								value={descriptionInput}
-								onChange={handleChangeDescription}
-								type='text'
-								name='description'
-								required
-							/>
-						</Editor.ImgContainer>
-						<Editor.ButtonContainer>
-							<Button type='submit'>Publish</Button>
-							<Button
-								color='gray'
-								type='reset'
-								onClick={() => handleCancel('update')}
-							>
-								Cancel
-							</Button>
-						</Editor.ButtonContainer>
-					</Editor>
-				</Modal>
-			)}
 			<Post>
 				<Post.Caption>{caption}</Post.Caption>
 				<Post.InfoArea>
@@ -361,14 +313,10 @@ const Picture: React.FC = () => {
 							<Icon.ThreeDots onClick={handleClickDots}></Icon.ThreeDots>
 						)}
 						{isOpen && (
-							<Popup>
-								<Popup.Item onClick={handleEdit}>
-									Edit picture
-								</Popup.Item>
-								<Popup.Item onClick={handleClickDelete}>
-									Delete picture
-								</Popup.Item>
-							</Popup>
+							<MainPopup
+								handleClickDelete={handleClickDelete}
+								handleClickEdit={handleClickEdit}
+							/>
 						)}
 					</div>
 				</Post.InfoArea>
@@ -409,6 +357,25 @@ const Picture: React.FC = () => {
 				{comments?.map(comment => (
 					<Comment key={comment.id} comment={comment} />
 				))}
+
+				{deletePopupShowed && (
+					<DeletePopup
+						handleCancel={handleCancel}
+						handleDelete={handleDelete}
+					/>
+				)}
+
+				{picPopupShowed && (
+					<EditorPopup
+						handleCancel={handleCancel}
+						handleUpdatePicture={handleUpdatePicture}
+						handleChangeCaption={handleChangeCaption}
+						handleChangeDescription={handleChangeDescription}
+						captionInput={captionInput}
+						descriptionInput={descriptionInput}
+						imgPath={imgPath}
+					/>
+				)}
 			</Post>
 		</Container.Primary>
 	)

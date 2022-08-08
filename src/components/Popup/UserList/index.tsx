@@ -1,9 +1,57 @@
-import { Modal } from '../..'
+import { Modal, Icon } from '../..'
+import { Avatar } from '../../Post/post'
+import {
+	Container,
+	Header,
+	Count,
+	CancelButton,
+	RowItem,
+	Username,
+} from './userList'
 
-const UserList = () => {
+type Props = {
+	hideList: () => void
+}
+
+const UserList = ({ hideList }: Props) => {
 	return (
 		<Modal>
-			<h1>Hello</h1>
+			<Container>
+				<Header>
+					<Count>
+						<Icon.HeartFill /> 200
+					</Count>
+					<CancelButton onClick={hideList} />
+				</Header>
+				<RowItem>
+					<Avatar src='https://i.pravatar.cc/301' />
+					<Username>username</Username>
+				</RowItem>
+				<RowItem>
+					<Avatar src='https://i.pravatar.cc/300' />
+					<Username>username</Username>
+				</RowItem>
+				<RowItem>
+					<Avatar src='https://i.pravatar.cc/302' />
+					<Username>username</Username>
+				</RowItem>
+				<RowItem>
+					<Avatar src='https://i.pravatar.cc/301' />
+					<Username>username</Username>
+				</RowItem>
+				<RowItem>
+					<Avatar src='https://i.pravatar.cc/300' />
+					<Username>username</Username>
+				</RowItem>
+				<RowItem>
+					<Avatar src='https://i.pravatar.cc/302' />
+					<Username>username</Username>
+				</RowItem>
+				<RowItem>
+					<Avatar src='https://i.pravatar.cc/301' />
+					<Username>username</Username>
+				</RowItem>
+			</Container>
 		</Modal>
 	)
 }

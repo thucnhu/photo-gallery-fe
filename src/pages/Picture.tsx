@@ -323,9 +323,18 @@ const Picture: React.FC = () => {
 		document.body.style.overflow = 'hidden'
 	}
 
+	function hideLikesList() {
+		dispatch({ type: 'hideLikesList' })
+		document.body.style.overflow = 'auto'
+	}
+
+	function hideCommentList() {
+		dispatch({ type: 'hideCommentsList' })
+		document.body.style.overflow = 'auto'
+	}
+
 	return (
 		<Container.Primary>
-			{likesListShowed && <UserList />}
 			<Post>
 				<Post.Caption>{caption}</Post.Caption>
 				<Post.InfoArea>
@@ -404,6 +413,8 @@ const Picture: React.FC = () => {
 						imgPath={imgPath}
 					/>
 				)}
+				{likesListShowed && <UserList hideList={hideLikesList} />}
+				{commentsListShowed && <UserList hideList={hideCommentList} />}
 			</Post>
 		</Container.Primary>
 	)

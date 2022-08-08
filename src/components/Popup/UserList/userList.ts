@@ -14,6 +14,13 @@ export const Container = styled.div`
 	overflow: scroll;
 `
 
+export const User = styled.div`
+	display: flex;
+	flex-direction: row;
+	gap: 1em;
+	align-items: center;
+`
+
 export const Header = styled.div`
 	padding: 1.5em;
 	display: flex;
@@ -28,15 +35,17 @@ export const RowItem = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	gap: 1em;
 	padding: 0.7em 1.5em;
+	justify-content: space-between;
 	transition: all 0.1s ease-in-out;
 	:hover {
 		background-color: #f5f5f5;
 	}
 `
 
-export const Username = styled.h4``
+export const Username = styled.h4`
+	cursor: pointer;
+`
 
 export const Count = styled.div`
 	display: flex;

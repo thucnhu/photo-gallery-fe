@@ -57,7 +57,6 @@ type PictureState = {
 	captionInput: string
 	descriptionInput: string
 	likesListShowed: boolean
-	commentsListShowed: boolean
 }
 
 type PictureAction =
@@ -137,10 +136,6 @@ function pictureReducer(state: PictureState, action: PictureAction) {
 			return { ...state, likesListShowed: true }
 		case 'hideLikesList':
 			return { ...state, likesListShowed: false }
-		case 'showCommentsList':
-			return { ...state, commentsListShowed: true }
-		case 'hideCommentsList':
-			return { ...state, commentsListShowed: false }
 		default:
 			return state
 	}
@@ -166,7 +161,6 @@ const Picture: React.FC = () => {
 		captionInput,
 		descriptionInput,
 		likesListShowed,
-		commentsListShowed,
 	} = pictureState
 	const { picId } = useParams<{ picId: string }>() as { picId: string }
 	const navigate = useNavigate()
@@ -197,7 +191,6 @@ const Picture: React.FC = () => {
 							captionInput: '',
 							descriptionInput: '',
 							likesListShowed: false,
-							commentsListShowed: false,
 						},
 					})
 				})
@@ -314,22 +307,14 @@ const Picture: React.FC = () => {
 	}
 
 	function showLikesList() {
-		dispatch({ type: 'showLikesList' })
-		document.body.style.overflow = 'hidden'
-	}
-
-	function showCommentsList() {
-		dispatch({ type: 'showCommentsList' })
-		document.body.style.overflow = 'hidden'
+		if (likesCount > 0) {
+			dispatch({ type: 'showLikesList' })
+			document.body.style.overflow = 'hidden'
+		}
 	}
 
 	function hideLikesList() {
 		dispatch({ type: 'hideLikesList' })
-		document.body.style.overflow = 'auto'
-	}
-
-	function hideCommentList() {
-		dispatch({ type: 'hideCommentsList' })
 		document.body.style.overflow = 'auto'
 	}
 
@@ -367,13 +352,13 @@ const Picture: React.FC = () => {
 						) : (
 							<Icon.Heart onClick={handleLike}></Icon.Heart>
 						)}
-						<Post.Count onClick={showLikesList}>{likesCount}</Post.Count>
+						<Post.Count cursor='true' onClick={showLikesList}>
+							{likesCount}
+						</Post.Count>
 					</Post.Likes>
 					<Post.Comments>
 						<Icon.Comment></Icon.Comment>
-						<Post.Count onClick={showCommentsList}>
-							{commentsCount}
-						</Post.Count>
+						<Post.Count>{commentsCount}</Post.Count>
 					</Post.Comments>
 				</Post.Stats>
 
@@ -413,8 +398,9 @@ const Picture: React.FC = () => {
 						imgPath={imgPath}
 					/>
 				)}
-				{likesListShowed && <UserList hideList={hideLikesList} />}
-				{commentsListShowed && <UserList hideList={hideCommentList} />}
+				{likesListShowed && (
+					<UserList hideList={hideLikesList} picId={picId} />
+				)}
 			</Post>
 		</Container.Primary>
 	)

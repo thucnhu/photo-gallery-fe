@@ -20,6 +20,7 @@ export const Description = styled.p`
 
 export const Avatar = styled.img<{ small?: boolean }>`
 	border-radius: 50%;
+	cursor: pointer;
 	height: ${props => (props.small ? '35px' : '45px')};
 	width: ${props => (props.small ? '35px' : '45px')};
 `
@@ -100,8 +101,8 @@ export const Likes = styled.div`
 	gap: 0.5rem;
 `
 
-export const Count = styled.p`
-	cursor: pointer;
+export const Count = styled.p<{ cursor?: boolean }>`
+	cursor: ${({ cursor }) => (cursor ? 'pointer' : 'default')};
 `
 
 export const Comments = styled.div`

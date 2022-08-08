@@ -10,7 +10,7 @@ import {
 } from '../../components/Post/post'
 import AuthContext from '../../context/AuthContext'
 import React, { useEffect, useContext, useReducer } from 'react'
-import { Icon } from '../../components'
+import { Icon, UserList } from '../../components'
 import { Container, Text, TextInput } from './comment'
 import { CommentProps } from '../../types/props'
 import { postCommentLike, deleteCommentLike } from '../../api/likes'
@@ -22,14 +22,14 @@ const initialState = {
 	isLiked: false,
 	likesCount: 0,
 	isEditable: false,
+	likesListShowed: false,
 }
 
 type CommentState = typeof initialState
 
 type CommentAction =
 	| { type: 'editSucceed' | 'edit'; payload: string }
-	| { type: 'like' }
-	| { type: 'unlike' }
+	| { type: 'like' | 'unlike' | 'showLikesList' }
 	| { type: 'render'; payload: CommentState }
 
 function commentReducer(state: CommentState, action: CommentAction) {
@@ -44,6 +44,8 @@ function commentReducer(state: CommentState, action: CommentAction) {
 			return { ...state, isLiked: false, likesCount: state.likesCount - 1 }
 		case 'render':
 			return action.payload
+		case 'showLikesList':
+			return { ...state, likesListShowed: true }
 		default:
 			return state
 	}
@@ -51,7 +53,7 @@ function commentReducer(state: CommentState, action: CommentAction) {
 
 const Comment = ({ comment }: { comment: CommentProps }) => {
 	const [state, dispatch] = useReducer(commentReducer, initialState)
-	const { text, isLiked, likesCount, isEditable } = state
+	const { text, isLiked, likesCount, isEditable, likesListShowed } = state
 	const { auth } = useContext(AuthContext)
 
 	useEffect(() => {
@@ -62,6 +64,7 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
 				isLiked: comment.is_liked,
 				likesCount: comment.likes_count,
 				isEditable: false,
+				likesListShowed: false,
 			},
 		})
 	}, [comment])
@@ -116,6 +119,21 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
 		}
 	}
 
+	function showLikesList() {
+		if (comment.likes_count > 0) {
+			dispatch({ type: 'showLikesList' })
+			document.body.style.overflow = 'hidden'
+		}
+	}
+
+	function hideLikesList() {
+		dispatch({
+			type: 'render',
+			payload: { ...state, likesListShowed: false },
+		})
+		document.body.style.overflow = 'auto'
+	}
+
 	return (
 		<Container key={comment.id}>
 			<InfoArea>
@@ -132,7 +150,9 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
 					) : (
 						<Icon.Heart small onClick={handleLike}></Icon.Heart>
 					)}
-					<Count>{likesCount}</Count>
+					<Count cursor onClick={showLikesList}>
+						{likesCount}
+					</Count>
 				</Likes>
 			</InfoArea>
 			{isEditable ? (
@@ -143,6 +163,12 @@ const Comment = ({ comment }: { comment: CommentProps }) => {
 				/>
 			) : (
 				<Text onDoubleClick={handleDoubleClick}>{text}</Text>
+			)}
+			{likesListShowed && (
+				<UserList
+					hideList={hideLikesList}
+					commentId={comment.id.toString()}
+				/>
 			)}
 		</Container>
 	)

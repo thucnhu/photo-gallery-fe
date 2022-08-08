@@ -16,4 +16,19 @@ function deleteCommentLike(commentId: string) {
 	return axios.delete(`/comments/${commentId}/likes`)
 }
 
-export { postPicLike, deletePicLike, postCommentLike, deleteCommentLike }
+function getPicLikesList(picId: string) {
+	return axios.get(`/pictures/${picId}/likes`)
+}
+
+function getCmtLikesList(commentId: string) {
+	return axios.get(`/comments/${commentId}/likes`)
+}
+
+export {
+	postPicLike,
+	deletePicLike,
+	postCommentLike,
+	deleteCommentLike,
+	getPicLikesList,
+	getCmtLikesList,
+}

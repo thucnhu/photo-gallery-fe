@@ -324,7 +324,10 @@ const Picture: React.FC = () => {
 				<Post.Caption>{caption}</Post.Caption>
 				<Post.InfoArea>
 					<Post.AvatarArea>
-						<Post.Avatar src={avatarPath} />
+						<Post.Avatar
+							src={avatarPath}
+							onClick={() => navigate(`/${username}`)}
+						/>
 						<Post.AvatarRightArea>
 							<Post.Username>{username}</Post.Username>
 							<Post.CreatedAt>{createdAt}</Post.CreatedAt>

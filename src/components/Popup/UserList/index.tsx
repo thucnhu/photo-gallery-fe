@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
+import AuthContext from '../../../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { Modal, Icon, Button } from '../..'
 import { Avatar } from '../../Post/post'
+import useClickOutside from '../../../hooks/useClickOutside'
 import {
 	Container,
 	Header,
@@ -11,6 +13,7 @@ import {
 	Username,
 	User,
 } from './userList'
+import { FollowButton } from '../../'
 import { getPicLikesList, getCmtLikesList } from '../../../api/likes'
 import { SERVER_BASE_URL } from '../../../constants/routes'
 
@@ -23,17 +26,22 @@ type Props = {
 type DataProps = {
 	username: string
 	avatar_path: string
-	isFollowed: boolean
+	is_followed: boolean
 }
 
 const UserList = ({ hideList, picId, commentId }: Props) => {
 	const [data, setData] = useState<DataProps[]>()
 	const navigate = useNavigate()
+	const { auth } = useContext(AuthContext)
+	const clickRef = useClickOutside(() => hideList())
 
 	useEffect(() => {
 		if (picId) {
 			getPicLikesList(picId)
-				.then(res => setData(res.data))
+				.then(res => {
+					console.log(res.data)
+					setData(res.data)
+				})
 				.catch(err => alert('Please try again later!'))
 		}
 		if (commentId) {
@@ -50,7 +58,7 @@ const UserList = ({ hideList, picId, commentId }: Props) => {
 
 	return (
 		<Modal>
-			<Container>
+			<Container ref={clickRef}>
 				<Header>
 					<Count>
 						<Icon.HeartFill /> {data?.length}
@@ -68,7 +76,12 @@ const UserList = ({ hideList, picId, commentId }: Props) => {
 								{item.username}
 							</Username>
 						</User>
-						<Button color='green'>Follow</Button>
+						{item.username !== auth?.username && (
+							<FollowButton
+								is_followed={item.is_followed}
+								username={item.username}
+							></FollowButton>
+						)}
 					</RowItem>
 				))}
 			</Container>

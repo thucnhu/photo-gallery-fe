@@ -10,6 +10,7 @@ import {
 	Modal,
 	Editor,
 	Button,
+	UserList,
 } from '../components'
 import { HOME, SERVER_BASE_URL } from '../constants/routes'
 import { CommentProps } from '../types/props'
@@ -35,6 +36,8 @@ const initialState = {
 	deletePopupShowed: false,
 	captionInput: '',
 	descriptionInput: '',
+	likesListShowed: false,
+	commentsListShowed: false,
 }
 
 type PictureState = {
@@ -54,6 +57,8 @@ type PictureState = {
 	deletePopupShowed: boolean
 	captionInput: string
 	descriptionInput: string
+	likesListShowed: boolean
+	commentsListShowed: boolean
 }
 
 type PictureAction =
@@ -68,12 +73,16 @@ type PictureAction =
 				| 'unlikePost'
 				| 'closePopup'
 				| 'togglePopup'
-				| 'showModal'
+				| 'showPicEditor'
 				| 'updateSucceed'
 				| 'cancelUpdate'
 				| 'cancelDelete'
 				| 'deleteSucceed'
 				| 'requestDelete'
+				| 'showLikesList'
+				| 'showCommentsList'
+				| 'hideLikesList'
+				| 'hideCommentsList'
 	  }
 	| { type: 'postComment'; payload: CommentProps[] }
 	| { type: 'render'; payload: PictureState }
@@ -99,7 +108,7 @@ function pictureReducer(state: PictureState, action: PictureAction) {
 			return { ...state, isOpen: false }
 		case 'togglePopup':
 			return { ...state, isOpen: !state.isOpen }
-		case 'showModal':
+		case 'showPicEditor':
 			return {
 				...state,
 				picPopupShowed: true,
@@ -125,6 +134,14 @@ function pictureReducer(state: PictureState, action: PictureAction) {
 			return { ...state, deletePopupShowed: true, isOpen: false }
 		case 'cancelDelete':
 			return { ...state, deletePopupShowed: false }
+		case 'showLikesList':
+			return { ...state, likesListShowed: true }
+		case 'hideLikesList':
+			return { ...state, likesListShowed: false }
+		case 'showCommentsList':
+			return { ...state, commentsListShowed: true }
+		case 'hideCommentsList':
+			return { ...state, commentsListShowed: false }
 		default:
 			return state
 	}
@@ -149,6 +166,8 @@ const Picture: React.FC = () => {
 		deletePopupShowed,
 		captionInput,
 		descriptionInput,
+		likesListShowed,
+		commentsListShowed,
 	} = pictureState
 	const { picId } = useParams<{ picId: string }>() as { picId: string }
 	const navigate = useNavigate()
@@ -178,6 +197,8 @@ const Picture: React.FC = () => {
 							deletePopupShowed: false,
 							captionInput: '',
 							descriptionInput: '',
+							likesListShowed: false,
+							commentsListShowed: false,
 						},
 					})
 				})
@@ -239,7 +260,7 @@ const Picture: React.FC = () => {
 	}
 
 	function handleEdit() {
-		dispatch({ type: 'showModal' })
+		dispatch({ type: 'showPicEditor' })
 		document.body.style.overflow = 'hidden'
 	}
 
@@ -293,12 +314,26 @@ const Picture: React.FC = () => {
 		dispatch({ type: 'requestDelete' })
 	}
 
-	function showLikes() {}
+	function showLikesList() {
+		dispatch({ type: 'showLikesList' })
+		document.body.style.overflow = 'hidden'
+	}
 
-	function showComments() {}
+	function showCommentsList() {
+		dispatch({ type: 'showCommentsList' })
+		document.body.style.overflow = 'hidden'
+	}
 
 	return (
 		<Container.Primary>
+			{likesListShowed && (
+				<Modal>
+					<UserList>
+						<h1>Hello</h1>
+					</UserList>
+				</Modal>
+			)}
+			{commentsListShowed && <Modal></Modal>}
 			{deletePopupShowed && (
 				<Modal>
 					<Popup center>
@@ -382,11 +417,11 @@ const Picture: React.FC = () => {
 						) : (
 							<Icon.Heart onClick={handleLike}></Icon.Heart>
 						)}
-						<Post.Count onClick={showLikes}>{likesCount}</Post.Count>
+						<Post.Count onClick={showLikesList}>{likesCount}</Post.Count>
 					</Post.Likes>
 					<Post.Comments>
 						<Icon.Comment></Icon.Comment>
-						<Post.Count onClick={showComments}>
+						<Post.Count onClick={showCommentsList}>
 							{commentsCount}
 						</Post.Count>
 					</Post.Comments>
